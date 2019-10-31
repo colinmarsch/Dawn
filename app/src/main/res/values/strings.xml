@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dawn</string>
+    <string name="stop_alarm">Stop Alarm</string>
 </resources>
