@@ -1,16 +1,32 @@
 package me.colinmarsch.dawn
 
+import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.NOTIF_ID
 
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val i = Intent(context, AlarmActivity::class.java)
-        i.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(i)
-        println("DAWN ran the start activity code")
+        NotificationHelper.createNotificationChannel(context)
+        val alarmIntent = Intent(context, AlarmActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Dawn")
+            .setContentText("Time to get up!")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setAutoCancel(true)
+            .setFullScreenIntent(pendingIntent, true)
+
+        with(NotificationManagerCompat.from(context)) {
+            notify(NOTIF_ID, builder.build())
+        }
     }
 }

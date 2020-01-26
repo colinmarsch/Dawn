@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="me.colinmarsch.dawn">
 
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <application
@@ -18,7 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AlarmActivity"/>
+        <activity android:name=".AlarmActivity"
+                  android:launchMode="singleTask"
+                  android:taskAffinity=""
+                  android:excludeFromRecents="true"
+                  android:showWhenLocked="true"
+                  android:turnScreenOn="true"/>
         <receiver android:name=".AlarmReceiver"></receiver>
     </application>
 
