@@ -15,9 +15,10 @@
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"/>
 
-    <ToggleButton
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/alarm_set_toggle"
         android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onToggleClicked"/>

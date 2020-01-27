@@ -10,13 +10,14 @@ import android.view.View
 import android.widget.TimePicker
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var timePicker: TimePicker
-    private lateinit var toggleButton: ToggleButton
+    private lateinit var toggleButton: SwitchCompat
     private var pendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +29,13 @@ class MainActivity : AppCompatActivity() {
         alarmManager =  getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
+    override fun onResume() {
+        super.onResume()
+        toggleButton.isChecked = alarmManager.nextAlarmClock != null
+    }
+
     fun onToggleClicked(view: View) {
-        val toggle = view as ToggleButton
+        val toggle = view as SwitchCompat
         if (toggle.isChecked) {
             val calendar = Calendar.getInstance()
             // TODO(colinmarsch) fix these to not use deprecated ways of getting the time
