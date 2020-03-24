@@ -11,6 +11,7 @@ import android.widget.TimePicker
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import java.util.*
 
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     fun onToggleClicked(view: View) {
         val toggle = view as SwitchCompat
+        val alarmIntent = Intent(this, AlarmReceiver::class.java)
         if (toggle.isChecked) {
             val calendar = Calendar.getInstance()
             // TODO(colinmarsch) fix these to not use deprecated ways of getting the time
@@ -47,13 +49,18 @@ class MainActivity : AppCompatActivity() {
             }
             // TODO(colinmarsch) add an uncloseable notification to the notification drawer saying what time the
             //  alarm is currently set for
-            val alarmIntent = Intent(this, AlarmReceiver::class.java)
-            pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
-            // TODO(colinmarsch) might be the wrong intent in the AlarmClockInfo
+            pendingIntent = PendingIntent.getBroadcast(this, ALARM_ID, alarmIntent, 0)
             alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent), pendingIntent)
             Log.d("DAWN", "Started the alarm for $calendar")
         } else {
-            alarmManager.cancel(pendingIntent)
+            // This intent was made to be able to cancel the alarm after the app has been closed
+            // it matches the original intent that was used to create the alarm
+            val dupIntent = PendingIntent.getBroadcast(this, ALARM_ID, alarmIntent, 0)
+            alarmManager.setAlarmClock(
+                AlarmManager.AlarmClockInfo(System.currentTimeMillis() + 1000L, dupIntent),
+                dupIntent
+            )
+            alarmManager.cancel(dupIntent)
         }
     }
 }
