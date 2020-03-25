@@ -18,6 +18,7 @@ class MediaHandler {
         userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
 
         // Retrieve default ringtone file URI
+        // TODO(colinmarsch) add the ability to choose what the ringtone is
         val myUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
 
         // Set up MediaPlayer asynchronously

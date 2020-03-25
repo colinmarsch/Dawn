@@ -8,10 +8,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TimePicker
-import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 import java.util.*
 
 
@@ -32,12 +34,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // TODO(colinmarsch) set the time picker to display the set alarm time if there is an alarm set
         toggleButton.isChecked = alarmManager.nextAlarmClock != null
     }
 
     fun onToggleClicked(view: View) {
         val toggle = view as SwitchCompat
         val alarmIntent = Intent(this, AlarmReceiver::class.java)
+        val mainIntent = Intent(this, MainActivity::class.java)
         if (toggle.isChecked) {
             val calendar = Calendar.getInstance()
             // TODO(colinmarsch) fix these to not use deprecated ways of getting the time
@@ -47,8 +51,35 @@ class MainActivity : AppCompatActivity() {
             if (calendar.timeInMillis < System.currentTimeMillis()) {
                 calendar.add(Calendar.DATE, 1)
             }
-            // TODO(colinmarsch) add an uncloseable notification to the notification drawer saying what time the
-            //  alarm is currently set for
+
+            val hour = if (calendar.get(Calendar.HOUR_OF_DAY) == 12) {
+                12
+            } else {
+                calendar.get(Calendar.HOUR_OF_DAY) % 12
+            }
+            val minute = calendar.get(Calendar.MINUTE)
+            val amPM = calendar.get(Calendar.AM_PM) == Calendar.AM
+            val contentText = if (amPM) {
+                "Alarm set for $hour:$minute AM"
+            } else {
+                "Alarm set for $hour:$minute PM"
+            }
+
+            val pendingMainIntent = PendingIntent.getActivity(this, TIME_NOTIF_ID, mainIntent, 0)
+            NotificationHelper.createNotificationChannel(applicationContext)
+            val builder = NotificationCompat.Builder(view.context, NotificationHelper.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Dawn")
+                .setContentText(contentText)
+                .setContentIntent(pendingMainIntent)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setOngoing(true)
+                // TODO(colinmarsch) add a notification action here to stop the alarm
+
+            with(NotificationManagerCompat.from(applicationContext)) {
+                notify(TIME_NOTIF_ID, builder.build())
+            }
+
             pendingIntent = PendingIntent.getBroadcast(this, ALARM_ID, alarmIntent, 0)
             alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent), pendingIntent)
             Log.d("DAWN", "Started the alarm for $calendar")
@@ -60,6 +91,9 @@ class MainActivity : AppCompatActivity() {
                 AlarmManager.AlarmClockInfo(System.currentTimeMillis() + 1000L, dupIntent),
                 dupIntent
             )
+            with(NotificationManagerCompat.from(applicationContext)) {
+                cancel(TIME_NOTIF_ID)
+            }
             alarmManager.cancel(dupIntent)
         }
     }
