@@ -44,9 +44,8 @@ class MainActivity : AppCompatActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         if (toggle.isChecked) {
             val calendar = Calendar.getInstance()
-            // TODO(colinmarsch) fix these to not use deprecated ways of getting the time
-            calendar.set(Calendar.HOUR_OF_DAY, timePicker.currentHour)
-            calendar.set(Calendar.MINUTE, timePicker.currentMinute)
+            calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+            calendar.set(Calendar.MINUTE, timePicker.minute)
             calendar.set(Calendar.SECOND, 0)
             if (calendar.timeInMillis < System.currentTimeMillis()) {
                 calendar.add(Calendar.DATE, 1)
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                 .setContentIntent(pendingMainIntent)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setOngoing(true)
-                // TODO(colinmarsch) add a notification action here to stop the alarm
+                // TODO(colinmarsch) add a notification action here to stop the alarm maybe?
 
             with(NotificationManagerCompat.from(applicationContext)) {
                 notify(TIME_NOTIF_ID, builder.build())

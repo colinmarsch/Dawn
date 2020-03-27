@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import me.colinmarsch.dawn.NotificationHelper.Companion.NOTIF_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 
 class AlarmActivity: AppCompatActivity() {
     private lateinit var stopAlarmButton: Button
@@ -18,6 +19,9 @@ class AlarmActivity: AppCompatActivity() {
             mediaHandler.stopAlarm()
             with(NotificationManagerCompat.from(this)) {
                 cancel(NOTIF_ID)
+            }
+            with(NotificationManagerCompat.from(this)) {
+                cancel(TIME_NOTIF_ID)
             }
             finish()
         }
