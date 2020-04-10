@@ -17,7 +17,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val alarmIntent = Intent(context, AlarmActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
             .setContentTitle("Dawn")
             .setContentText("Time to get up!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)

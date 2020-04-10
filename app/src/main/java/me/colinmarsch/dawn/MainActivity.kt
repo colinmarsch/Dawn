@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
             val minute = calendar.get(Calendar.MINUTE)
             val amPM = calendar.get(Calendar.AM_PM) == Calendar.AM
+            // TODO(colinmarsch) need to fix the displaying if there are single digit minutes
             val contentText = if (amPM) {
                 "Alarm set for $hour:$minute AM"
             } else {
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             val pendingMainIntent = PendingIntent.getActivity(this, TIME_NOTIF_ID, mainIntent, 0)
             NotificationHelper.createNotificationChannel(applicationContext)
             val builder = NotificationCompat.Builder(view.context, NotificationHelper.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
                 .setContentTitle("Dawn")
                 .setContentText(contentText)
                 .setContentIntent(pendingMainIntent)
