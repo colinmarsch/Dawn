@@ -30,8 +30,8 @@ class AlarmActivity : AppCompatActivity() {
 
             NotificationHelper.createNotificationChannel(applicationContext)
             val stayIntent = Intent(this, AlarmReceiver::class.java)
-            val inAppIntent = Intent(this, InAppActivity::class.java)
             stayIntent.putExtra("ringing", false)
+            val inAppIntent = Intent(this, InAppActivity::class.java)
             val contentIntent = PendingIntent.getActivity(this, STAY_IN_APP_ID, inAppIntent, 0)
             val whenTime = System.currentTimeMillis() + 600000L // TODO(colinmarsch) make this user defined (10 min rn)
             val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
@@ -41,6 +41,7 @@ class AlarmActivity : AppCompatActivity() {
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setOngoing(true)
                 .setContentIntent(contentIntent)
+                .setAutoCancel(true)
                 .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
                 .setUsesChronometer(true)
                 .setChronometerCountDown(true)
