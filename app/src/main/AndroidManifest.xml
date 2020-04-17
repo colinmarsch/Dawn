@@ -25,7 +25,13 @@
                   android:excludeFromRecents="true"
                   android:showWhenLocked="true"
                   android:turnScreenOn="true"/>
-        <receiver android:name=".AlarmReceiver"></receiver>
+        <activity android:name=".InAppActivity"
+                  android:launchMode="singleTask"
+                  android:taskAffinity=""
+                  android:excludeFromRecents="true"
+                  android:showWhenLocked="true"
+                  android:turnScreenOn="true"/>
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

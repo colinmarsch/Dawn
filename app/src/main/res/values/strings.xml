@@ -3,4 +3,7 @@
     <string name="stop_alarm">Stop Alarm</string>
     <string name="channel_name">Dawn</string>
     <string name="channel_description">Time to get up!</string>
+    <string name="stay_in_app_text">Don\'t leave this app until the timer below is
+        done!
+    </string>
 </resources>

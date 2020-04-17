@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     fun onToggleClicked(view: View) {
         val toggle = view as SwitchCompat
         val alarmIntent = Intent(this, AlarmReceiver::class.java)
+        alarmIntent.putExtra("ringing", true)
         val mainIntent = Intent(this, MainActivity::class.java)
         if (toggle.isChecked) {
             val calendar = Calendar.getInstance()
