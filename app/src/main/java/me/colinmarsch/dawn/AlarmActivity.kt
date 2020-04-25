@@ -37,6 +37,7 @@ class AlarmActivity : AppCompatActivity() {
             val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
                 .setContentTitle("Dawn")
+                // TODO(colinmarsch) the message is cutoff here
                 .setContentText("10 minutes until you need to get up! Click here to get up right now!")
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setOngoing(true)

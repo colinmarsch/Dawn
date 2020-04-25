@@ -38,6 +38,7 @@ class AlarmReceiver : BroadcastReceiver() {
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
                 .setContentTitle("Dawn")
+                // TODO(colinmarsch) the message is cutoff here
                 .setContentText("You have 30 seconds to click here or your streak will be broken!")
                 // TODO(colinmarsch) not sure about the category and priority here
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
