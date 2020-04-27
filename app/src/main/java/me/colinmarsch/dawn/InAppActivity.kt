@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import me.colinmarsch.dawn.NotificationHelper.Companion.BROKE_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_IN_APP_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 
@@ -20,8 +22,6 @@ class InAppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.in_app_activity)
-        // TODO(colinmarsch) detect when the user leaves this app/activity
-        //  display a notification saying they broke their streak
 
         cancelAlarmAndNotif()
 
@@ -31,6 +31,22 @@ class InAppActivity : AppCompatActivity() {
         streakLabel = findViewById(R.id.streakLabel)
         // TODO(colinmarsch) need to set the streak label to be the current streak the user has achieved
         streakLabel.text = String.format(getString(R.string.in_app_streak_label), 1)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // TODO(colinmarsch) the activity has been left
+        //  the user has broken their streak (update that in the storage)
+        NotificationHelper.createNotificationChannel(applicationContext)
+        val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
+            .setContentTitle("Dawn")
+            .setContentText("You left Dawn and broke your streak!")
+            .setOngoing(false)
+
+        with(NotificationManagerCompat.from(applicationContext)) {
+            notify(BROKE_STREAK_NOTIF_ID, builder.build())
+        }
     }
 
     private fun startCountdown() {

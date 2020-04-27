@@ -16,6 +16,7 @@ class NotificationHelper {
         const val STAY_NOTIF_ID = 5
         const val STAY_ALARM_ID = 6
         const val STAY_IN_APP_ID = 7
+        const val BROKE_STREAK_NOTIF_ID = 8
 
         fun createNotificationChannel(context: Context) {
             // NotificationChannel class is new and not in the support library, so version restrict here
