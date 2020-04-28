@@ -29,7 +29,7 @@ class AlarmActivity : AppCompatActivity() {
 
             NotificationHelper.createNotificationChannel(applicationContext)
             val stayIntent = Intent(this, AlarmReceiver::class.java)
-            stayIntent.putExtra("ringing", false)
+            stayIntent.putExtra("CASE", "STAY")
             val inAppIntent = Intent(this, InAppActivity::class.java)
             val contentIntent = PendingIntent.getActivity(this, STAY_IN_APP_ID, inAppIntent, 0)
             val whenTime = System.currentTimeMillis() + 600000L // TODO(colinmarsch) make this user defined (10 min rn)
