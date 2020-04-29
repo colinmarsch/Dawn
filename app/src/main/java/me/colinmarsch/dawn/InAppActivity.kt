@@ -42,10 +42,10 @@ class InAppActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        // TODO(colinmarsch) this still runs after the time completes, it shouldn't
         // Don't want to break the streak if the activity is paused due to locking the phone
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (powerManager.isInteractive) {
+        val timeIsComplete = countDownTimerText.text == getString(R.string.in_app_complete)
+        if (powerManager.isInteractive && !timeIsComplete) {
             NotificationHelper.createNotificationChannel(applicationContext)
             val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
@@ -85,8 +85,12 @@ class InAppActivity : AppCompatActivity() {
         object : CountDownTimer(totalTime, interval) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = millisUntilFinished / 60000L
-                val seconds = (millisUntilFinished % 60000L) / 1000L
-                // TODO(colinmarsch) need the same single digit fix here that was in the MainActivity notification
+                val secondsNum = (millisUntilFinished % 60000L) / 1000L
+                val seconds = if (secondsNum < 10) {
+                    "0$secondsNum"
+                } else {
+                    secondsNum.toString()
+                }
                 countDownTimerText.text = "$minutes:$seconds" // TODO(colinmarsch) fix this string behaviour
             }
 
