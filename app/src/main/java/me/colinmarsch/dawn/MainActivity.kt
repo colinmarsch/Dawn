@@ -16,7 +16,6 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var timePicker: TimePicker
@@ -34,8 +33,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // TODO(colinmarsch) set the time picker to display the set alarm time if there is an alarm set
-        toggleButton.isChecked = alarmManager.nextAlarmClock != null
+        if (alarmManager.nextAlarmClock != null) {
+            toggleButton.isChecked = true
+            val nextAlarm = alarmManager.nextAlarmClock
+            val time = Calendar.getInstance()
+            time.timeInMillis = nextAlarm.triggerTime
+            timePicker.hour = time.get(Calendar.HOUR_OF_DAY)
+            timePicker.minute = time.get(Calendar.MINUTE)
+        }
     }
 
     fun onToggleClicked(view: View) {
