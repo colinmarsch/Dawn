@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         timePicker = findViewById(R.id.alarm_time_picker)
         toggleButton = findViewById(R.id.alarm_set_toggle)
-        alarmManager =  getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
     override fun onResume() {
@@ -52,14 +52,9 @@ class MainActivity : AppCompatActivity() {
                 calendar.add(Calendar.DATE, 1)
             }
 
-            val hour = if (calendar.get(Calendar.HOUR_OF_DAY) == 12) {
-                12
-            } else {
-                calendar.get(Calendar.HOUR_OF_DAY) % 12
-            }
-            val minute = calendar.get(Calendar.MINUTE)
+            val hour = calendar.hourText()
+            val minute = calendar.minuteText()
             val amPM = calendar.get(Calendar.AM_PM) == Calendar.AM
-            // TODO(colinmarsch) need to fix the displaying if there are single digit minutes
             val contentText = if (amPM) {
                 "Alarm set for $hour:$minute AM"
             } else {
@@ -75,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 .setContentIntent(pendingMainIntent)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setOngoing(true)
-                // TODO(colinmarsch) add a notification action here to stop the alarm maybe?
+            // TODO(colinmarsch) add a notification action here to stop the alarm maybe?
 
             with(NotificationManagerCompat.from(applicationContext)) {
                 notify(TIME_NOTIF_ID, builder.build())
@@ -96,6 +91,22 @@ class MainActivity : AppCompatActivity() {
                 cancel(TIME_NOTIF_ID)
             }
             alarmManager.cancel(dupIntent)
+        }
+    }
+
+    private fun Calendar.hourText() =
+        if (get(Calendar.HOUR_OF_DAY) == 12 || get(Calendar.HOUR_OF_DAY) == 0) {
+            "12"
+        } else {
+            (get(Calendar.HOUR_OF_DAY) % 12).toString()
+        }
+
+    private fun Calendar.minuteText(): String {
+        val minuteNum = get(Calendar.MINUTE)
+        return if (minuteNum < 10) {
+            "0$minuteNum"
+        } else {
+            minuteNum.toString()
         }
     }
 }
