@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.NumberPicker
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var timePicker: TimePicker
     private lateinit var toggleButton: SwitchCompat
+    private lateinit var stayOffTimePicker: NumberPicker
     private var pendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,12 @@ class MainActivity : AppCompatActivity() {
 
         timePicker = findViewById(R.id.alarm_time_picker)
         toggleButton = findViewById(R.id.alarm_set_toggle)
+
+        stayOffTimePicker = findViewById(R.id.stayOffTimePicker)
+        stayOffTimePicker.maxValue = 60
+        stayOffTimePicker.minValue = 1
+        stayOffTimePicker.value = 5
+
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
@@ -84,6 +92,8 @@ class MainActivity : AppCompatActivity() {
             pendingIntent = PendingIntent.getBroadcast(this, ALARM_ID, alarmIntent, 0)
             alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent), pendingIntent)
             Log.d("DAWN", "Started the alarm for $calendar")
+
+            setStayOffTime()
         } else {
             // This intent was made to be able to cancel the alarm after the app has been closed
             // it matches the original intent that was used to create the alarm
@@ -112,6 +122,15 @@ class MainActivity : AppCompatActivity() {
             "0$minuteNum"
         } else {
             minuteNum.toString()
+        }
+    }
+
+    private fun setStayOffTime() {
+        val time = stayOffTimePicker.value * 60000L
+        val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        with(sharedPrefs.edit()) {
+            putLong(getString(R.string.STAY_OFF_KEY), time)
+            apply()
         }
     }
 }

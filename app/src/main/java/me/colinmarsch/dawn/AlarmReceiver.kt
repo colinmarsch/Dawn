@@ -56,6 +56,8 @@ class AlarmReceiver : BroadcastReceiver() {
                     cancel(DELAY_NOTIF_ID)
                     notify(STAY_NOTIF_ID, builder.build())
                 }
+                
+                // TODO(colinmarsch) set a 30 second alarm here to break the streak if you don't go in the app in time
             }
             "STREAK" -> {
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)

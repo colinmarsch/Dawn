@@ -28,13 +28,13 @@ class InAppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.in_app_activity)
+        sharedPref = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
 
         cancelAlarmAndNotif()
 
         countDownTimerText = findViewById(R.id.countdownTimeText)
         startCountdown()
 
-        sharedPref = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
         val streakVal = sharedPref.getInt(getString(R.string.saved_streak_key), 0)
 
         streakLabel = findViewById(R.id.streakLabel)
@@ -72,7 +72,7 @@ class InAppActivity : AppCompatActivity() {
     }
 
     private fun startCountdown() {
-        val totalTime = 900000L
+        val totalTime = sharedPref.getLong(getString(R.string.STAY_OFF_KEY), 300000L)
         val interval = 1000L
 
         val whenTime = System.currentTimeMillis() + totalTime

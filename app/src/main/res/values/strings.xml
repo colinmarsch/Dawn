@@ -8,4 +8,6 @@
     <string name="in_app_streak_label">Current Streak: %1$d alarms</string>
     <string name="saved_streak_key">me.colinmarsch.dawn.STREAK_KEY</string>
     <string name="shared_prefs_name">me.colinmarsch.dawn.shared_prefs_file</string>
+    <string name="stay_off_time_label">Number of minutes to stay off phone after getting up:</string>
+    <string name="STAY_OFF_KEY">me.colinmarsch.dawn.STAY_OFF_KEY</string>
 </resources>
