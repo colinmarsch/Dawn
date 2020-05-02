@@ -10,4 +10,6 @@
     <string name="shared_prefs_name">me.colinmarsch.dawn.shared_prefs_file</string>
     <string name="stay_off_time_label">Number of minutes to stay off phone after getting up:</string>
     <string name="STAY_OFF_KEY">me.colinmarsch.dawn.STAY_OFF_KEY</string>
+    <string name="GET_UP_DELAY_KEY">me.colinmarsch.dawn.GET_UP_DELAY_KEY</string>
+    <string name="get_up_delay_label">Number of minutes after alarm you can use your phone:</string>
 </resources>

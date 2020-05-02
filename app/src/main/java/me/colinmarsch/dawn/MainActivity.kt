@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var timePicker: TimePicker
     private lateinit var toggleButton: SwitchCompat
     private lateinit var stayOffTimePicker: NumberPicker
+    private lateinit var getUpDelayPicker: NumberPicker
     private var pendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         stayOffTimePicker.maxValue = 60
         stayOffTimePicker.minValue = 1
         stayOffTimePicker.value = 5
+
+        getUpDelayPicker = findViewById(R.id.getUpDelayPicker)
+        getUpDelayPicker.maxValue = 60
+        getUpDelayPicker.minValue = 1
+        getUpDelayPicker.value = 5
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
@@ -93,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent), pendingIntent)
             Log.d("DAWN", "Started the alarm for $calendar")
 
+            setGetUpDelayTime()
             setStayOffTime()
         } else {
             // This intent was made to be able to cancel the alarm after the app has been closed
@@ -130,6 +137,15 @@ class MainActivity : AppCompatActivity() {
         val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
         with(sharedPrefs.edit()) {
             putLong(getString(R.string.STAY_OFF_KEY), time)
+            apply()
+        }
+    }
+
+    private fun setGetUpDelayTime() {
+        val time = getUpDelayPicker.value * 60000L
+        val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        with(sharedPrefs.edit()) {
+            putLong(getString(R.string.GET_UP_DELAY_KEY), time)
             apply()
         }
     }
