@@ -21,9 +21,9 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_ALARM_ID
 
 class InAppActivity : AppCompatActivity() {
 
-    lateinit var countDownTimerText: TextView
-    lateinit var streakLabel: TextView
-    lateinit var sharedPref: SharedPreferences
+    private lateinit var countDownTimerText: TextView
+    private lateinit var streakLabel: TextView
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
