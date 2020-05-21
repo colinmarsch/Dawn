@@ -6,6 +6,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.net.toUri
 import java.io.IOException
 
 class MediaHandler {
@@ -18,8 +19,10 @@ class MediaHandler {
         userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
 
         // Retrieve default ringtone file URI
-        // TODO(colinmarsch) add the ability to choose what the ringtone is
-        val myUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        val sharedPrefs =
+            context.getSharedPreferences(context.getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        val defaultUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        val myUri = sharedPrefs.getString(context.getString(R.string.saved_ringtone_key), defaultUri.path)!!.toUri()
 
         // Set up MediaPlayer asynchronously
         mediaPlayer = mediaPlayer ?: MediaPlayer()

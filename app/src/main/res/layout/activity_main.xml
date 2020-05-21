@@ -14,6 +14,18 @@
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"/>
 
+    <TextView
+        android:id="@+id/ringtone_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_ringtone"/>
+
+    <Button
+        android:id="@+id/choose_ringtone_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_ringtone"/>
+
     <Button
         android:id="@+id/choose_alarm_time_button"
         android:layout_width="wrap_content"
