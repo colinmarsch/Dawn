@@ -13,9 +13,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BROKE_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_ALARM_ID
-import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_IN_APP_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_ALARM_ID
 
@@ -31,6 +31,7 @@ class InAppActivity : AppCompatActivity() {
         sharedPref = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
 
         cancelAlarmAndNotif()
+        cancelBreatherAlarm()
 
         countDownTimerText = findViewById(R.id.countdownTimeText)
         startCountdown()
@@ -104,16 +105,21 @@ class InAppActivity : AppCompatActivity() {
         val inAppIntent = Intent(this, AlarmReceiver::class.java)
         val dupIntent = PendingIntent.getBroadcast(this, STAY_ALARM_ID, inAppIntent, 0)
         (getSystemService(Context.ALARM_SERVICE) as AlarmManager).also {
-            it.setExactAndAllowWhileIdle(
-                RTC_WAKEUP,
-                System.currentTimeMillis() + 1000L,
-                dupIntent
-            )
+            it.setExactAndAllowWhileIdle(RTC_WAKEUP, System.currentTimeMillis() + 1000L, dupIntent)
             it.cancel(dupIntent)
         }
 
         with(NotificationManagerCompat.from(applicationContext)) {
             cancel(STAY_NOTIF_ID)
+        }
+    }
+
+    private fun cancelBreatherAlarm() {
+        val breatherIntent = Intent(this, AlarmReceiver::class.java)
+        val dupIntent = PendingIntent.getBroadcast(this, BREATHER_CANCEL_ID, breatherIntent, 0)
+        (getSystemService(Context.ALARM_SERVICE) as AlarmManager).also {
+            it.setExactAndAllowWhileIdle(RTC_WAKEUP, System.currentTimeMillis() + 1000L, dupIntent)
+            it.cancel(dupIntent)
         }
     }
 }
