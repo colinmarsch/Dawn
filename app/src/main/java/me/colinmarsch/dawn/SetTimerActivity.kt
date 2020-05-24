@@ -27,16 +27,22 @@ class SetTimerActivity: AppCompatActivity() {
         toggleButton = findViewById(R.id.alarm_set_toggle)
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
 
         stayOffTimePicker = findViewById(R.id.stayOffTimePicker)
         stayOffTimePicker.maxValue = 60
         stayOffTimePicker.minValue = 1
-        stayOffTimePicker.value = 5
+        stayOffTimePicker.value = sharedPrefs.getInt(getString(R.string.STAY_OFF_KEY), 5)
 
         getUpDelayPicker = findViewById(R.id.getUpDelayPicker)
         getUpDelayPicker.maxValue = 60
         getUpDelayPicker.minValue = 1
-        getUpDelayPicker.value = 5
+        getUpDelayPicker.value = sharedPrefs.getInt(getString(R.string.GET_UP_DELAY_KEY), 5)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        toggleButton.isChecked = alarmManager.nextAlarmClock != null
     }
 
     fun onToggleClicked(view: View) {
