@@ -32,12 +32,14 @@ class SetTimerActivity: AppCompatActivity() {
         stayOffTimePicker = findViewById(R.id.stayOffTimePicker)
         stayOffTimePicker.maxValue = 60
         stayOffTimePicker.minValue = 1
-        stayOffTimePicker.value = sharedPrefs.getInt(getString(R.string.STAY_OFF_KEY), 5)
+        val stayOffMinutes = (sharedPrefs.getLong(getString(R.string.STAY_OFF_KEY), 5) / 60000L).toInt()
+        stayOffTimePicker.value = stayOffMinutes
 
         getUpDelayPicker = findViewById(R.id.getUpDelayPicker)
         getUpDelayPicker.maxValue = 60
         getUpDelayPicker.minValue = 1
-        getUpDelayPicker.value = sharedPrefs.getInt(getString(R.string.GET_UP_DELAY_KEY), 5)
+        val getUpDelayMinutes = (sharedPrefs.getLong(getString(R.string.GET_UP_DELAY_KEY), 5) / 60000L).toInt()
+        getUpDelayPicker.value = getUpDelayMinutes
     }
 
     override fun onResume() {

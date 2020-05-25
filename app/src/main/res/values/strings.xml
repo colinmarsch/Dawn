@@ -16,4 +16,6 @@
     <string name="next">Next</string>
     <string name="select_ringtone">Select Ringtone</string>
     <string name="default_ringtone">Default Ringtone</string>
+    <string name="ringtone_volume">Ringtone Volume</string>
+    <string name="saved_volume_key">me.colinmarsch.dawn.SAVED_VOLUME_KEY</string>
 </resources>

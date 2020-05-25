@@ -26,6 +26,19 @@
         android:layout_height="wrap_content"
         android:text="@string/select_ringtone"/>
 
+    <TextView
+        android:id="@+id/ringtone_volume_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ringtone_volume"/>
+
+    <SeekBar
+        android:id="@+id/ringtone_volume_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="7"
+        android:min="1"/>
+
     <Button
         android:id="@+id/choose_alarm_time_button"
         android:layout_width="wrap_content"

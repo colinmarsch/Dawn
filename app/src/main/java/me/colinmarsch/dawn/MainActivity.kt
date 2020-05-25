@@ -7,6 +7,7 @@ import android.media.RingtoneManager.*
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
@@ -19,17 +20,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nextButton: Button
     private lateinit var ringtoneButton: Button
     private lateinit var ringtoneLabel: TextView
+    private lateinit var ringtoneVolume: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // TODO(colinmarsch) add the ability to set the ringtone volume here
+
         timePicker = findViewById(R.id.alarm_time_picker)
         nextButton = findViewById(R.id.choose_alarm_time_button)
         nextButton.setOnClickListener {
             val intent = Intent(this, SetTimerActivity::class.java).also {
                 it.putExtra("hour", timePicker.hour)
                 it.putExtra("minute", timePicker.minute)
+                val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+                println(ringtoneVolume.progress)
+                with(sharedPrefs.edit()) {
+                    putInt(getString(R.string.saved_volume_key), ringtoneVolume.progress)
+                    apply()
+                }
             }
             startActivity(intent)
         }
@@ -43,6 +51,8 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(ringtoneIntent, 1)
         }
         ringtoneLabel = findViewById(R.id.ringtone_label)
+
+        ringtoneVolume = findViewById(R.id.ringtone_volume_slider)
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
