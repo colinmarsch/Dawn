@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity() {
         ringtoneButton = findViewById(R.id.choose_ringtone_button)
         ringtoneButton.setOnClickListener {
             val ringtoneIntent = Intent(ACTION_RINGTONE_PICKER)
-            ringtoneIntent.putExtra(EXTRA_RINGTONE_TITLE, "Select ringtone for alarm:");
-            ringtoneIntent.putExtra(EXTRA_RINGTONE_SHOW_SILENT, false);
-            ringtoneIntent.putExtra(EXTRA_RINGTONE_SHOW_DEFAULT, true);
-            ringtoneIntent.putExtra(EXTRA_RINGTONE_TYPE, TYPE_ALARM);
+            ringtoneIntent.putExtra(EXTRA_RINGTONE_TITLE, "Select ringtone for alarm:")
+            ringtoneIntent.putExtra(EXTRA_RINGTONE_SHOW_SILENT, false)
+            ringtoneIntent.putExtra(EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            ringtoneIntent.putExtra(EXTRA_RINGTONE_TYPE, TYPE_ALARM)
             startActivityForResult(ringtoneIntent, 1)
         }
         ringtoneLabel = findViewById(R.id.ringtone_label)
