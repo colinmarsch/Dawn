@@ -76,6 +76,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        ringtoneVolume.progress = sharedPrefs.getInt(getString(R.string.saved_volume_key), 0)
+
         if (alarmManager.nextAlarmClock != null) {
             val nextAlarm = alarmManager.nextAlarmClock
             val time = Calendar.getInstance()
