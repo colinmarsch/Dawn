@@ -13,7 +13,6 @@ import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var timePicker: TimePicker
