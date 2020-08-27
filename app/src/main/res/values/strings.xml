@@ -18,4 +18,6 @@
     <string name="default_ringtone">Default Ringtone</string>
     <string name="ringtone_volume">Ringtone Volume</string>
     <string name="saved_volume_key">me.colinmarsch.dawn.SAVED_VOLUME_KEY</string>
+    <string name="saved_hour_key">me.colinmarsch.dawn.SAVED_HOUR_KEY</string>
+    <string name="saved_minute_key">me.colinmarsch.dawn.SAVED_MINUTE_KEY</string>
 </resources>

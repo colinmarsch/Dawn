@@ -31,10 +31,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SetTimerActivity::class.java).also {
                 it.putExtra("hour", timePicker.hour)
                 it.putExtra("minute", timePicker.minute)
-                val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+                val sharedPrefs = getSharedPreferences(
+                    getString(R.string.shared_prefs_name),
+                    Context.MODE_PRIVATE
+                )
                 println(ringtoneVolume.progress)
                 with(sharedPrefs.edit()) {
                     putInt(getString(R.string.saved_volume_key), ringtoneVolume.progress)
+                    putInt(getString(R.string.saved_hour_key), timePicker.hour)
+                    putInt(getString(R.string.saved_minute_key), timePicker.minute)
                     apply()
                 }
             }
@@ -62,7 +67,10 @@ class MainActivity : AppCompatActivity() {
             val uri: Uri? = data?.getParcelableExtra(EXTRA_RINGTONE_PICKED_URI)
             uri?.let {
                 val ringtonePath = uri.toString()
-                val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+                val sharedPrefs = getSharedPreferences(
+                    getString(R.string.shared_prefs_name),
+                    Context.MODE_PRIVATE
+                )
                 with(sharedPrefs.edit()) {
                     putString(getString(R.string.saved_ringtone_key), ringtonePath)
                     apply()
@@ -76,7 +84,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        val sharedPrefs =
+            getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
         ringtoneVolume.progress = sharedPrefs.getInt(getString(R.string.saved_volume_key), 0)
 
         if (alarmManager.nextAlarmClock != null) {
@@ -85,6 +94,16 @@ class MainActivity : AppCompatActivity() {
             time.timeInMillis = nextAlarm.triggerTime
             timePicker.hour = time.get(Calendar.HOUR_OF_DAY)
             timePicker.minute = time.get(Calendar.MINUTE)
+        } else {
+            val currentTime = Calendar.getInstance()
+            timePicker.hour = sharedPrefs.getInt(
+                getString(R.string.saved_hour_key),
+                currentTime.get(Calendar.HOUR_OF_DAY)
+            )
+            timePicker.minute = sharedPrefs.getInt(
+                getString(R.string.saved_minute_key),
+                currentTime.get(Calendar.MINUTE)
+            )
         }
     }
 }
