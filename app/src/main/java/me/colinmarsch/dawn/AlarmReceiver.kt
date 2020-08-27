@@ -23,7 +23,8 @@ class AlarmReceiver : BroadcastReceiver() {
         when (intent.getStringExtra("CASE")) {
             "ALARM" -> {
                 val alarmIntent = Intent(context, AlarmActivity::class.java)
-                val pendingIntent = PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
+                val pendingIntent =
+                    PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
                     .setContentTitle("Dawn")
@@ -39,7 +40,8 @@ class AlarmReceiver : BroadcastReceiver() {
             }
             "STAY" -> {
                 val stayInIntent = Intent(context, InAppActivity::class.java)
-                val pendingIntent = PendingIntent.getActivity(context, 0, stayInIntent, FLAG_UPDATE_CURRENT)
+                val pendingIntent =
+                    PendingIntent.getActivity(context, 0, stayInIntent, FLAG_UPDATE_CURRENT)
                 val breatherTime = System.currentTimeMillis() + 30000L
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
@@ -56,12 +58,17 @@ class AlarmReceiver : BroadcastReceiver() {
                     cancel(DELAY_NOTIF_ID)
                     notify(STAY_NOTIF_ID, builder.build())
                 }
-                
+
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 val breatherIntent = Intent(context, AlarmReceiver::class.java)
                 breatherIntent.putExtra("CASE", "BREATHER")
-                val alarmPendingIntent = PendingIntent.getBroadcast(context, BREATHER_CANCEL_ID, breatherIntent, 0)
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, breatherTime, alarmPendingIntent)
+                val alarmPendingIntent =
+                    PendingIntent.getBroadcast(context, BREATHER_CANCEL_ID, breatherIntent, 0)
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    breatherTime,
+                    alarmPendingIntent
+                )
             }
             "STREAK" -> {
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -74,8 +81,12 @@ class AlarmReceiver : BroadcastReceiver() {
                 }
 
                 val sharedPrefs =
-                    context.getSharedPreferences(context.getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
-                val currentStreak = sharedPrefs.getInt(context.getString(R.string.saved_streak_key), 0)
+                    context.getSharedPreferences(
+                        context.getString(R.string.shared_prefs_name),
+                        Context.MODE_PRIVATE
+                    )
+                val currentStreak =
+                    sharedPrefs.getInt(context.getString(R.string.saved_streak_key), 0)
                 with(sharedPrefs.edit()) {
                     putInt(context.getString(R.string.saved_streak_key), currentStreak + 1)
                     apply()
@@ -92,11 +103,28 @@ class AlarmReceiver : BroadcastReceiver() {
                     notify(NotificationHelper.BROKE_STREAK_NOTIF_ID, builder.build())
                 }
                 val sharedPrefs =
-                    context.getSharedPreferences(context.getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+                    context.getSharedPreferences(
+                        context.getString(R.string.shared_prefs_name),
+                        Context.MODE_PRIVATE
+                    )
                 with(sharedPrefs.edit()) {
                     putInt(context.getString(R.string.saved_streak_key), 0)
                     apply()
                 }
+            }
+            "DISMISS" -> {
+                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val alarmIntent = Intent(context, AlarmReceiver::class.java)
+                val dupIntent =
+                    PendingIntent.getBroadcast(context, NotificationHelper.ALARM_ID, alarmIntent, 0)
+                alarmManager.setAlarmClock(
+                    AlarmManager.AlarmClockInfo(System.currentTimeMillis() + 1000L, dupIntent),
+                    dupIntent
+                )
+                with(NotificationManagerCompat.from(context)) {
+                    cancel(NotificationHelper.TIME_NOTIF_ID)
+                }
+                alarmManager.cancel(dupIntent)
             }
         }
     }
