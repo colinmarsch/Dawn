@@ -8,41 +8,82 @@
         android:gravity="center_horizontal"
         tools:context=".MainActivity">
 
-    <TimePicker
-        android:id="@+id/alarm_time_picker"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"/>
+        android:gravity="center_horizontal"
+        android:paddingTop="32dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/ringtone_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/default_ringtone"/>
+        <TextView
+            android:id="@+id/textView"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alarm_time" />
 
-    <Button
-        android:id="@+id/choose_ringtone_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_ringtone"/>
+        <TimePicker
+            android:id="@+id/alarm_time_picker"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"/>
 
-    <TextView
-        android:id="@+id/ringtone_volume_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ringtone_volume"/>
+    </LinearLayout>
 
-    <SeekBar
-        android:id="@+id/ringtone_volume_slider"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="7"
-        android:min="1"/>
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/choose_alarm_time_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"/>
+        <TextView
+            android:id="@+id/ringtone_label"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_ringtone"/>
+
+        <Button
+            android:id="@+id/choose_ringtone_button"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_ringtone"/>
+
+        <TextView
+            android:id="@+id/ringtone_volume_label"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ringtone_volume"/>
+
+        <SeekBar
+            android:id="@+id/ringtone_volume_slider"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="7"
+            android:min="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/choose_alarm_time_button"
+            android:layout_gravity="bottom"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next"/>
+
+    </LinearLayout>
 
 </LinearLayout>
