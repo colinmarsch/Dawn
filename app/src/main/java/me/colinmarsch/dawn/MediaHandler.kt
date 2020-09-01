@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import java.io.IOException
 
-class MediaHandler {
+object MediaHandler {
     private lateinit var audioManager: AudioManager
     private var mediaPlayer: MediaPlayer? = null
     private var userVolume = 0 // TODO(colinmarsch) is there a better way to handle this?
@@ -53,7 +53,7 @@ class MediaHandler {
 
     fun stopAlarm() {
         mediaPlayer?.stop()
-        mediaPlayer?.release()
+        mediaPlayer?.reset()
         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, userVolume, AudioManager.FLAG_PLAY_SOUND)
     }
 }

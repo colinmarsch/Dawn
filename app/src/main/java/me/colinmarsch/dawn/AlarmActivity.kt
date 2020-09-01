@@ -18,14 +18,13 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 
 class AlarmActivity : AppCompatActivity() {
     private lateinit var stopAlarmButton: Button
-    private val mediaHandler = MediaHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.alarm_activity)
         stopAlarmButton = findViewById(R.id.stop_alarm_button)
         stopAlarmButton.setOnClickListener {
-            mediaHandler.stopAlarm()
+            MediaHandler.stopAlarm()
 
             NotificationHelper.createNotificationChannel(applicationContext)
             val stayIntent = Intent(this, AlarmReceiver::class.java)
@@ -64,6 +63,6 @@ class AlarmActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mediaHandler.startAlarm(this)
+        MediaHandler.startAlarm(this)
     }
 }

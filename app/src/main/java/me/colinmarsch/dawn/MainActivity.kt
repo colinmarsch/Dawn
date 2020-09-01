@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ringtoneLabel: TextView
     private lateinit var ringtoneVolume: SeekBar
 
+    private var previewPlaying = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,9 +37,7 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.shared_prefs_name),
                     Context.MODE_PRIVATE
                 )
-                println(ringtoneVolume.progress)
                 with(sharedPrefs.edit()) {
-                    putInt(getString(R.string.saved_volume_key), ringtoneVolume.progress)
                     putInt(getString(R.string.saved_hour_key), timePicker.hour)
                     putInt(getString(R.string.saved_minute_key), timePicker.minute)
                     apply()
@@ -57,6 +57,30 @@ class MainActivity : AppCompatActivity() {
         ringtoneLabel = findViewById(R.id.ringtone_label)
 
         ringtoneVolume = findViewById(R.id.ringtone_volume_slider)
+        ringtoneVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {}
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                val sharedPrefs = getSharedPreferences(
+                    getString(R.string.shared_prefs_name),
+                    Context.MODE_PRIVATE
+                )
+                with(sharedPrefs.edit()) {
+                    putInt(getString(R.string.saved_volume_key), ringtoneVolume.progress)
+                    apply()
+                }
+                if (!previewPlaying && seekBar.progress != 0) {
+                    MediaHandler.startAlarm(this@MainActivity)
+                    previewPlaying = true
+                    seekBar.postDelayed({
+                        MediaHandler.stopAlarm()
+                        previewPlaying = false
+                    }, 2000)
+                }
+            }
+        })
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
