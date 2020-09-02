@@ -30,9 +30,7 @@ class MainActivity : AppCompatActivity() {
         timePicker = findViewById(R.id.alarm_time_picker)
         nextButton = findViewById(R.id.choose_alarm_time_button)
         nextButton.setOnClickListener {
-            val intent = Intent(this, SetTimerActivity::class.java).also {
-                it.putExtra("hour", timePicker.hour)
-                it.putExtra("minute", timePicker.minute)
+            val intent = Intent(this, GetUpDelayActivity::class.java).also {
                 val sharedPrefs = getSharedPreferences(
                     getString(R.string.shared_prefs_name),
                     Context.MODE_PRIVATE

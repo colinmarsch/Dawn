@@ -31,7 +31,8 @@
                   android:excludeFromRecents="true"
                   android:showWhenLocked="true"
                   android:turnScreenOn="true"/>
-        <activity android:name=".SetTimerActivity"/>
+        <activity android:name=".GetUpDelayActivity"/>
+        <activity android:name=".StayOffActivity"/>
         <receiver android:name=".AlarmReceiver"/>
     </application>
 

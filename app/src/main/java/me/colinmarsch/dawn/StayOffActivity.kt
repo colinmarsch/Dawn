@@ -14,16 +14,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import java.util.*
 
-class SetTimerActivity : AppCompatActivity() {
+class StayOffActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var stayOffTimePicker: NumberPicker
-    private lateinit var getUpDelayPicker: NumberPicker
     private lateinit var toggleButton: SwitchCompat
     private var pendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.set_timer_layout)
+        setContentView(R.layout.stayoff_layout)
         toggleButton = findViewById(R.id.alarm_set_toggle)
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -36,13 +35,6 @@ class SetTimerActivity : AppCompatActivity() {
         val stayOffMinutes =
             (sharedPrefs.getLong(getString(R.string.STAY_OFF_KEY), 5) / 60000L).toInt()
         stayOffTimePicker.value = stayOffMinutes
-
-        getUpDelayPicker = findViewById(R.id.getUpDelayPicker)
-        getUpDelayPicker.maxValue = 60
-        getUpDelayPicker.minValue = 1
-        val getUpDelayMinutes =
-            (sharedPrefs.getLong(getString(R.string.GET_UP_DELAY_KEY), 5) / 60000L).toInt()
-        getUpDelayPicker.value = getUpDelayMinutes
     }
 
     override fun onResume() {
@@ -56,9 +48,17 @@ class SetTimerActivity : AppCompatActivity() {
         alarmIntent.putExtra("CASE", "ALARM")
         val mainIntent = Intent(this, MainActivity::class.java)
         if (toggle.isChecked) {
+            val sharedPrefs =
+                getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
             val calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, intent.getIntExtra("hour", 0))
-            calendar.set(Calendar.MINUTE, intent.getIntExtra("minute", 0))
+            calendar.set(
+                Calendar.HOUR_OF_DAY,
+                sharedPrefs.getInt(getString(R.string.saved_hour_key), 0)
+            )
+            calendar.set(
+                Calendar.MINUTE,
+                sharedPrefs.getInt(getString(R.string.saved_minute_key), 0)
+            )
             calendar.set(Calendar.SECOND, 0)
             if (calendar.timeInMillis < System.currentTimeMillis()) {
                 calendar.add(Calendar.DATE, 1)
@@ -110,7 +110,6 @@ class SetTimerActivity : AppCompatActivity() {
             )
             Log.d("DAWN", "Started the alarm for $calendar")
 
-            setGetUpDelayTime()
             setStayOffTime()
         } else {
             // This intent was made to be able to cancel the alarm after the app has been closed
@@ -150,16 +149,6 @@ class SetTimerActivity : AppCompatActivity() {
             getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
         with(sharedPrefs.edit()) {
             putLong(getString(R.string.STAY_OFF_KEY), time)
-            apply()
-        }
-    }
-
-    private fun setGetUpDelayTime() {
-        val time = getUpDelayPicker.value * 60000L
-        val sharedPrefs =
-            getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
-        with(sharedPrefs.edit()) {
-            putLong(getString(R.string.GET_UP_DELAY_KEY), time)
             apply()
         }
     }
