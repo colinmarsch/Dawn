@@ -104,6 +104,7 @@ class StayOffActivity : AppCompatActivity() {
         Log.d("DAWN", "Started the alarm for $calendar")
 
         setStayOffTime()
+        finishAffinity()
     }
 
     private fun Calendar.hourText() =
