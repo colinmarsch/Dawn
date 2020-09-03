@@ -16,11 +16,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <Button
         android:id="@+id/alarm_set_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onToggleClicked"
+        android:text="@string/set_alarm"
+        android:onClick="onSetAlarmClicked"
         android:paddingTop="16dp"
         android:paddingBottom="16dp" />
 

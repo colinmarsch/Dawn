@@ -21,4 +21,5 @@
     <string name="saved_hour_key">me.colinmarsch.dawn.SAVED_HOUR_KEY</string>
     <string name="saved_minute_key">me.colinmarsch.dawn.SAVED_MINUTE_KEY</string>
     <string name="alarm_time">Alarm Time</string>
+    <string name="set_alarm">Set Alarm</string>
 </resources>
