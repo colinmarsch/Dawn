@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.NumberPicker
@@ -35,7 +36,18 @@ class StayOffActivity : AppCompatActivity() {
         val stayOffMinutes =
             (sharedPrefs.getLong(getString(R.string.STAY_OFF_KEY), 5) / 60000L).toInt()
         stayOffTimePicker.value = stayOffMinutes
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
     fun onSetAlarmClicked(view: View) {
         val alarmIntent = Intent(this, AlarmReceiver::class.java)
