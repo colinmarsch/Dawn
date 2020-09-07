@@ -5,8 +5,10 @@
     <string name="channel_description">Time to get up!</string>
     <string name="stay_in_app_text">Stay in this app until the time is up to keep your streak!</string>
     <string name="in_app_complete">COMPLETE</string>
-    <string name="in_app_streak_label">Current Streak: %1$d alarms</string>
+    <string name="in_app_streak_label">Current Streak: %1$d days</string>
     <string name="saved_streak_key">me.colinmarsch.dawn.STREAK_KEY</string>
+    <string name="failed_days_key">me.colinmarsch.dawn.FAILED_DAYS_KEY</string>
+    <string name="successful_days_key">me.colinmarsch.dawn.SUCCESSFUL_DAYS_KEY</string>
     <string name="saved_ringtone_key">me.colinmarsch.dawn.RINGTONE_KEY</string>
     <string name="shared_prefs_name">me.colinmarsch.dawn.shared_prefs_file</string>
     <string name="stay_off_time_label">Number of minutes to stay off phone after getting up:</string>

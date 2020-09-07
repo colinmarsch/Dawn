@@ -21,6 +21,7 @@ class NotificationHelper {
         const val SUCCESS_STREAK_NOTIF_ID = 10
         const val BREATHER_CANCEL_ID = 11
         const val DISMISS_ALARM_ID = 12
+        const val NO_IMPACT_NOTIF_ID = 13
 
         fun createNotificationChannel(context: Context) {
             // NotificationChannel class is new and not in the support library, so version restrict here

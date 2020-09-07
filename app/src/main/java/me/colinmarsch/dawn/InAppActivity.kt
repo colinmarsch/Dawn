@@ -15,9 +15,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BROKE_STREAK_NOTIF_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_ALARM_ID
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashSet
 
 class InAppActivity : AppCompatActivity() {
 
@@ -28,7 +33,8 @@ class InAppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.in_app_activity)
-        sharedPref = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        sharedPref =
+            getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
 
         cancelAlarmAndNotif()
         cancelBreatherAlarm()
@@ -48,25 +54,54 @@ class InAppActivity : AppCompatActivity() {
         val timeIsComplete = countDownTimerText.text == getString(R.string.in_app_complete)
         if (powerManager.isInteractive && !timeIsComplete) {
             NotificationHelper.createNotificationChannel(applicationContext)
-            val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
+            val brokenBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
                 .setContentTitle("Dawn")
                 .setContentText("You left Dawn and broke your streak!")
 
-            with(NotificationManagerCompat.from(applicationContext)) {
-                notify(BROKE_STREAK_NOTIF_ID, builder.build())
-            }
+            val newSuccessfulDaysSet: HashSet<String> = HashSet(
+                sharedPref.getStringSet(
+                    getString(R.string.successful_days_key),
+                    HashSet<String>()
+                )
+            )
+            val newFailedDaysSet: HashSet<String> = HashSet(
+                sharedPref.getStringSet(
+                    getString(R.string.failed_days_key),
+                    HashSet<String>()
+                )
+            )
+            val c: Date = Calendar.getInstance().time
+            val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            val currentDay: String = df.format(c)
+            if (!newFailedDaysSet.contains(currentDay) && !newSuccessfulDaysSet.contains(currentDay)) {
+                with(NotificationManagerCompat.from(applicationContext)) {
+                    notify(BROKE_STREAK_NOTIF_ID, brokenBuilder.build())
+                }
 
-            with(sharedPref.edit()) {
-                putInt(getString(R.string.saved_streak_key), 0)
-                apply()
+                newFailedDaysSet.add(currentDay)
+                with(sharedPref.edit()) {
+                    putStringSet(getString(R.string.failed_days_key), newFailedDaysSet)
+                    putInt(getString(R.string.saved_streak_key), 0)
+                    apply()
+                }
+            } else {
+                val noImpactBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
+                    .setContentTitle("Dawn")
+                    .setContentText("Only the first alarm per day counts for streaks!")
+
+                with(NotificationManagerCompat.from(applicationContext)) {
+                    notify(NO_IMPACT_NOTIF_ID, noImpactBuilder.build())
+                }
             }
 
             // Cancel the alarm from the countdown
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val successStreakIntent = Intent(this, AlarmReceiver::class.java)
             successStreakIntent.putExtra("CASE", "STREAK")
-            val pendingIntent = PendingIntent.getBroadcast(this, SUCCESS_STREAK_ALARM_ID, successStreakIntent, 0)
+            val pendingIntent =
+                PendingIntent.getBroadcast(this, SUCCESS_STREAK_ALARM_ID, successStreakIntent, 0)
             alarmManager.cancel(pendingIntent)
         }
         super.onPause()
@@ -80,7 +115,8 @@ class InAppActivity : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val successStreakIntent = Intent(this, AlarmReceiver::class.java)
         successStreakIntent.putExtra("CASE", "STREAK")
-        val pendingIntent = PendingIntent.getBroadcast(this, SUCCESS_STREAK_ALARM_ID, successStreakIntent, 0)
+        val pendingIntent =
+            PendingIntent.getBroadcast(this, SUCCESS_STREAK_ALARM_ID, successStreakIntent, 0)
         alarmManager.setExactAndAllowWhileIdle(RTC_WAKEUP, whenTime, pendingIntent)
 
         object : CountDownTimer(totalTime, interval) {
@@ -92,7 +128,8 @@ class InAppActivity : AppCompatActivity() {
                 } else {
                     secondsNum.toString()
                 }
-                countDownTimerText.text = "$minutes:$seconds" // TODO(colinmarsch) fix this string behaviour
+                countDownTimerText.text =
+                    "$minutes:$seconds" // TODO(colinmarsch) fix this string behaviour
             }
 
             override fun onFinish() {
