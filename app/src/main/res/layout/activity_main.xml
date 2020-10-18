@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/alarm_time"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <TimePicker
             android:id="@+id/alarm_time_picker"
@@ -46,8 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/default_ringtone"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:text="@string/current_ringtone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            tools:text="Current Ringtone: Bright Morning" />
 
         <Button
             android:id="@+id/choose_ringtone_button"
@@ -68,7 +69,7 @@
             android:paddingTop="32dp"
             android:paddingBottom="16dp"
             android:text="@string/ringtone_volume"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <SeekBar
             android:id="@+id/ringtone_volume_slider"

@@ -17,11 +17,12 @@
     <string name="get_up_delay_label">Number of minutes after alarm you can use your phone:</string>
     <string name="next">Next</string>
     <string name="select_ringtone">Select Ringtone</string>
-    <string name="default_ringtone">Default Ringtone</string>
+    <string name="current_ringtone">Current Ringtone: %1$s</string>
     <string name="ringtone_volume">Ringtone Volume</string>
     <string name="saved_volume_key">me.colinmarsch.dawn.SAVED_VOLUME_KEY</string>
     <string name="saved_hour_key">me.colinmarsch.dawn.SAVED_HOUR_KEY</string>
     <string name="saved_minute_key">me.colinmarsch.dawn.SAVED_MINUTE_KEY</string>
+    <string name="saved_ringtone_title_key">me.colinmarsch.dawn.SAVED_RINGTONE_KEY</string>
     <string name="alarm_time">Alarm Time</string>
     <string name="set_alarm">Set Alarm</string>
 </resources>
