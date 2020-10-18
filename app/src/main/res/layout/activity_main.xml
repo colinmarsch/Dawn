@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingTop="32dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="32dp">
 
         <TextView
             android:id="@+id/textView"
-            android:padding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/alarm_time" />
+            android:padding="8dp"
+            android:text="@string/alarm_time"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <TimePicker
             android:id="@+id/alarm_time_picker"
-            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner"/>
+            android:padding="8dp"
+            android:timePickerMode="spinner" />
 
     </LinearLayout>
 
@@ -35,40 +35,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/ringtone_label"
-            android:padding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_ringtone"/>
+            android:padding="8dp"
+            android:text="@string/default_ringtone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <Button
             android:id="@+id/choose_ringtone_button"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/select_ringtone"/>
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/select_ringtone"
+            android:textColor="#FFFF" />
 
         <TextView
             android:id="@+id/ringtone_volume_label"
-            android:padding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ringtone_volume"/>
+            android:paddingTop="32dp"
+            android:paddingBottom="16dp"
+            android:text="@string/ringtone_volume"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <SeekBar
             android:id="@+id/ringtone_volume_slider"
-            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="7"
-            android:min="1"/>
+            android:min="1"
+            android:padding="8dp"
+            android:progressTint="@color/colorPrimaryDark"
+            android:thumbTint="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
@@ -78,11 +88,13 @@
 
         <Button
             android:id="@+id/choose_alarm_time_button"
-            android:layout_gravity="bottom"
-            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next"/>
+            android:layout_gravity="bottom"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/next"
+            android:textColor="#FFFF" />
 
     </LinearLayout>
 

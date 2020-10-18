@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="me.colinmarsch.dawn">
+    package="me.colinmarsch.dawn">
 
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AlarmActivity"
-                  android:launchMode="singleTask"
-                  android:taskAffinity=""
-                  android:excludeFromRecents="true"
-                  android:showWhenLocked="true"
-                  android:turnScreenOn="true"/>
-        <activity android:name=".InAppActivity"
-                  android:launchMode="singleTask"
-                  android:taskAffinity=""
-                  android:excludeFromRecents="true"
-                  android:showWhenLocked="true"
-                  android:turnScreenOn="true"/>
-        <activity android:name=".GetUpDelayActivity"/>
-        <activity android:name=".StayOffActivity"/>
-        <receiver android:name=".AlarmReceiver"/>
+        <activity
+            android:name=".AlarmActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:turnScreenOn="true" />
+        <activity
+            android:name=".InAppActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:turnScreenOn="true" />
+        <activity android:name=".GetUpDelayActivity" />
+        <activity android:name=".StayOffActivity" />
+
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>
