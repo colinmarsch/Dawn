@@ -29,7 +29,7 @@
         android:id="@+id/alarm_set_toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:background="@drawable/button_background"
         android:onClick="onSetAlarmClicked"
         android:paddingTop="16dp"
