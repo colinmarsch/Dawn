@@ -35,6 +35,6 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:text="@string/set_alarm"
-        android:textColor="#FFFF" />
+        android:textColor="@color/white" />
 
 </LinearLayout>

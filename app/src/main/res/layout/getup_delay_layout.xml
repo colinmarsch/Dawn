@@ -33,6 +33,6 @@
         android:layout_margin="16dp"
         android:background="@drawable/button_background"
         android:text="@string/next"
-        android:textColor="#FFFF" />
+        android:textColor="@color/white" />
 
 </LinearLayout>

@@ -26,6 +26,7 @@
             android:launchMode="singleTask"
             android:showWhenLocked="true"
             android:taskAffinity=""
+            android:theme="@style/AppTheme.NoActionBar"
             android:turnScreenOn="true" />
         <activity
             android:name=".InAppActivity"
