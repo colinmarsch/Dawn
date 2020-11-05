@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -40,14 +41,19 @@ class StayOffActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            onBackPressed()
+            true
         }
+        R.id.streaks_menu_option -> openStreaksScreen()
+        else -> super.onOptionsItemSelected(item)
+    }
 
     fun onSetAlarmClicked(view: View) {
         val alarmIntent = Intent(this, AlarmReceiver::class.java)
@@ -117,6 +123,12 @@ class StayOffActivity : AppCompatActivity() {
 
         setStayOffTime()
         finishAffinity()
+    }
+
+    private fun openStreaksScreen(): Boolean {
+        val intent = Intent(this, StreaksActivity::class.java)
+        startActivity(intent)
+        return true
     }
 
     private fun Calendar.hourText() =

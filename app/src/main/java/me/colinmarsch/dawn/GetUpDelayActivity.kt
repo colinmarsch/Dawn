@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.NumberPicker
@@ -40,14 +41,19 @@ class GetUpDelayActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            onBackPressed()
+            true
         }
+        R.id.streaks_menu_option -> openStreaksScreen()
+        else -> super.onOptionsItemSelected(item)
+    }
 
     private fun setGetUpDelayTime() {
         val time = getUpDelayPicker.value * 60000L
@@ -57,5 +63,11 @@ class GetUpDelayActivity : AppCompatActivity() {
             putLong(getString(R.string.GET_UP_DELAY_KEY), time)
             apply()
         }
+    }
+
+    private fun openStreaksScreen(): Boolean {
+        val intent = Intent(this, StreaksActivity::class.java)
+        startActivity(intent)
+        return true
     }
 }

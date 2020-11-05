@@ -37,6 +37,7 @@
             android:turnScreenOn="true" />
         <activity android:name=".GetUpDelayActivity" />
         <activity android:name=".StayOffActivity" />
+        <activity android:name=".StreaksActivity" />
 
         <receiver android:name=".AlarmReceiver" />
     </application>

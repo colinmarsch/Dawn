@@ -25,4 +25,5 @@
     <string name="saved_ringtone_title_key">me.colinmarsch.dawn.SAVED_RINGTONE_KEY</string>
     <string name="alarm_time">Alarm Time</string>
     <string name="set_alarm">Set Alarm</string>
+    <string name="streaks">Streaks</string>
 </resources>

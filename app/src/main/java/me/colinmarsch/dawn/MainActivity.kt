@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import android.media.RingtoneManager.*
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
@@ -129,5 +131,21 @@ class MainActivity : AppCompatActivity() {
                 currentTime.get(Calendar.MINUTE)
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.streaks_menu_option -> openStreaksScreen()
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun openStreaksScreen(): Boolean {
+        val intent = Intent(this, StreaksActivity::class.java)
+        startActivity(intent)
+        return true
     }
 }
