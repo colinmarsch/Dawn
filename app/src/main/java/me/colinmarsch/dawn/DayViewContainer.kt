@@ -43,13 +43,13 @@ object DayBinder : DayBinder<DayViewContainer> {
         )
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
 
-        val newSuccessfulDaysSet: HashSet<String> = HashSet(
+        val successfulDaysSet: HashSet<String> = HashSet(
             sharedPrefs.getStringSet(
                 context.getString(R.string.successful_days_key),
                 HashSet<String>()
             )
         )
-        val successToday = newSuccessfulDaysSet.find { success ->
+        val successToday = successfulDaysSet.find { success ->
             val date = df.parse(success).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
             return@find date == day.date
         }
@@ -57,13 +57,13 @@ object DayBinder : DayBinder<DayViewContainer> {
         if (successToday != null) {
             container.view.setBackgroundColor(Color.GREEN)
         } else {
-            val newFailedDaysSet: HashSet<String> = HashSet(
+            val failedDaysSet: HashSet<String> = HashSet(
                 sharedPrefs.getStringSet(
                     context.getString(R.string.failed_days_key),
                     HashSet<String>()
                 )
             )
-            newFailedDaysSet.find { failed ->
+            failedDaysSet.find { failed ->
                 val date = df.parse(failed).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
                 return@find date == day.date
             }?.let {

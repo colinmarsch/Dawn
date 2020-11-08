@@ -144,8 +144,24 @@ class AlarmReceiver : BroadcastReceiver() {
                         context.getString(R.string.shared_prefs_name),
                         Context.MODE_PRIVATE
                     )
+
+                val newFailedDaysSet: HashSet<String> = HashSet(
+                    sharedPrefs.getStringSet(
+                        context.getString(R.string.failed_days_key),
+                        HashSet<String>()
+                    )
+                )
+                val c: Date = Calendar.getInstance().time
+                val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+                val currentDay: String = df.format(c)
+                newFailedDaysSet.add(currentDay)
+
                 with(sharedPrefs.edit()) {
                     putInt(context.getString(R.string.saved_streak_key), 0)
+                    putStringSet(
+                        context.getString(R.string.failed_days_key),
+                        newFailedDaysSet
+                    )
                     apply()
                 }
             }
