@@ -80,6 +80,9 @@ object MonthHeaderBinder : MonthHeaderFooterBinder<MonthHeaderViewContainer> {
     // Called every time we need to reuse a container.
     override fun bind(container: MonthHeaderViewContainer, month: CalendarMonth) {
         container.textView.text =
-            month.yearMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+            month.yearMonth.month.getDisplayName(
+                TextStyle.FULL,
+                Locale.getDefault()
+            ) + " " + month.year
     }
 }
