@@ -27,4 +27,5 @@
     <string name="set_alarm">Set Alarm</string>
     <string name="streaks">Streaks</string>
     <string name="close">Close</string>
+    <string name="switch_ringtone">The current ringtone can\'t be played, please switch it above.</string>
 </resources>

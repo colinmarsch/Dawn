@@ -9,10 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.TimePicker
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
@@ -40,14 +37,18 @@ class MainActivity : AppCompatActivity() {
         timePicker = findViewById(R.id.alarm_time_picker)
         nextButton = findViewById(R.id.choose_alarm_time_button)
         nextButton.setOnClickListener {
-            val intent = Intent(this, GetUpDelayActivity::class.java).also {
-                with(sharedPrefs.edit()) {
-                    putInt(getString(R.string.saved_hour_key), timePicker.hour)
-                    putInt(getString(R.string.saved_minute_key), timePicker.minute)
-                    apply()
+            if (!MediaHandler.validRingtoneSet(this)) {
+                Toast.makeText(this, getString(R.string.switch_ringtone), Toast.LENGTH_LONG).show()
+            } else {
+                val intent = Intent(this, GetUpDelayActivity::class.java).also {
+                    with(sharedPrefs.edit()) {
+                        putInt(getString(R.string.saved_hour_key), timePicker.hour)
+                        putInt(getString(R.string.saved_minute_key), timePicker.minute)
+                        apply()
+                    }
                 }
+                startActivity(intent)
             }
-            startActivity(intent)
         }
         ringtoneButton = findViewById(R.id.choose_ringtone_button)
         ringtoneButton.setOnClickListener {

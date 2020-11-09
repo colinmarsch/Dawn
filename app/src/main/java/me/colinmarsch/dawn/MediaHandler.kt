@@ -5,6 +5,8 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.RingtoneManager
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import java.io.IOException
@@ -20,16 +22,23 @@ object MediaHandler {
 
         // Retrieve default ringtone file URI
         val sharedPrefs =
-            context.getSharedPreferences(context.getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
-        val defaultUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
-        val myUri = sharedPrefs.getString(context.getString(R.string.saved_ringtone_key), defaultUri.path)!!.toUri()
+            context.getSharedPreferences(
+                context.getString(R.string.shared_prefs_name),
+                Context.MODE_PRIVATE
+            )
+        val defaultUri =
+            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        val myUri =
+            sharedPrefs.getString(context.getString(R.string.saved_ringtone_key), defaultUri.path)!!
+                .toUri()
 
         // Set up MediaPlayer asynchronously
         mediaPlayer = mediaPlayer ?: MediaPlayer()
         class Listener : MediaPlayer.OnPreparedListener {
             override fun onPrepared(mp: MediaPlayer) {
                 mp.start()
-                val savedVolume = sharedPrefs.getInt(context.getString(R.string.saved_volume_key), 4)
+                val savedVolume =
+                    sharedPrefs.getInt(context.getString(R.string.saved_volume_key), 4)
                 println(savedVolume)
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_ALARM,
@@ -40,20 +49,49 @@ object MediaHandler {
         }
         mediaPlayer?.apply {
             setOnPreparedListener(Listener())
-            val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build()
+            val audioAttributes =
+                AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build()
             setAudioAttributes(audioAttributes)
             try {
                 setDataSource(context, myUri)
+                prepareAsync()
             } catch (e: IOException) {
+                Toast.makeText(context, context.getString(R.string.switch_ringtone), LENGTH_LONG)
+                    .show()
                 e.printStackTrace()
             }
-            prepareAsync()
         }
     }
 
     fun stopAlarm() {
         mediaPlayer?.stop()
         mediaPlayer?.reset()
-        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, userVolume, AudioManager.FLAG_PLAY_SOUND)
+        audioManager.setStreamVolume(
+            AudioManager.STREAM_ALARM,
+            userVolume,
+            AudioManager.FLAG_PLAY_SOUND
+        )
+    }
+
+    fun validRingtoneSet(context: Context): Boolean {
+        // Retrieve default ringtone file URI
+        val sharedPrefs =
+            context.getSharedPreferences(
+                context.getString(R.string.shared_prefs_name),
+                Context.MODE_PRIVATE
+            )
+        val defaultUri =
+            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        val testUri =
+            sharedPrefs.getString(context.getString(R.string.saved_ringtone_key), defaultUri.path)!!
+                .toUri()
+
+        try {
+            MediaPlayer().setDataSource(context, testUri)
+        } catch (e: Exception) {
+            return false
+        }
+
+        return true
     }
 }
