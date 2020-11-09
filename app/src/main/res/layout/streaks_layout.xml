@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".StreaksActivity">
+    tools:context=".StreaksDialog">
 
     <com.kizitonwose.calendarview.CalendarView
         android:id="@+id/calendarView"
@@ -17,5 +18,14 @@
         app:cv_monthHeaderResource="@layout/calendar_month_header_layout"
         app:cv_orientation="horizontal"
         app:cv_scrollMode="paged" />
+
+    <Button
+        android:id="@+id/calendar_close_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="@string/close"
+        android:textColor="@color/white" />
 
 </LinearLayout>

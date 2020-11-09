@@ -32,8 +32,6 @@
         android:layout_margin="16dp"
         android:background="@drawable/button_background"
         android:onClick="onSetAlarmClicked"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
         android:text="@string/set_alarm"
         android:textColor="@color/white" />
 

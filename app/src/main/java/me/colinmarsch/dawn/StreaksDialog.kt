@@ -1,19 +1,28 @@
 package me.colinmarsch.dawn
 
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import android.view.Window
+import android.widget.Button
 import com.kizitonwose.calendarview.CalendarView
 import java.time.YearMonth
 import java.time.temporal.WeekFields
 import java.util.*
 
-class StreaksActivity : AppCompatActivity() {
+class StreaksDialog(context: Context) : Dialog(context) {
 
     private lateinit var calendar: CalendarView
+    private lateinit var button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setCanceledOnTouchOutside(true)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setContentView(R.layout.streaks_layout)
 
         calendar = findViewById(R.id.calendarView)
@@ -29,14 +38,7 @@ class StreaksActivity : AppCompatActivity() {
             scrollToMonth(currentMonth)
         }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        android.R.id.home -> {
-            onBackPressed()
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
+        button = findViewById(R.id.calendar_close_dialog)
+        button.setOnClickListener { dismiss() }
     }
 }

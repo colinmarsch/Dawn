@@ -144,8 +144,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openStreaksScreen(): Boolean {
-        val intent = Intent(this, StreaksActivity::class.java)
-        startActivity(intent)
+        StreaksDialog(this).show()
         return true
     }
 }
