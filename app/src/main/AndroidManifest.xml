@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.colinmarsch.dawn">
 
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
@@ -23,18 +24,24 @@
         <activity
             android:name=".AlarmActivity"
             android:excludeFromRecents="true"
+            android:immersive="true"
             android:launchMode="singleTask"
+            android:showForAllUsers="true"
             android:showWhenLocked="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionBar"
-            android:turnScreenOn="true" />
+            android:turnScreenOn="true"
+            tools:targetApi="o_mr1" />
         <activity
             android:name=".InAppActivity"
             android:excludeFromRecents="true"
+            android:immersive="true"
             android:launchMode="singleTask"
+            android:showForAllUsers="true"
             android:showWhenLocked="true"
             android:taskAffinity=""
-            android:turnScreenOn="true" />
+            android:turnScreenOn="true"
+            tools:targetApi="o_mr1" />
         <activity android:name=".GetUpDelayActivity" />
         <activity android:name=".StayOffActivity" />
 

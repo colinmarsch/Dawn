@@ -2,10 +2,13 @@ package me.colinmarsch.dawn
 
 import android.app.AlarmManager
 import android.app.AlarmManager.RTC_WAKEUP
+import android.app.KeyguardManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -22,6 +25,19 @@ class AlarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.alarm_activity)
+
+        val keyguardManager = getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            keyguardManager.requestDismissKeyguard(this, null)
+        } else {
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            )
+        }
+
         stopAlarmButton = findViewById(R.id.stop_alarm_button)
         stopAlarmButton.setOnClickListener {
             MediaHandler.stopAlarm()
@@ -31,7 +47,10 @@ class AlarmActivity : AppCompatActivity() {
             stayIntent.putExtra("CASE", "STAY")
             val inAppIntent = Intent(this, InAppActivity::class.java)
             val contentIntent = PendingIntent.getActivity(this, STAY_IN_APP_ID, inAppIntent, 0)
-            val sharedPref = getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+            val sharedPref = getSharedPreferences(
+                getString(R.string.shared_prefs_name),
+                Context.MODE_PRIVATE
+            )
             val getUpDelayTime = sharedPref.getLong(getString(R.string.GET_UP_DELAY_KEY), 600000L)
             val whenTime = System.currentTimeMillis() + getUpDelayTime
             val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
