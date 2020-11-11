@@ -32,9 +32,8 @@ class GetUpDelayActivity : AppCompatActivity() {
 
         nextButton = findViewById(R.id.set_getup_delay)
         nextButton.setOnClickListener {
-            val intent = Intent(this, StayOffActivity::class.java).also {
-                setGetUpDelayTime()
-            }
+            val intent = Intent(this, StayOffActivity::class.java)
+            setGetUpDelayTime()
             startActivity(intent)
         }
 

@@ -35,18 +35,19 @@ class MainActivity : AppCompatActivity() {
         )
 
         timePicker = findViewById(R.id.alarm_time_picker)
+        timePicker.setOnTimeChangedListener { _, hour, minute ->
+            with(sharedPrefs.edit()) {
+                putInt(getString(R.string.saved_hour_key), hour)
+                putInt(getString(R.string.saved_minute_key), minute)
+                apply()
+            }
+        }
         nextButton = findViewById(R.id.choose_alarm_time_button)
         nextButton.setOnClickListener {
             if (!MediaHandler.validRingtoneSet(this)) {
                 Toast.makeText(this, getString(R.string.switch_ringtone), Toast.LENGTH_LONG).show()
             } else {
-                val intent = Intent(this, GetUpDelayActivity::class.java).also {
-                    with(sharedPrefs.edit()) {
-                        putInt(getString(R.string.saved_hour_key), timePicker.hour)
-                        putInt(getString(R.string.saved_minute_key), timePicker.minute)
-                        apply()
-                    }
-                }
+                val intent = Intent(this, GetUpDelayActivity::class.java)
                 startActivity(intent)
             }
         }

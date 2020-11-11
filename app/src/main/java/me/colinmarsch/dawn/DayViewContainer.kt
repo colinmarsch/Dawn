@@ -36,7 +36,11 @@ object DayBinder : DayBinder<DayViewContainer> {
         container.textView.text = day.date.dayOfMonth.toString()
         val today =
             Calendar.getInstance().time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        if (day.date == today) container.textView.typeface = Typeface.DEFAULT_BOLD
+        if (day.date == today) {
+            container.textView.typeface = Typeface.DEFAULT_BOLD
+        } else {
+            container.textView.typeface = Typeface.DEFAULT
+        }
         if (day.owner == DayOwner.THIS_MONTH) {
             container.textView.setTextColor(getColor(context, R.color.black))
         } else {
