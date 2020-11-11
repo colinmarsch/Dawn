@@ -2,8 +2,10 @@ package me.colinmarsch.dawn
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getColor
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -30,11 +32,15 @@ object DayBinder : DayBinder<DayViewContainer> {
     // Called every time we need to reuse a container.
     override fun bind(container: DayViewContainer, day: CalendarDay) {
         val context = container.view.context
+        container.view.setBackgroundColor(Color.TRANSPARENT)
         container.textView.text = day.date.dayOfMonth.toString()
+        val today =
+            Calendar.getInstance().time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        if (day.date == today) container.textView.typeface = Typeface.DEFAULT_BOLD
         if (day.owner == DayOwner.THIS_MONTH) {
-            container.textView.setTextColor(Color.BLACK)
+            container.textView.setTextColor(getColor(context, R.color.black))
         } else {
-            container.textView.setTextColor(Color.GRAY)
+            container.textView.setTextColor(getColor(context, R.color.gray))
         }
 
         val sharedPrefs = context.getSharedPreferences(
@@ -55,7 +61,7 @@ object DayBinder : DayBinder<DayViewContainer> {
         }
 
         if (successToday != null) {
-            container.view.setBackgroundColor(Color.GREEN)
+            container.view.setBackgroundColor(getColor(context, R.color.green))
         } else {
             val failedDaysSet: HashSet<String> = HashSet(
                 sharedPrefs.getStringSet(
@@ -67,7 +73,7 @@ object DayBinder : DayBinder<DayViewContainer> {
                 val date = df.parse(failed).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
                 return@find date == day.date
             }?.let {
-                container.view.setBackgroundColor(Color.RED)
+                container.view.setBackgroundColor(getColor(context, R.color.red))
             }
         }
     }
