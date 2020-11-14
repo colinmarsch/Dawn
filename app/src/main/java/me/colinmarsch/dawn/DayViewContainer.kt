@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
@@ -65,7 +66,8 @@ object DayBinder : DayBinder<DayViewContainer> {
         }
 
         if (successToday != null) {
-            container.view.setBackgroundColor(getColor(context, R.color.green))
+            container.view.background =
+                ContextCompat.getDrawable(context, R.drawable.circle_bg_green)
         } else {
             val failedDaysSet: HashSet<String> = HashSet(
                 sharedPrefs.getStringSet(
@@ -77,7 +79,8 @@ object DayBinder : DayBinder<DayViewContainer> {
                 val date = df.parse(failed).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
                 return@find date == day.date
             }?.let {
-                container.view.setBackgroundColor(getColor(context, R.color.red))
+                container.view.background =
+                    ContextCompat.getDrawable(context, R.drawable.circle_bg_red)
             }
         }
     }
