@@ -8,22 +8,15 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import com.kizitonwose.calendarview.model.CalendarDay
-import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
-import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import java.text.SimpleDateFormat
 import java.time.ZoneId
-import java.time.format.TextStyle
 import java.util.*
 
 class DayViewContainer(view: View) : ViewContainer(view) {
     val textView = view.findViewById<TextView>(R.id.calendarDayText)
-}
-
-class MonthHeaderViewContainer(view: View) : ViewContainer(view) {
-    val textView = view.findViewById<TextView>(R.id.calendarMonthText)
 }
 
 object DayBinder : DayBinder<DayViewContainer> {
@@ -83,19 +76,5 @@ object DayBinder : DayBinder<DayViewContainer> {
                     ContextCompat.getDrawable(context, R.drawable.circle_bg_red)
             }
         }
-    }
-}
-
-object MonthHeaderBinder : MonthHeaderFooterBinder<MonthHeaderViewContainer> {
-    // Called only when a new container is needed.
-    override fun create(view: View) = MonthHeaderViewContainer(view)
-
-    // Called every time we need to reuse a container.
-    override fun bind(container: MonthHeaderViewContainer, month: CalendarMonth) {
-        container.textView.text =
-            month.yearMonth.month.getDisplayName(
-                TextStyle.FULL,
-                Locale.getDefault()
-            ) + " " + month.year
     }
 }
