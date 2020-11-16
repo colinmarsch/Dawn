@@ -98,8 +98,8 @@ class StayOffActivity : AppCompatActivity() {
             PendingIntent.getActivity(this, NotificationHelper.TIME_NOTIF_ID, mainIntent, 0)
         NotificationHelper.createNotificationChannel(applicationContext)
         val builder = NotificationCompat.Builder(view.context, NotificationHelper.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-            .setContentTitle("Dawn")
+            .setSmallIcon(R.drawable.ic_notif)
+            .setContentTitle("Alarm Set")
             .setContentText(contentText)
             .setContentIntent(pendingMainIntent)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)

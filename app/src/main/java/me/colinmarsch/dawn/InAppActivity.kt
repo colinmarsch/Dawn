@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PowerManager
@@ -55,9 +56,9 @@ class InAppActivity : AppCompatActivity() {
         if (powerManager.isInteractive && !timeIsComplete) {
             NotificationHelper.createNotificationChannel(applicationContext)
             val brokenBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                .setContentTitle("Dawn")
-                .setContentText("You left Dawn and broke your streak!")
+                .setSmallIcon(R.drawable.ic_notif)
+                .setContentTitle("Day missed")
+                .setContentText("You left Dawn!")
 
             val newSuccessfulDaysSet: HashSet<String> = HashSet(
                 sharedPref.getStringSet(
@@ -87,8 +88,8 @@ class InAppActivity : AppCompatActivity() {
                 }
             } else {
                 val noImpactBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                    .setContentTitle("Dawn")
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle("You already used Dawn today")
                     .setContentText("Only the first alarm per day counts for streaks!")
 
                 with(NotificationManagerCompat.from(applicationContext)) {

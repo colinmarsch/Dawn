@@ -30,8 +30,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 val pendingIntent =
                     PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                    .setContentTitle("Dawn")
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle("Wakey wakey")
                     .setContentText("Time to get up!")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -48,10 +48,9 @@ class AlarmReceiver : BroadcastReceiver() {
                     PendingIntent.getActivity(context, 0, stayInIntent, FLAG_UPDATE_CURRENT)
                 val breatherTime = System.currentTimeMillis() + 30000L
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                    .setContentTitle("Dawn")
-                    // TODO(colinmarsch) the message is cutoff here
-                    .setContentText("You have 30 seconds to click here or your streak will be broken!")
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle("Get back to Dawn")
+                    .setContentText("Tap here in 30 seconds or you'll miss the day!")
                     .setContentIntent(pendingIntent)
                     .setWhen(breatherTime)
                     .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
@@ -76,8 +75,8 @@ class AlarmReceiver : BroadcastReceiver() {
             }
             "STREAK" -> {
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                    .setContentTitle("Dawn")
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle("Congrats!")
                     .setContentText("Congrats on keeping your streak! You can now use your phone!")
 
                 val sharedPrefs =
@@ -120,8 +119,8 @@ class AlarmReceiver : BroadcastReceiver() {
                     }
                 } else {
                     val noImpactBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                        .setContentTitle("Dawn")
+                        .setSmallIcon(R.drawable.ic_notif)
+                        .setContentTitle("You already used Dawn today")
                         .setContentText("Only the first alarm per day counts for streaks!")
 
                     with(NotificationManagerCompat.from(context)) {
@@ -131,8 +130,8 @@ class AlarmReceiver : BroadcastReceiver() {
             }
             "BREATHER" -> {
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                    .setContentTitle("Dawn")
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setContentTitle("Day missed")
                     .setContentText("You didn't open Dawn! You broke your streak!")
 
                 with(NotificationManagerCompat.from(context)) {

@@ -54,9 +54,9 @@ class AlarmActivity : AppCompatActivity() {
             val getUpDelayTime = sharedPref.getLong(getString(R.string.GET_UP_DELAY_KEY), 600000L)
             val whenTime = System.currentTimeMillis() + getUpDelayTime
             val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground) // TODO(colinmarsch) update the icon
-                .setContentTitle("Dawn")
-                .setContentText("Tap here if you want to get up before the countdown!")
+                .setSmallIcon(R.drawable.ic_notif)
+                .setContentTitle("Countdown to get up!")
+                .setContentText("Tap here to get up before the time expires!")
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setOngoing(true)
                 .setContentIntent(contentIntent)
