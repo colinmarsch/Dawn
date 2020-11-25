@@ -16,7 +16,6 @@
         tools:text="Current Streak: 2 days" />
 
     <TextView
-        android:id="@+id/stayInAppText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

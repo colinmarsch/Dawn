@@ -16,7 +16,6 @@
         android:paddingTop="32dp">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -65,7 +64,6 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/ringtone_volume_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="32dp"
