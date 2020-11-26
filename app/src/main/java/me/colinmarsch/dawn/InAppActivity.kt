@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PowerManager
@@ -28,7 +27,6 @@ import kotlin.collections.HashSet
 class InAppActivity : AppCompatActivity() {
 
     private lateinit var countDownTimerText: TextView
-    private lateinit var streakLabel: TextView
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +40,6 @@ class InAppActivity : AppCompatActivity() {
 
         countDownTimerText = findViewById(R.id.countdownTimeText)
         startCountdown()
-
-        val streakVal = sharedPref.getInt(getString(R.string.saved_streak_key), 0)
-
-        streakLabel = findViewById(R.id.streakLabel)
-        streakLabel.text = String.format(getString(R.string.in_app_streak_label), streakVal)
     }
 
     override fun onPause() {
