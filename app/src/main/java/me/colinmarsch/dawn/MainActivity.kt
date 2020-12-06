@@ -124,14 +124,16 @@ class MainActivity : AppCompatActivity() {
             timePicker.minute = time.get(Calendar.MINUTE)
         } else {
             val currentTime = Calendar.getInstance()
-            timePicker.hour = sharedPrefs.getInt(
+            val hour = sharedPrefs.getInt(
                 getString(R.string.saved_hour_key),
                 currentTime.get(Calendar.HOUR_OF_DAY)
             )
-            timePicker.minute = sharedPrefs.getInt(
+            val minute = sharedPrefs.getInt(
                 getString(R.string.saved_minute_key),
                 currentTime.get(Calendar.MINUTE)
             )
+            timePicker.hour = hour
+            timePicker.minute = minute
         }
     }
 
