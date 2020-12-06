@@ -61,6 +61,9 @@ object DayBinder : DayBinder<DayViewContainer> {
         if (successToday != null) {
             container.view.background =
                 ContextCompat.getDrawable(context, R.drawable.circle_bg_green)
+            if (day.owner != DayOwner.THIS_MONTH) {
+                container.textView.setTextColor(getColor(context, R.color.white))
+            }
         } else {
             val failedDaysSet: HashSet<String> = HashSet(
                 sharedPrefs.getStringSet(
@@ -74,6 +77,9 @@ object DayBinder : DayBinder<DayViewContainer> {
             }?.let {
                 container.view.background =
                     ContextCompat.getDrawable(context, R.drawable.circle_bg_red)
+                if (day.owner != DayOwner.THIS_MONTH) {
+                    container.textView.setTextColor(getColor(context, R.color.white))
+                }
             }
         }
     }
