@@ -35,13 +35,8 @@
         <activity
             android:name=".InAppActivity"
             android:excludeFromRecents="true"
-            android:immersive="true"
             android:launchMode="singleTask"
-            android:showForAllUsers="true"
-            android:showWhenLocked="true"
-            android:taskAffinity=""
-            android:turnScreenOn="true"
-            tools:targetApi="o_mr1" />
+            android:taskAffinity="" />
         <activity android:name=".GetUpDelayActivity" />
         <activity android:name=".StayOffActivity" />
 
