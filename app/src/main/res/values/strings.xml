@@ -11,10 +11,10 @@
     <string name="successful_days_key">me.colinmarsch.dawn.SUCCESSFUL_DAYS_KEY</string>
     <string name="saved_ringtone_key">me.colinmarsch.dawn.RINGTONE_KEY</string>
     <string name="shared_prefs_name">me.colinmarsch.dawn.shared_prefs_file</string>
-    <string name="stay_off_time_label">Number of minutes to stay off phone after getting up:</string>
+    <string name="stay_off_time_label">Stay off phone for</string>
     <string name="STAY_OFF_KEY">me.colinmarsch.dawn.STAY_OFF_KEY</string>
     <string name="GET_UP_DELAY_KEY">me.colinmarsch.dawn.GET_UP_DELAY_KEY</string>
-    <string name="get_up_delay_label">Number of minutes after alarm you can use your phone:</string>
+    <string name="get_up_delay_label">Use your phone for</string>
     <string name="next">Next</string>
     <string name="select_ringtone">Select Ringtone</string>
     <string name="current_ringtone">Current Ringtone: %1$s</string>
@@ -28,4 +28,5 @@
     <string name="streaks">Streaks</string>
     <string name="close">Close</string>
     <string name="switch_ringtone">The current ringtone can\'t be played, please switch it above.</string>
+    <string name="minutes">mins</string>
 </resources>
