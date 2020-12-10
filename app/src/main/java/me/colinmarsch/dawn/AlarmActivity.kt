@@ -6,6 +6,7 @@ import android.app.KeyguardManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -55,6 +56,7 @@ class AlarmActivity : AppCompatActivity() {
             val whenTime = System.currentTimeMillis() + getUpDelayTime
             val builder = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notif)
+                .setColor(Color.argb(1, 221, 182, 57))
                 .setContentTitle("Countdown to get up!")
                 .setContentText("Tap here to get up before the time expires!")
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)

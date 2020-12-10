@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PowerManager
@@ -50,6 +51,7 @@ class InAppActivity : AppCompatActivity() {
             NotificationHelper.createNotificationChannel(applicationContext)
             val brokenBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notif)
+                .setColor(Color.argb(1, 221, 182, 57))
                 .setContentTitle("Day missed")
                 .setContentText("You left Dawn!")
 
@@ -82,6 +84,7 @@ class InAppActivity : AppCompatActivity() {
             } else {
                 val noImpactBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("You already used Dawn today")
                     .setContentText("Only the first alarm per day counts for streaks!")
 

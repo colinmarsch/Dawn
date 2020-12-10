@@ -6,6 +6,7 @@ import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -31,6 +32,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Wakey wakey")
                     .setContentText("Time to get up!")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -49,6 +51,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 val breatherTime = System.currentTimeMillis() + 30000L
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Get back to Dawn")
                     .setContentText("Tap here in 30 seconds or you'll miss the day!")
                     .setContentIntent(pendingIntent)
@@ -76,6 +79,7 @@ class AlarmReceiver : BroadcastReceiver() {
             "STREAK" -> {
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Congrats!")
                     .setContentText("Congrats on keeping your streak! You can now use your phone!")
 
@@ -120,6 +124,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 } else {
                     val noImpactBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_notif)
+                        .setColor(Color.argb(1, 221, 182, 57))
                         .setContentTitle("You already used Dawn today")
                         .setContentText("Only the first alarm per day counts for streaks!")
 
@@ -131,6 +136,7 @@ class AlarmReceiver : BroadcastReceiver() {
             "BREATHER" -> {
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Day missed")
                     .setContentText("You didn't open Dawn! You broke your streak!")
 
