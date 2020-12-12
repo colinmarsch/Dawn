@@ -17,6 +17,8 @@ object MediaHandler {
     private var userVolume = 0 // TODO(colinmarsch) is there a better way to handle this?
 
     fun startAlarm(context: Context) {
+        if (mediaPlayer?.isPlaying == true) return
+
         audioManager = getSystemService(context, AudioManager::class.java) as AudioManager
         userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
 

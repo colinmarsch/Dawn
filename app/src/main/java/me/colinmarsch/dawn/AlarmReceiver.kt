@@ -17,6 +17,7 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_NOTIF_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashSet
@@ -27,20 +28,31 @@ class AlarmReceiver : BroadcastReceiver() {
         NotificationHelper.createNotificationChannel(context)
         when (intent.getStringExtra("CASE")) {
             "ALARM" -> {
+                MediaHandler.startAlarm(context)
+
                 val alarmIntent = Intent(context, AlarmActivity::class.java)
                 val pendingIntent =
                     PendingIntent.getActivity(context, 0, alarmIntent, FLAG_UPDATE_CURRENT)
+
+                val stopIntent = Intent(context, AlarmReceiver::class.java).apply {
+                    putExtra("CASE", "STOP")
+                }
+                val pendingStopIntent =
+                    PendingIntent.getBroadcast(context, 0, stopIntent, FLAG_UPDATE_CURRENT)
+
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
-                    .setContentTitle("Wakey wakey")
-                    .setContentText("Time to get up!")
+                    .setContentTitle("Good Morning!")
+                    .setContentText("Tap to stop the alarm")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
                     .setAutoCancel(true)
                     .setFullScreenIntent(pendingIntent, true)
+                    .addAction(R.drawable.ic_launcher_foreground, "Stop Alarm", pendingStopIntent)
 
                 with(NotificationManagerCompat.from(context)) {
+                    cancel(TIME_NOTIF_ID)
                     notify(NOTIF_ID, builder.build())
                 }
             }
@@ -170,6 +182,58 @@ class AlarmReceiver : BroadcastReceiver() {
                     apply()
                 }
             }
+            "STOP" -> {
+                MediaHandler.stopAlarm()
+
+                val inAppIntent = Intent(context, InAppActivity::class.java)
+                val contentIntent = PendingIntent.getActivity(
+                    context,
+                    NotificationHelper.STAY_IN_APP_ID,
+                    inAppIntent,
+                    0
+                )
+                val sharedPref = context.getSharedPreferences(
+                    context.getString(R.string.shared_prefs_name),
+                    Context.MODE_PRIVATE
+                )
+                val getUpDelayTime =
+                    sharedPref.getLong(context.getString(R.string.GET_UP_DELAY_KEY), 600000L)
+                val whenTime = System.currentTimeMillis() + getUpDelayTime
+                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
+                    .setContentTitle("Countdown to get up!")
+                    .setContentText("Tap here to get up before the time expires!")
+                    .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                    .setOngoing(true)
+                    .setContentIntent(contentIntent)
+                    .setAutoCancel(true)
+                    .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
+                    .setUsesChronometer(true)
+                    .setChronometerCountDown(true)
+                    .setWhen(whenTime)
+
+                with(NotificationManagerCompat.from(context)) {
+                    cancel(NOTIF_ID)
+                    notify(DELAY_NOTIF_ID, builder.build())
+                }
+
+                val stayIntent = Intent(context, AlarmReceiver::class.java).apply {
+                    putExtra("CASE", "STAY")
+                }
+                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    NotificationHelper.STAY_ALARM_ID,
+                    stayIntent,
+                    0
+                )
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    whenTime,
+                    pendingIntent
+                )
+            }
             "DISMISS" -> {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 val alarmIntent = Intent(context, AlarmReceiver::class.java)
@@ -180,7 +244,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     dupIntent
                 )
                 with(NotificationManagerCompat.from(context)) {
-                    cancel(NotificationHelper.TIME_NOTIF_ID)
+                    cancel(TIME_NOTIF_ID)
                 }
                 alarmManager.cancel(dupIntent)
             }
