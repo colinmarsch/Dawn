@@ -1,7 +1,29 @@
-# Dawn [WIP]
+<img width="100" height="100" src="https://github.com/colinmarsch/dawn/raw/master/resources/icon.png?raw=true"> 
 
-## Current Major TODOs:
-- Improve UI throughout the app
-- Refactor notification handling throughout the app to be more modular
-- Refactor UI navigation to use current best practices, rather than multiple activities
-- Add tests
+<!-- <p align="center">
+  <img width="32%" src="">
+  <img width="32%" src="">
+  <img width="32%" src="">
+</p> -->
+
+Dawn is an Android morning routine productivity app. Through it's built in alarm, Dawn encourages limiting the amount of time that users spend
+on their phones after dismissing their morning alarm.
+
+- Play Store: *Coming Soon*
+
+### License
+```
+Copyright 2020 Colin Marsch
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
