@@ -4,6 +4,7 @@
     <string name="channel_name">Dawn</string>
     <string name="channel_description">Time to get up!</string>
     <string name="stay_in_app_text">Stay in this app until the time is up to keep your streak!</string>
+    <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="in_app_complete">COMPLETE</string>
     <string name="in_app_streak_label">Current Streak: %1$d days</string>
     <string name="saved_streak_key">me.colinmarsch.dawn.STREAK_KEY</string>
@@ -29,4 +30,5 @@
     <string name="close">Close</string>
     <string name="switch_ringtone">The current ringtone can\'t be played, please switch it above.</string>
     <string name="minutes">mins</string>
+    <string name="finished_using_phone">Ready</string>
 </resources>

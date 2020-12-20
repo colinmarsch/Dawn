@@ -57,15 +57,17 @@ class AlarmReceiver : BroadcastReceiver() {
                 }
             }
             "STAY" -> {
-                val stayInIntent = Intent(context, InAppActivity::class.java)
+                val breatherTime = System.currentTimeMillis() + 30000L
+                val stayInIntent = Intent(context, InAppActivity::class.java).apply {
+                    putExtra("WHEN_TIME", breatherTime)
+                }
                 val pendingIntent =
                     PendingIntent.getActivity(context, 0, stayInIntent, FLAG_UPDATE_CURRENT)
-                val breatherTime = System.currentTimeMillis() + 30000L
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Get back to Dawn")
-                    .setContentText("Tap here in 30 seconds or you'll miss the day!")
+                    .setContentText("30 seconds left to get back to Dawn!")
                     .setContentIntent(pendingIntent)
                     .setWhen(breatherTime)
                     .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
@@ -84,7 +86,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     PendingIntent.getBroadcast(context, BREATHER_CANCEL_ID, breatherIntent, 0)
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
-                    breatherTime,
+                    breatherTime + 5000L,
                     alarmPendingIntent
                 )
             }
@@ -185,13 +187,6 @@ class AlarmReceiver : BroadcastReceiver() {
             "STOP" -> {
                 MediaHandler.stopAlarm()
 
-                val inAppIntent = Intent(context, InAppActivity::class.java)
-                val contentIntent = PendingIntent.getActivity(
-                    context,
-                    NotificationHelper.STAY_IN_APP_ID,
-                    inAppIntent,
-                    0
-                )
                 val sharedPref = context.getSharedPreferences(
                     context.getString(R.string.shared_prefs_name),
                     Context.MODE_PRIVATE
@@ -199,15 +194,23 @@ class AlarmReceiver : BroadcastReceiver() {
                 val getUpDelayTime =
                     sharedPref.getLong(context.getString(R.string.GET_UP_DELAY_KEY), 600000L)
                 val whenTime = System.currentTimeMillis() + getUpDelayTime
+                val inAppIntent = Intent(context, InAppActivity::class.java).apply {
+                    putExtra("WHEN_TIME", whenTime)
+                }
+                val contentIntent = PendingIntent.getActivity(
+                    context,
+                    NotificationHelper.STAY_IN_APP_ID,
+                    inAppIntent,
+                    FLAG_UPDATE_CURRENT
+                )
                 val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Countdown to get up!")
-                    .setContentText("Tap here to get up before the time expires!")
+                    .setContentText("You can use your phone for a bit!")
                     .setCategory(NotificationCompat.CATEGORY_REMINDER)
                     .setOngoing(true)
                     .setContentIntent(contentIntent)
-                    .setAutoCancel(true)
                     .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
                     .setUsesChronometer(true)
                     .setChronometerCountDown(true)
@@ -230,7 +233,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 )
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
-                    whenTime,
+                    whenTime - 30000L,
                     pendingIntent
                 )
             }

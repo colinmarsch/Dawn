@@ -10,6 +10,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PowerManager
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -17,6 +20,7 @@ import androidx.core.app.NotificationManagerCompat
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BROKE_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.DELAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
@@ -29,6 +33,10 @@ class InAppActivity : AppCompatActivity() {
 
     private lateinit var countDownTimerText: TextView
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var getUpButton: Button
+    private lateinit var description: TextView
+
+    private var countdown: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +44,28 @@ class InAppActivity : AppCompatActivity() {
         sharedPref =
             getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
 
-        cancelAlarmAndNotif()
-        cancelBreatherAlarm()
-
         countDownTimerText = findViewById(R.id.countdownTimeText)
-        startCountdown()
+        description = findViewById(R.id.description)
+        getUpButton = findViewById(R.id.getup_button)
+        getUpButton.setOnClickListener {
+            startCountdown()
+        }
+
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+
+        handleIntent(intent)
     }
 
     override fun onPause() {
         // Don't want to break the streak if the activity is paused due to locking the phone
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         val timeIsComplete = countDownTimerText.text == getString(R.string.in_app_complete)
-        if (powerManager.isInteractive && !timeIsComplete) {
+        val stillOnScreenTime = description.text == getString(R.string.time_not_up_text)
+        if (powerManager.isInteractive && !timeIsComplete && !stillOnScreenTime) {
             NotificationHelper.createNotificationChannel(applicationContext)
             val brokenBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notif)
@@ -104,7 +122,47 @@ class InAppActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    private fun handleIntent(intent: Intent) {
+        val whenTime = intent.getLongExtra("WHEN_TIME", System.currentTimeMillis())
+        if (System.currentTimeMillis() < whenTime) {
+            // There is still time remaining to use your phone
+            getUpButton.visibility = VISIBLE
+            description.text = getString(R.string.time_not_up_text)
+
+            val totalTime = whenTime - System.currentTimeMillis()
+            countdown?.cancel()
+            countdown = object : CountDownTimer(totalTime, 1000L) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val minutes = millisUntilFinished / 60000L
+                    val secondsNum = (millisUntilFinished % 60000L) / 1000L
+                    val seconds = if (secondsNum < 10) {
+                        "0$secondsNum"
+                    } else {
+                        secondsNum.toString()
+                    }
+                    countDownTimerText.text =
+                        "$minutes:$seconds" // TODO(colinmarsch) fix this string behaviour
+                }
+
+                override fun onFinish() {
+                    startCountdown()
+                }
+            }
+            countdown?.start()
+
+        } else {
+            // The time to use your phone is up
+            startCountdown()
+        }
+    }
+
     private fun startCountdown() {
+        cancelBreatherAlarm()
+        cancelAlarmAndNotif()
+
+        getUpButton.visibility = GONE
+        description.text = getString(R.string.stay_in_app_text)
+
         val totalTime = sharedPref.getLong(getString(R.string.STAY_OFF_KEY), 300000L)
         val interval = 1000L
 
@@ -116,7 +174,8 @@ class InAppActivity : AppCompatActivity() {
             PendingIntent.getBroadcast(this, SUCCESS_STREAK_ALARM_ID, successStreakIntent, 0)
         alarmManager.setExactAndAllowWhileIdle(RTC_WAKEUP, whenTime, pendingIntent)
 
-        object : CountDownTimer(totalTime, interval) {
+        countdown?.cancel()
+        countdown = object : CountDownTimer(totalTime, interval) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = millisUntilFinished / 60000L
                 val secondsNum = (millisUntilFinished % 60000L) / 1000L
@@ -132,7 +191,8 @@ class InAppActivity : AppCompatActivity() {
             override fun onFinish() {
                 countDownTimerText.text = getString(R.string.in_app_complete)
             }
-        }.start()
+        }
+        countdown?.start()
     }
 
     private fun cancelAlarmAndNotif() {
@@ -145,6 +205,7 @@ class InAppActivity : AppCompatActivity() {
 
         with(NotificationManagerCompat.from(applicationContext)) {
             cancel(STAY_NOTIF_ID)
+            cancel(DELAY_NOTIF_ID)
         }
     }
 
