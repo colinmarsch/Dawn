@@ -140,8 +140,7 @@ class InAppActivity : AppCompatActivity() {
                     } else {
                         secondsNum.toString()
                     }
-                    countDownTimerText.text =
-                        "$minutes:$seconds" // TODO(colinmarsch) fix this string behaviour
+                    countDownTimerText.text = getString(R.string.timer_text, minutes, seconds)
                 }
 
                 override fun onFinish() {
@@ -184,8 +183,7 @@ class InAppActivity : AppCompatActivity() {
                 } else {
                     secondsNum.toString()
                 }
-                countDownTimerText.text =
-                    "$minutes:$seconds" // TODO(colinmarsch) fix this string behaviour
+                countDownTimerText.text = getString(R.string.timer_text, minutes, seconds)
             }
 
             override fun onFinish() {
