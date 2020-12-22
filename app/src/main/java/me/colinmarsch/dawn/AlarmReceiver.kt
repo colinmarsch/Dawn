@@ -10,6 +10,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.DELAY_NOTIF_ID
@@ -239,17 +240,10 @@ class AlarmReceiver : BroadcastReceiver() {
             }
             "DISMISS" -> {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val alarmIntent = Intent(context, AlarmReceiver::class.java)
-                val dupIntent =
-                    PendingIntent.getBroadcast(context, NotificationHelper.ALARM_ID, alarmIntent, 0)
-                alarmManager.setAlarmClock(
-                    AlarmManager.AlarmClockInfo(System.currentTimeMillis() + 1000L, dupIntent),
-                    dupIntent
-                )
+                alarmManager.cancelAlarm(context, ALARM_ID)
                 with(NotificationManagerCompat.from(context)) {
                     cancel(TIME_NOTIF_ID)
                 }
-                alarmManager.cancel(dupIntent)
             }
         }
     }

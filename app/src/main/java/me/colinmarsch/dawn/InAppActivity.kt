@@ -113,11 +113,7 @@ class InAppActivity : AppCompatActivity() {
 
             // Cancel the alarm from the countdown
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val successStreakIntent = Intent(this, AlarmReceiver::class.java)
-            successStreakIntent.putExtra("CASE", "STREAK")
-            val pendingIntent =
-                PendingIntent.getBroadcast(this, SUCCESS_STREAK_ALARM_ID, successStreakIntent, 0)
-            alarmManager.cancel(pendingIntent)
+            alarmManager.cancelAlarm(this, SUCCESS_STREAK_ALARM_ID)
         }
         super.onPause()
     }
@@ -156,8 +152,10 @@ class InAppActivity : AppCompatActivity() {
     }
 
     private fun startCountdown() {
-        cancelBreatherAlarm()
-        cancelAlarmAndNotif()
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.cancelAlarm(this, BREATHER_CANCEL_ID)
+        alarmManager.cancelAlarm(this, STAY_ALARM_ID)
+        cancelNotifs()
 
         getUpButton.visibility = GONE
         description.text = getString(R.string.stay_in_app_text)
@@ -166,7 +164,6 @@ class InAppActivity : AppCompatActivity() {
         val interval = 1000L
 
         val whenTime = System.currentTimeMillis() + totalTime
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val successStreakIntent = Intent(this, AlarmReceiver::class.java)
         successStreakIntent.putExtra("CASE", "STREAK")
         val pendingIntent =
@@ -193,26 +190,10 @@ class InAppActivity : AppCompatActivity() {
         countdown?.start()
     }
 
-    private fun cancelAlarmAndNotif() {
-        val inAppIntent = Intent(this, AlarmReceiver::class.java)
-        val dupIntent = PendingIntent.getBroadcast(this, STAY_ALARM_ID, inAppIntent, 0)
-        (getSystemService(Context.ALARM_SERVICE) as AlarmManager).also {
-            it.setExactAndAllowWhileIdle(RTC_WAKEUP, System.currentTimeMillis() + 1000L, dupIntent)
-            it.cancel(dupIntent)
-        }
-
+    private fun cancelNotifs() {
         with(NotificationManagerCompat.from(applicationContext)) {
             cancel(STAY_NOTIF_ID)
             cancel(DELAY_NOTIF_ID)
-        }
-    }
-
-    private fun cancelBreatherAlarm() {
-        val breatherIntent = Intent(this, AlarmReceiver::class.java)
-        val dupIntent = PendingIntent.getBroadcast(this, BREATHER_CANCEL_ID, breatherIntent, 0)
-        (getSystemService(Context.ALARM_SERVICE) as AlarmManager).also {
-            it.setExactAndAllowWhileIdle(RTC_WAKEUP, System.currentTimeMillis() + 1000L, dupIntent)
-            it.cancel(dupIntent)
         }
     }
 }
