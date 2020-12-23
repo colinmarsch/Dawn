@@ -79,7 +79,8 @@
             android:min="1"
             android:padding="8dp"
             android:progressTint="@color/colorPrimaryDark"
-            android:thumbTint="@color/colorPrimaryDark" />
+            android:thumbTint="@color/colorPrimaryDark"
+            tools:targetApi="o" />
 
     </LinearLayout>
 

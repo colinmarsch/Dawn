@@ -14,7 +14,8 @@
         android:src="@drawable/chevron_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/left_arrow" />
 
     <TextView
         android:id="@+id/calendarMonthText"
@@ -35,6 +36,7 @@
         android:src="@drawable/chevron_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/right_arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
