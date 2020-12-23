@@ -51,10 +51,12 @@ class StreaksDialog(context: Context) : Dialog(context) {
         calendar.apply {
             dayBinder = DayBinder
             monthScrollListener = { month ->
-                monthText.text = month.yearMonth.month.getDisplayName(
-                    TextStyle.FULL,
-                    Locale.getDefault()
-                ) + " " + month.year
+                monthText.text = resources.getString(
+                    R.string.month_title_text, month.yearMonth.month.getDisplayName(
+                        TextStyle.FULL,
+                        Locale.getDefault()
+                    ), month.year
+                )
             }
 
             val currentMonth = YearMonth.now()
