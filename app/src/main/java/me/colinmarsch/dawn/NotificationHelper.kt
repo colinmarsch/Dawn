@@ -26,8 +26,8 @@ class NotificationHelper {
         fun createNotificationChannel(context: Context) {
             // NotificationChannel class is new and not in the support library, so version restrict here
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val name = context.getString(R.string.channel_name)
-                val descriptionText = context.getString(R.string.channel_description)
+                val name = context.getString(R.string.notif_channel_name)
+                val descriptionText = context.getString(R.string.notif_channel_description)
                 val importance = NotificationManager.IMPORTANCE_HIGH
                 val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                     description = descriptionText

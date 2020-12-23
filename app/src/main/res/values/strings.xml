@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Dawn</string>
     <string name="stop_alarm">Stop Alarm</string>
-    <string name="channel_name">Dawn</string>
-    <string name="channel_description">Time to get up!</string>
+    <string name="notif_channel_name">All notifications</string>
+    <string name="notif_channel_description">All notifications from Dawn are currently in this single notification channel. Notifications will be separated shortly based on different importance levels.</string>
     <string name="stay_in_app_text">Stay in this app until the time is up to keep your streak!</string>
     <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="in_app_complete">COMPLETE</string>
