@@ -54,9 +54,7 @@ class MainFragment : Fragment() {
                 Toast.makeText(view.context, getString(R.string.switch_ringtone), Toast.LENGTH_LONG)
                     .show()
             } else {
-                // TODO(colinmarsch): move this navigation logic to the activity
-                val intent = Intent(view.context, GetUpDelayActivity::class.java)
-                startActivity(intent)
+                (requireActivity() as MainActivity).transitionToGetUpDelay()
             }
         }
         ringtoneButton = view.findViewById(R.id.choose_ringtone_button)
@@ -146,5 +144,9 @@ class MainFragment : Fragment() {
                 apply()
             }
         }
+    }
+
+    companion object {
+        const val TAG = "MAIN_FRAGMENT_TAG"
     }
 }

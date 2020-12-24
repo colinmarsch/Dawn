@@ -2,7 +2,6 @@ package me.colinmarsch.dawn
 
 import android.app.AlarmManager
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,10 +41,8 @@ class GetUpDelayFragment : Fragment() {
 
         nextButton = view.findViewById(R.id.set_getup_delay)
         nextButton.setOnClickListener {
-            // TODO(colinmarsch): move this to the activity
-            val intent = Intent(view.context, StayOffActivity::class.java)
             setGetUpDelayTime(sharedPrefs)
-            startActivity(intent)
+            (requireActivity() as MainActivity).transitionToStayOff()
         }
     }
 
@@ -55,5 +52,9 @@ class GetUpDelayFragment : Fragment() {
             putLong(getString(R.string.GET_UP_DELAY_KEY), time)
             apply()
         }
+    }
+
+    companion object {
+        const val TAG = "GET_UP_FRAGMENT_TAG"
     }
 }

@@ -37,8 +37,6 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity="" />
-        <activity android:name=".GetUpDelayActivity" />
-        <activity android:name=".StayOffActivity" />
 
         <receiver android:name=".AlarmReceiver" />
     </application>

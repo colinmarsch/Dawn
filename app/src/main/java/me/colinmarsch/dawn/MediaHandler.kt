@@ -41,7 +41,6 @@ object MediaHandler {
                 mp.start()
                 val savedVolume =
                     sharedPrefs.getInt(context.getString(R.string.saved_volume_key), 4)
-                println(savedVolume)
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_ALARM,
                     (audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) * (savedVolume / 7.toDouble())).toInt(),

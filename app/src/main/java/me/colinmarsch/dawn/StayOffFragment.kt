@@ -152,4 +152,8 @@ class StayOffFragment : Fragment() {
             apply()
         }
     }
+
+    companion object {
+        const val TAG = "STAY_OFF_FRAGMENT_TAG"
+    }
 }
