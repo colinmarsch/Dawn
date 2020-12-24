@@ -12,7 +12,7 @@ import android.widget.Button
 import android.widget.NumberPicker
 import androidx.fragment.app.Fragment
 
-class GetUpDelayFragment: Fragment() {
+class GetUpDelayFragment : Fragment() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var getUpDelayPicker: NumberPicker
     private lateinit var nextButton: Button
@@ -28,7 +28,10 @@ class GetUpDelayFragment: Fragment() {
 
         alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val sharedPrefs =
-            view.context.getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+            view.context.getSharedPreferences(
+                getString(R.string.shared_prefs_name),
+                Context.MODE_PRIVATE
+            )
 
         getUpDelayPicker = view.findViewById(R.id.getUpDelayPicker)
         getUpDelayPicker.maxValue = 60
@@ -49,7 +52,7 @@ class GetUpDelayFragment: Fragment() {
     private fun setGetUpDelayTime(sharedPrefs: SharedPreferences) {
         val time = getUpDelayPicker.value * 60000L
         with(sharedPrefs.edit()) {
-            putLong(getString(me.colinmarsch.dawn.R.string.GET_UP_DELAY_KEY), time)
+            putLong(getString(R.string.GET_UP_DELAY_KEY), time)
             apply()
         }
     }
