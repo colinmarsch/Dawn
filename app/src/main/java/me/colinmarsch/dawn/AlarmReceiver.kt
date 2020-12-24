@@ -10,6 +10,10 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
@@ -19,9 +23,6 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashSet
 
 
 class AlarmReceiver : BroadcastReceiver() {

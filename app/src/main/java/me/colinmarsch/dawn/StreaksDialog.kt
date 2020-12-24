@@ -15,7 +15,7 @@ import com.kizitonwose.calendarview.utils.previous
 import java.time.YearMonth
 import java.time.format.TextStyle
 import java.time.temporal.WeekFields
-import java.util.*
+import java.util.Locale
 
 class StreaksDialog(context: Context) : Dialog(context) {
 

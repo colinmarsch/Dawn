@@ -16,7 +16,7 @@ import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import java.util.*
+import java.util.Calendar
 
 class StayOffFragment : Fragment() {
     private lateinit var alarmManager: AlarmManager
