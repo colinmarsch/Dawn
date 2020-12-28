@@ -10,7 +10,7 @@
 Dawn is an Android morning routine productivity app. Through it's built in alarm, Dawn encourages limiting the amount of time that users spend
 on their phones after dismissing their morning alarm.
 
-- Play Store: *Coming Soon*
+[Play Store](https://play.google.com/store/apps/details?id=me.colinmarsch.dawn)
 
 ### License
 ```
