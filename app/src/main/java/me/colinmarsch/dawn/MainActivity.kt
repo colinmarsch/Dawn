@@ -3,6 +3,7 @@ package me.colinmarsch.dawn
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -46,20 +47,22 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun transitionToGetUpDelay() {
+    fun transitionToGetUpDelay(sharedElement: View, destElementName: String) {
         val fragment = GetUpDelayFragment()
 
         supportFragmentManager.beginTransaction()
             .addToBackStack(GetUpDelayFragment.TAG)
+            .addSharedElement(sharedElement, destElementName)
             .replace(R.id.main_content, fragment, GetUpDelayFragment.TAG)
             .commit()
     }
 
-    fun transitionToStayOff() {
+    fun transitionToStayOff(sharedElement: View, destElementName: String) {
         val fragment = StayOffFragment()
 
         supportFragmentManager.beginTransaction()
             .addToBackStack(StayOffFragment.TAG)
+            .addSharedElement(sharedElement, destElementName)
             .replace(R.id.main_content, fragment, StayOffFragment.TAG)
             .commit()
     }
