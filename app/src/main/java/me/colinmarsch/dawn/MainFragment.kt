@@ -7,8 +7,6 @@ import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
-import android.transition.Slide
-import android.view.Gravity.START
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,6 @@ import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import java.util.Calendar
 
@@ -33,13 +30,6 @@ class MainFragment : Fragment() {
     private lateinit var sharedPrefs: SharedPreferences
 
     private var previewPlaying = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        exitTransition = Slide(START).apply {
-            duration = 300
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,13 +58,9 @@ class MainFragment : Fragment() {
                 Toast.makeText(view.context, getString(R.string.switch_ringtone), Toast.LENGTH_LONG)
                     .show()
             } else {
-                (requireActivity() as MainActivity).transitionToGetUpDelay(
-                    nextButton,
-                    "delay_next_button"
-                )
+                (requireActivity() as MainActivity).transitionToGetUpDelay()
             }
         }
-        ViewCompat.setTransitionName(nextButton, "main_next_button")
         ringtoneButton = view.findViewById(R.id.choose_ringtone_button)
         ringtoneButton.setOnClickListener {
             val ringtoneIntent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
@@ -162,9 +148,5 @@ class MainFragment : Fragment() {
                 apply()
             }
         }
-    }
-
-    companion object {
-        const val TAG = "MAIN_FRAGMENT_TAG"
     }
 }

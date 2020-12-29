@@ -47,22 +47,32 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun transitionToGetUpDelay(sharedElement: View, destElementName: String) {
+    fun transitionToGetUpDelay() {
         val fragment = GetUpDelayFragment()
 
         supportFragmentManager.beginTransaction()
             .addToBackStack(GetUpDelayFragment.TAG)
-            .addSharedElement(sharedElement, destElementName)
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(R.id.main_content, fragment, GetUpDelayFragment.TAG)
             .commit()
     }
 
-    fun transitionToStayOff(sharedElement: View, destElementName: String) {
+    fun transitionToStayOff() {
         val fragment = StayOffFragment()
 
         supportFragmentManager.beginTransaction()
             .addToBackStack(StayOffFragment.TAG)
-            .addSharedElement(sharedElement, destElementName)
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(R.id.main_content, fragment, StayOffFragment.TAG)
             .commit()
     }

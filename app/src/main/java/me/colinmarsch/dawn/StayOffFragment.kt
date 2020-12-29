@@ -6,11 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.transition.Fade
-import android.transition.Slide
 import android.util.Log
-import android.view.Gravity.END
-import android.view.Gravity.START
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,17 +24,6 @@ class StayOffFragment : Fragment() {
     private lateinit var stayOffTimePicker: NumberPicker
     private lateinit var toggleButton: Button
     private var pendingIntent: PendingIntent? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        exitTransition = Slide(START).apply {
-            duration = 300
-        }
-        enterTransition = Slide(END).apply {
-            duration = 300
-        }
-        sharedElementEnterTransition = Fade()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
