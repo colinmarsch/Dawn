@@ -20,6 +20,7 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.DELAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.SNOOZE_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
@@ -55,6 +56,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
                 with(NotificationManagerCompat.from(context)) {
                     cancel(TIME_NOTIF_ID)
+                    cancel(SNOOZE_NOTIF_ID)
                     notify(NOTIF_ID, builder.build())
                 }
             }
@@ -239,11 +241,50 @@ class AlarmReceiver : BroadcastReceiver() {
                     pendingIntent
                 )
             }
+            "SNOOZE" -> {
+                MediaHandler.stopAlarm()
+
+                val whenTime = System.currentTimeMillis() + 600000L // 10 minutes hardcoded for now
+                val alarmDismissIntent = Intent(context, AlarmReceiver::class.java).also {
+                    it.putExtra("CASE", "DISMISS")
+                }
+                val pendingDismissIntent = PendingIntent.getBroadcast(
+                    context,
+                    NotificationHelper.DISMISS_ALARM_ID,
+                    alarmDismissIntent,
+                    0
+                )
+
+                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setColor(Color.argb(1, 221, 182, 57))
+                    .setContentTitle("Alarm Snoozed")
+                    .setContentText("Alarm snoozed for 10 minutes")
+                    .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                    .setOngoing(true)
+                    .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
+                    .setUsesChronometer(true)
+                    .setChronometerCountDown(true)
+                    .setWhen(whenTime)
+                    .addAction(R.drawable.ic_launcher_foreground, "Dismiss", pendingDismissIntent)
+
+                with(NotificationManagerCompat.from(context)) {
+                    cancel(NOTIF_ID)
+                    notify(SNOOZE_NOTIF_ID, builder.build())
+                }
+
+                val alarmIntent = Intent(context, AlarmReceiver::class.java)
+                alarmIntent.putExtra("CASE", "ALARM")
+                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, 0)
+                alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(whenTime, pendingIntent), pendingIntent)
+            }
             "DISMISS" -> {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 alarmManager.cancelAlarm(context, ALARM_ID)
                 with(NotificationManagerCompat.from(context)) {
                     cancel(TIME_NOTIF_ID)
+                    cancel(SNOOZE_NOTIF_ID)
                 }
             }
         }
