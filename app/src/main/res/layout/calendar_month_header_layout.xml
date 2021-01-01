@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/left_arrow" />
+        android:contentDescription="@string/left_arrow_description" />
 
     <TextView
         android:id="@+id/calendarMonthText"
@@ -37,6 +37,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/right_arrow" />
+        android:contentDescription="@string/right_arrow_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,7 +50,7 @@ class StayOffFragment : Fragment() {
         stayOffTimePicker.maxValue = 60
         stayOffTimePicker.minValue = 1
         val stayOffMinutes =
-            (sharedPrefs.getLong(getString(R.string.STAY_OFF_KEY), 5) / 60000L).toInt()
+            (sharedPrefs.getLong(getString(R.string.stay_off_key), 5) / 60000L).toInt()
         stayOffTimePicker.value = stayOffMinutes
     }
 
@@ -150,7 +150,7 @@ class StayOffFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         with(sharedPrefs.edit()) {
-            putLong(getString(R.string.STAY_OFF_KEY), time)
+            putLong(getString(R.string.stay_off_key), time)
             apply()
         }
     }

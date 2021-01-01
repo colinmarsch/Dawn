@@ -196,7 +196,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     Context.MODE_PRIVATE
                 )
                 val getUpDelayTime =
-                    sharedPref.getLong(context.getString(R.string.GET_UP_DELAY_KEY), 600000L)
+                    sharedPref.getLong(context.getString(R.string.get_up_delay_key), 600000L)
                 val whenTime = System.currentTimeMillis() + getUpDelayTime
                 val inAppIntent = Intent(context, InAppActivity::class.java).apply {
                     putExtra("WHEN_TIME", whenTime)

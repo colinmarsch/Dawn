@@ -36,7 +36,7 @@ class GetUpDelayFragment : Fragment() {
         getUpDelayPicker.maxValue = 60
         getUpDelayPicker.minValue = 1
         val getUpDelayMinutes =
-            (sharedPrefs.getLong(getString(R.string.GET_UP_DELAY_KEY), 5) / 60000L).toInt()
+            (sharedPrefs.getLong(getString(R.string.get_up_delay_key), 5) / 60000L).toInt()
         getUpDelayPicker.value = getUpDelayMinutes
 
         nextButton = view.findViewById(R.id.set_getup_delay)
@@ -49,7 +49,7 @@ class GetUpDelayFragment : Fragment() {
     private fun setGetUpDelayTime(sharedPrefs: SharedPreferences) {
         val time = getUpDelayPicker.value * 60000L
         with(sharedPrefs.edit()) {
-            putLong(getString(R.string.GET_UP_DELAY_KEY), time)
+            putLong(getString(R.string.get_up_delay_key), time)
             apply()
         }
     }

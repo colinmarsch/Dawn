@@ -79,6 +79,7 @@
             android:min="1"
             android:padding="8dp"
             android:progressTint="@color/colorPrimaryDark"
+            android:contentDescription="@string/ringtone_volume_slider_description"
             android:thumbTint="@color/colorPrimaryDark"
             tools:targetApi="o" />
 

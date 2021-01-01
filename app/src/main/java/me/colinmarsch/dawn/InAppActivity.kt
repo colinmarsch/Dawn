@@ -161,7 +161,7 @@ class InAppActivity : AppCompatActivity() {
         getUpButton.visibility = GONE
         description.text = getString(R.string.stay_in_app_text)
 
-        val totalTime = sharedPref.getLong(getString(R.string.STAY_OFF_KEY), 300000L)
+        val totalTime = sharedPref.getLong(getString(R.string.stay_off_key), 300000L)
         val interval = 1000L
 
         val whenTime = System.currentTimeMillis() + totalTime
