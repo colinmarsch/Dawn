@@ -67,6 +67,8 @@ object MediaHandler {
     fun stopAlarm() {
         mediaPlayer?.stop()
         mediaPlayer?.reset()
+        mediaPlayer?.release()
+        mediaPlayer = null
         audioManager.setStreamVolume(
             AudioManager.STREAM_ALARM,
             userVolume,
@@ -88,7 +90,9 @@ object MediaHandler {
                 .toUri()
 
         try {
-            MediaPlayer().setDataSource(context, testUri)
+            val testPlayer = MediaPlayer()
+            testPlayer.setDataSource(context, testUri)
+            testPlayer.release()
         } catch (e: Exception) {
             return false
         }
