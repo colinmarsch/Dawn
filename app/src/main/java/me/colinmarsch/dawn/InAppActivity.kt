@@ -105,7 +105,7 @@ class InAppActivity : AppCompatActivity() {
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("You already used Dawn today")
-                    .setContentText("Only the first alarm per day counts for streaks!")
+                    .setContentText("Only the first alarm per day counts!")
 
                 with(NotificationManagerCompat.from(applicationContext)) {
                     notify(NO_IMPACT_NOTIF_ID, noImpactBuilder.build())
