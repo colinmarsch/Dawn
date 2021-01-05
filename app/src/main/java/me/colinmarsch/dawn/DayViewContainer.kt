@@ -29,6 +29,8 @@ object DayBinder : DayBinder<DayViewContainer> {
         val context = container.view.context
         container.view.setBackgroundColor(Color.TRANSPARENT)
         container.textView.text = day.date.dayOfMonth.toString()
+        container.textView.contentDescription =
+            day.date.month.toString() + " " + day.date.dayOfMonth.toString()
         val today =
             Calendar.getInstance().time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         if (day.date == today) {
