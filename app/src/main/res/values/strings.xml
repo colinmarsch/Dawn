@@ -2,6 +2,7 @@
     <!-- Misc in app strings -->
     <string name="alarm_time">Alarm Time</string>
     <string name="app_name">Dawn</string>
+    <string name="calendar_icon_description">Calendar Icon</string>
     <string name="close">Close</string>
     <string name="current_ringtone">Current Ringtone: %1$s</string>
     <string name="finished_using_phone">Ready</string>
@@ -26,12 +27,7 @@
     <string name="switch_ringtone">The current ringtone can\'t be played, please switch it above.</string>
     <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="timer_text">%1$d:%2$s</string>
-
-    <!-- Plurals -->
-    <plurals name="in_app_streak_label">
-        <item quantity="one">Current Streak: %1$d day</item>
-        <item quantity="many">Current Streak: %1$d days</item>
-    </plurals>
+    <string name="zero">0</string>
 
     <!-- Shared Preferences Keys -->
     <string name="failed_days_key">me.colinmarsch.dawn.FAILED_DAYS_KEY</string>

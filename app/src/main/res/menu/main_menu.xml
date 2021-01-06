@@ -6,6 +6,7 @@
         android:id="@+id/streaks_menu_option"
         android:icon="@drawable/calendar_icon"
         android:title="@string/streaks"
+        app:actionLayout="@layout/streak_menu_item_layout"
         app:showAsAction="ifRoom" />
 
 </menu>

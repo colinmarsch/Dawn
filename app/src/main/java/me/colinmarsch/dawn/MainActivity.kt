@@ -1,9 +1,10 @@
 package me.colinmarsch.dawn
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +29,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        val streakItem = menu.findItem(R.id.streaks_menu_option)
+        val actionView = streakItem.actionView
+        val badgeTextView = actionView.findViewById<TextView>(R.id.streak_badge)
+        val sharedPrefs = getSharedPreferences(
+            getString(R.string.shared_prefs_name),
+            Context.MODE_PRIVATE
+        )
+        val currentStreak = sharedPrefs.getInt(getString(R.string.saved_streak_key), 0)
+        badgeTextView.text = currentStreak.toString()
+        actionView.setOnClickListener {
+            onOptionsItemSelected(streakItem)
+        }
         return true
     }
 
