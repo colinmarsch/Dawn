@@ -6,10 +6,12 @@ import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.startActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -200,6 +202,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 val whenTime = System.currentTimeMillis() + getUpDelayTime
                 val inAppIntent = Intent(context, InAppActivity::class.java).apply {
                     putExtra("WHEN_TIME", whenTime)
+                    addFlags(FLAG_ACTIVITY_NEW_TASK)
                 }
                 val contentIntent = PendingIntent.getActivity(
                     context,
@@ -240,6 +243,8 @@ class AlarmReceiver : BroadcastReceiver() {
                     whenTime - 30000L,
                     pendingIntent
                 )
+
+                startActivity(context, inAppIntent, null)
             }
             "SNOOZE" -> {
                 MediaHandler.stopAlarm()
