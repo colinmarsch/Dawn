@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingTop="32dp">
+        android:paddingTop="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,9 +38,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingStart="8dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="16dp">
+        android:paddingEnd="8dp">
 
         <TextView
             android:id="@+id/ringtone_label"
@@ -66,7 +64,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="32dp"
+            android:paddingTop="24dp"
             android:paddingBottom="16dp"
             android:text="@string/ringtone_volume"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
