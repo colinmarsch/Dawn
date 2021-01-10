@@ -8,5 +8,5 @@
     <color name="gray">#D3D3D3</color>
     <color name="green">#90ee90</color>
     <color name="red">#ffcccb</color>
-    <color name="badge_red">#e34234</color>
+    <color name="badge">#ff7417</color>
 </resources>
