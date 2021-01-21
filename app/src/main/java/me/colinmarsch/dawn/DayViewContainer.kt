@@ -1,6 +1,5 @@
 package me.colinmarsch.dawn
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
@@ -44,18 +43,10 @@ object DayBinder : DayBinder<DayViewContainer> {
             container.textView.setTextColor(getColor(context, R.color.gray))
         }
 
-        val sharedPrefs = context.getSharedPreferences(
-            context.getString(R.string.shared_prefs_name),
-            Context.MODE_PRIVATE
-        )
+        val prefsHelper = RealPreferencesHelper(context)
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
 
-        val successfulDaysSet: HashSet<String> = HashSet(
-            sharedPrefs.getStringSet(
-                context.getString(R.string.successful_days_key),
-                HashSet<String>()
-            )
-        )
+        val successfulDaysSet = prefsHelper.getSuccessfulDays()
         val successToday = successfulDaysSet.find { success ->
             val date = df.parse(success).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
             return@find date == day.date
@@ -70,12 +61,7 @@ object DayBinder : DayBinder<DayViewContainer> {
                 container.textView.setTextColor(getColor(context, R.color.white))
             }
         } else {
-            val failedDaysSet: HashSet<String> = HashSet(
-                sharedPrefs.getStringSet(
-                    context.getString(R.string.failed_days_key),
-                    HashSet<String>()
-                )
-            )
+            val failedDaysSet = prefsHelper.getFailedDays()
             failedDaysSet.find { failed ->
                 val date = df.parse(failed).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
                 return@find date == day.date

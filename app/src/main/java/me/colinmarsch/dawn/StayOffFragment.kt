@@ -25,6 +25,8 @@ class StayOffFragment : Fragment() {
     private lateinit var toggleButton: Button
     private var pendingIntent: PendingIntent? = null
 
+    private lateinit var prefsHelper: PreferencesHelper
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,16 +43,12 @@ class StayOffFragment : Fragment() {
         ViewCompat.setTransitionName(toggleButton, "set_alarm_button")
 
         alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val sharedPrefs = view.context.getSharedPreferences(
-            getString(R.string.shared_prefs_name),
-            Context.MODE_PRIVATE
-        )
+        prefsHelper = RealPreferencesHelper(view.context)
 
         stayOffTimePicker = view.findViewById(R.id.stayOffTimePicker)
         stayOffTimePicker.maxValue = 60
         stayOffTimePicker.minValue = 1
-        val stayOffMinutes =
-            (sharedPrefs.getLong(getString(R.string.stay_off_key), 5) / 60000L).toInt()
+        val stayOffMinutes = (prefsHelper.getStayOffTime() / 60000L).toInt()
         stayOffTimePicker.value = stayOffMinutes
     }
 
@@ -58,18 +56,14 @@ class StayOffFragment : Fragment() {
         val alarmIntent = Intent(context, AlarmReceiver::class.java)
         alarmIntent.putExtra("CASE", "ALARM")
         val mainIntent = Intent(context, MainActivity::class.java)
-        val sharedPrefs = requireContext().getSharedPreferences(
-            getString(R.string.shared_prefs_name),
-            Context.MODE_PRIVATE
-        )
         val calendar = Calendar.getInstance()
         calendar.set(
             Calendar.HOUR_OF_DAY,
-            sharedPrefs.getInt(getString(R.string.saved_hour_key), 0)
+            prefsHelper.getSavedHour()
         )
         calendar.set(
             Calendar.MINUTE,
-            sharedPrefs.getInt(getString(R.string.saved_minute_key), 0)
+            prefsHelper.getSavedMinute()
         )
         calendar.set(Calendar.SECOND, 0)
         if (calendar.timeInMillis < System.currentTimeMillis()) {
@@ -143,17 +137,7 @@ class StayOffFragment : Fragment() {
         }
     }
 
-    private fun setStayOffTime() {
-        val time = stayOffTimePicker.value * 60000L
-        val sharedPrefs = requireContext().getSharedPreferences(
-            getString(R.string.shared_prefs_name),
-            Context.MODE_PRIVATE
-        )
-        with(sharedPrefs.edit()) {
-            putLong(getString(R.string.stay_off_key), time)
-            apply()
-        }
-    }
+    private fun setStayOffTime() = prefsHelper.setStayOffTime(stayOffTimePicker.value * 60000L)
 
     companion object {
         const val TAG = "STAY_OFF_FRAGMENT_TAG"

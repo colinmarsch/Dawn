@@ -4,7 +4,6 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.media.RingtoneManager
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.core.content.ContextCompat.getSystemService
@@ -23,24 +22,15 @@ object MediaHandler {
         userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
 
         // Retrieve default ringtone file URI
-        val sharedPrefs =
-            context.getSharedPreferences(
-                context.getString(R.string.shared_prefs_name),
-                Context.MODE_PRIVATE
-            )
-        val defaultUri =
-            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
-        val myUri =
-            sharedPrefs.getString(context.getString(R.string.saved_ringtone_key), defaultUri.path)!!
-                .toUri()
+        val prefsHelper = RealPreferencesHelper(context)
+        val myUri = prefsHelper.getRingtonePath().toUri()
 
         // Set up MediaPlayer asynchronously
         mediaPlayer = mediaPlayer ?: MediaPlayer()
         class Listener : MediaPlayer.OnPreparedListener {
             override fun onPrepared(mp: MediaPlayer) {
                 mp.start()
-                val savedVolume =
-                    sharedPrefs.getInt(context.getString(R.string.saved_volume_key), 4)
+                val savedVolume = prefsHelper.getVolume()
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_ALARM,
                     (audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) * (savedVolume / 7.toDouble())).toInt(),
@@ -78,16 +68,8 @@ object MediaHandler {
 
     fun validRingtoneSet(context: Context): Boolean {
         // Retrieve default ringtone file URI
-        val sharedPrefs =
-            context.getSharedPreferences(
-                context.getString(R.string.shared_prefs_name),
-                Context.MODE_PRIVATE
-            )
-        val defaultUri =
-            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
-        val testUri =
-            sharedPrefs.getString(context.getString(R.string.saved_ringtone_key), defaultUri.path)!!
-                .toUri()
+        val prefsHelper = RealPreferencesHelper(context)
+        val testUri = prefsHelper.getRingtonePath().toUri()
 
         try {
             val testPlayer = MediaPlayer()

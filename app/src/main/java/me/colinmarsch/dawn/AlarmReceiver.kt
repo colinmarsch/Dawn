@@ -31,6 +31,7 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         NotificationHelper.createNotificationChannel(context)
+        val prefsHelper = RealPreferencesHelper(context)
         when (intent.getStringExtra("CASE")) {
             "ALARM" -> {
                 MediaHandler.startAlarm(context)
@@ -103,28 +104,12 @@ class AlarmReceiver : BroadcastReceiver() {
                     .setContentTitle("Congrats!")
                     .setContentText("Congrats! You can now use your phone!")
 
-                val sharedPrefs =
-                    context.getSharedPreferences(
-                        context.getString(R.string.shared_prefs_name),
-                        Context.MODE_PRIVATE
-                    )
-                val currentStreak =
-                    sharedPrefs.getInt(context.getString(R.string.saved_streak_key), 0)
+                val currentStreak = prefsHelper.getStreak()
                 val c: Date = Calendar.getInstance().time
                 val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
                 val currentDay: String = df.format(c)
-                val newSuccessfulDaysSet: HashSet<String> = HashSet(
-                    sharedPrefs.getStringSet(
-                        context.getString(R.string.successful_days_key),
-                        HashSet<String>()
-                    )
-                )
-                val newFailedDaysSet: HashSet<String> = HashSet(
-                    sharedPrefs.getStringSet(
-                        context.getString(R.string.failed_days_key),
-                        HashSet<String>()
-                    )
-                )
+                val newSuccessfulDaysSet = prefsHelper.getSuccessfulDays()
+                val newFailedDaysSet = prefsHelper.getFailedDays()
                 if (!newFailedDaysSet.contains(currentDay)
                     && !newSuccessfulDaysSet.contains(currentDay)
                 ) {
@@ -132,15 +117,8 @@ class AlarmReceiver : BroadcastReceiver() {
                         notify(SUCCESS_STREAK_NOTIF_ID, builder.build())
                     }
 
-                    newSuccessfulDaysSet.add(currentDay)
-                    with(sharedPrefs.edit()) {
-                        putStringSet(
-                            context.getString(R.string.successful_days_key),
-                            newSuccessfulDaysSet
-                        )
-                        putInt(context.getString(R.string.saved_streak_key), currentStreak + 1)
-                        apply()
-                    }
+                    prefsHelper.recordSuccessfulDay()
+                    prefsHelper.setStreak(currentStreak + 1)
                 } else {
                     val noImpactBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_notif)
@@ -164,41 +142,14 @@ class AlarmReceiver : BroadcastReceiver() {
                     cancel(STAY_NOTIF_ID)
                     notify(NotificationHelper.BROKE_STREAK_NOTIF_ID, builder.build())
                 }
-                val sharedPrefs =
-                    context.getSharedPreferences(
-                        context.getString(R.string.shared_prefs_name),
-                        Context.MODE_PRIVATE
-                    )
 
-                val newFailedDaysSet: HashSet<String> = HashSet(
-                    sharedPrefs.getStringSet(
-                        context.getString(R.string.failed_days_key),
-                        HashSet<String>()
-                    )
-                )
-                val c: Date = Calendar.getInstance().time
-                val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-                val currentDay: String = df.format(c)
-                newFailedDaysSet.add(currentDay)
-
-                with(sharedPrefs.edit()) {
-                    putInt(context.getString(R.string.saved_streak_key), 0)
-                    putStringSet(
-                        context.getString(R.string.failed_days_key),
-                        newFailedDaysSet
-                    )
-                    apply()
-                }
+                prefsHelper.recordFailedDay()
+                prefsHelper.setStreak(0)
             }
             "STOP" -> {
                 MediaHandler.stopAlarm()
 
-                val sharedPref = context.getSharedPreferences(
-                    context.getString(R.string.shared_prefs_name),
-                    Context.MODE_PRIVATE
-                )
-                val getUpDelayTime =
-                    sharedPref.getLong(context.getString(R.string.get_up_delay_key), 600000L)
+                val getUpDelayTime = prefsHelper.getGetUpDelayTime()
                 val whenTime = System.currentTimeMillis() + getUpDelayTime
                 val inAppIntent = Intent(context, InAppActivity::class.java).apply {
                     putExtra("WHEN_TIME", whenTime)

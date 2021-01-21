@@ -5,7 +5,6 @@ import android.app.AlarmManager.RTC_WAKEUP
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -33,17 +32,16 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_ALARM_ID
 class InAppActivity : AppCompatActivity() {
 
     private lateinit var countDownTimerText: TextView
-    private lateinit var sharedPref: SharedPreferences
     private lateinit var getUpButton: Button
     private lateinit var description: TextView
-
     private var countdown: CountDownTimer? = null
+
+    private lateinit var prefsHelper: PreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.in_app_activity)
-        sharedPref =
-            getSharedPreferences(getString(R.string.shared_prefs_name), Context.MODE_PRIVATE)
+        prefsHelper = RealPreferencesHelper(this)
 
         countDownTimerText = findViewById(R.id.countdownTimeText)
         description = findViewById(R.id.description)
@@ -74,18 +72,8 @@ class InAppActivity : AppCompatActivity() {
                 .setContentTitle("Day missed")
                 .setContentText("You left Dawn!")
 
-            val newSuccessfulDaysSet: HashSet<String> = HashSet(
-                sharedPref.getStringSet(
-                    getString(R.string.successful_days_key),
-                    HashSet<String>()
-                )
-            )
-            val newFailedDaysSet: HashSet<String> = HashSet(
-                sharedPref.getStringSet(
-                    getString(R.string.failed_days_key),
-                    HashSet<String>()
-                )
-            )
+            val newSuccessfulDaysSet = prefsHelper.getSuccessfulDays()
+            val newFailedDaysSet = prefsHelper.getFailedDays()
             val c: Date = Calendar.getInstance().time
             val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
             val currentDay: String = df.format(c)
@@ -94,12 +82,8 @@ class InAppActivity : AppCompatActivity() {
                     notify(BROKE_STREAK_NOTIF_ID, brokenBuilder.build())
                 }
 
-                newFailedDaysSet.add(currentDay)
-                with(sharedPref.edit()) {
-                    putStringSet(getString(R.string.failed_days_key), newFailedDaysSet)
-                    putInt(getString(R.string.saved_streak_key), 0)
-                    apply()
-                }
+                prefsHelper.recordFailedDay()
+                prefsHelper.setStreak(0)
             } else {
                 val noImpactBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
@@ -164,7 +148,7 @@ class InAppActivity : AppCompatActivity() {
         getUpButton.visibility = GONE
         description.text = getString(R.string.stay_in_app_text)
 
-        val totalTime = sharedPref.getLong(getString(R.string.stay_off_key), 300000L)
+        val totalTime = prefsHelper.getStayOffTime()
         val interval = 1000L
 
         val whenTime = System.currentTimeMillis() + totalTime

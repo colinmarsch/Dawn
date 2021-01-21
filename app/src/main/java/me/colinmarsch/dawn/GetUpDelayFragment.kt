@@ -2,7 +2,6 @@ package me.colinmarsch.dawn
 
 import android.app.AlarmManager
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,8 @@ class GetUpDelayFragment : Fragment() {
     private lateinit var getUpDelayPicker: NumberPicker
     private lateinit var nextButton: Button
 
+    private lateinit var prefsHelper: PreferencesHelper
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,33 +27,22 @@ class GetUpDelayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val sharedPrefs =
-            view.context.getSharedPreferences(
-                getString(R.string.shared_prefs_name),
-                Context.MODE_PRIVATE
-            )
+        prefsHelper = RealPreferencesHelper(view.context)
 
         getUpDelayPicker = view.findViewById(R.id.getUpDelayPicker)
         getUpDelayPicker.maxValue = 60
         getUpDelayPicker.minValue = 1
-        val getUpDelayMinutes =
-            (sharedPrefs.getLong(getString(R.string.get_up_delay_key), 5) / 60000L).toInt()
+        val getUpDelayMinutes = (prefsHelper.getGetUpDelayTime() / 60000L).toInt()
         getUpDelayPicker.value = getUpDelayMinutes
 
         nextButton = view.findViewById(R.id.set_getup_delay)
         nextButton.setOnClickListener {
-            setGetUpDelayTime(sharedPrefs)
+            setGetUpDelayTime()
             (requireActivity() as MainActivity).transitionToStayOff()
         }
     }
 
-    private fun setGetUpDelayTime(sharedPrefs: SharedPreferences) {
-        val time = getUpDelayPicker.value * 60000L
-        with(sharedPrefs.edit()) {
-            putLong(getString(R.string.get_up_delay_key), time)
-            apply()
-        }
-    }
+    private fun setGetUpDelayTime() = prefsHelper.setGetUpDelayTime(getUpDelayPicker.value * 60000L)
 
     companion object {
         const val TAG = "GET_UP_FRAGMENT_TAG"

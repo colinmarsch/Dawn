@@ -3,7 +3,6 @@ package me.colinmarsch.dawn
 import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
@@ -27,7 +26,7 @@ class MainFragment : Fragment() {
     private lateinit var ringtoneLabel: TextView
     private lateinit var ringtoneVolume: SeekBar
 
-    private lateinit var sharedPrefs: SharedPreferences
+    private lateinit var prefsHelper: PreferencesHelper
 
     private var previewPlaying = false
 
@@ -39,18 +38,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPrefs = view.context.getSharedPreferences(
-            getString(R.string.shared_prefs_name),
-            Context.MODE_PRIVATE
-        )
+        prefsHelper = RealPreferencesHelper(view.context)
 
         timePicker = view.findViewById(R.id.alarm_time_picker)
         timePicker.setOnTimeChangedListener { _, hour, minute ->
-            with(sharedPrefs.edit()) {
-                putInt(getString(R.string.saved_hour_key), hour)
-                putInt(getString(R.string.saved_minute_key), minute)
-                apply()
-            }
+            prefsHelper.setSavedHour(hour)
+            prefsHelper.setSavedMinute(minute)
         }
         nextButton = view.findViewById(R.id.choose_alarm_time_button)
         nextButton.setOnClickListener {
@@ -74,8 +67,7 @@ class MainFragment : Fragment() {
             startActivityForResult(ringtoneIntent, 1)
         }
         ringtoneLabel = view.findViewById(R.id.ringtone_label)
-        val currentRingtoneTitle =
-            sharedPrefs.getString(getString(R.string.saved_ringtone_title_key), "Default")
+        val currentRingtoneTitle = prefsHelper.getRingtoneTitle()
         ringtoneLabel.text = getString(R.string.current_ringtone, currentRingtoneTitle)
 
         ringtoneVolume = view.findViewById(R.id.ringtone_volume_slider)
@@ -85,10 +77,7 @@ class MainFragment : Fragment() {
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                with(sharedPrefs.edit()) {
-                    putInt(getString(R.string.saved_volume_key), ringtoneVolume.progress)
-                    apply()
-                }
+                prefsHelper.setVolume(ringtoneVolume.progress)
                 if (!previewPlaying && seekBar.progress != 0) {
                     MediaHandler.startAlarm(view.context)
                     previewPlaying = true
@@ -105,7 +94,7 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        ringtoneVolume.progress = sharedPrefs.getInt(getString(R.string.saved_volume_key), 0)
+        ringtoneVolume.progress = prefsHelper.getVolume()
 
         if (alarmManager.nextAlarmClock != null) {
             val nextAlarm = alarmManager.nextAlarmClock
@@ -114,15 +103,8 @@ class MainFragment : Fragment() {
             timePicker.hour = time.get(Calendar.HOUR_OF_DAY)
             timePicker.minute = time.get(Calendar.MINUTE)
         } else {
-            val currentTime = Calendar.getInstance()
-            val hour = sharedPrefs.getInt(
-                getString(R.string.saved_hour_key),
-                currentTime.get(Calendar.HOUR_OF_DAY)
-            )
-            val minute = sharedPrefs.getInt(
-                getString(R.string.saved_minute_key),
-                currentTime.get(Calendar.MINUTE)
-            )
+            val hour = prefsHelper.getSavedHour()
+            val minute = prefsHelper.getSavedMinute()
             timePicker.hour = hour
             timePicker.minute = minute
         }
@@ -134,19 +116,13 @@ class MainFragment : Fragment() {
             val uri: Uri? = data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
             uri?.let {
                 val ringtonePath = uri.toString()
-                with(sharedPrefs.edit()) {
-                    putString(getString(R.string.saved_ringtone_key), ringtonePath)
-                    apply()
-                }
+                prefsHelper.setRingtonePath(ringtonePath)
             }
             val ringtone = RingtoneManager.getRingtone(context, uri)
             val title = ringtone.getTitle(context)
             ringtoneLabel.text = getString(R.string.current_ringtone, title)
 
-            with(sharedPrefs.edit()) {
-                putString(getString(R.string.saved_ringtone_title_key), title)
-                apply()
-            }
+            prefsHelper.setRingtoneTitle(title)
         }
     }
 }

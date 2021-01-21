@@ -1,6 +1,5 @@
 package me.colinmarsch.dawn
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -35,11 +34,8 @@ class MainActivity : AppCompatActivity() {
         val streakItem = menu.findItem(R.id.streaks_menu_option)
         val actionView = streakItem.actionView
         val badgeTextView = actionView.findViewById<TextView>(R.id.streak_badge)
-        val sharedPrefs = getSharedPreferences(
-            getString(R.string.shared_prefs_name),
-            Context.MODE_PRIVATE
-        )
-        val currentStreak = sharedPrefs.getInt(getString(R.string.saved_streak_key), 0)
+        val prefsHelper = RealPreferencesHelper(this)
+        val currentStreak = prefsHelper.getStreak()
         badgeTextView.text = currentStreak.toString()
         actionView.setOnClickListener {
             onOptionsItemSelected(streakItem)

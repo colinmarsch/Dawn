@@ -28,17 +28,4 @@
     <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="timer_text">%1$d:%2$s</string>
     <string name="zero">0</string>
-
-    <!-- Shared Preferences Keys -->
-    <string name="failed_days_key">me.colinmarsch.dawn.FAILED_DAYS_KEY</string>
-    <string name="get_up_delay_key">me.colinmarsch.dawn.GET_UP_DELAY_KEY</string>
-    <string name="saved_hour_key">me.colinmarsch.dawn.SAVED_HOUR_KEY</string>
-    <string name="saved_minute_key">me.colinmarsch.dawn.SAVED_MINUTE_KEY</string>
-    <string name="saved_ringtone_key">me.colinmarsch.dawn.RINGTONE_KEY</string>
-    <string name="saved_ringtone_title_key">me.colinmarsch.dawn.SAVED_RINGTONE_KEY</string>
-    <string name="saved_streak_key">me.colinmarsch.dawn.STREAK_KEY</string>
-    <string name="saved_volume_key">me.colinmarsch.dawn.SAVED_VOLUME_KEY</string>
-    <string name="shared_prefs_name">me.colinmarsch.dawn.shared_prefs_file</string>
-    <string name="stay_off_key">me.colinmarsch.dawn.STAY_OFF_KEY</string>
-    <string name="successful_days_key">me.colinmarsch.dawn.SUCCESSFUL_DAYS_KEY</string>
 </resources>
