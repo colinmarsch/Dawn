@@ -15,7 +15,6 @@
         android:layout_weight="1"
         android:background="@drawable/button_background"
         android:text="@string/stop_alarm"
-        android:textColor="@color/white"
         android:textSize="48sp" />
 
     <Button
@@ -25,7 +24,6 @@
         android:layout_margin="24dp"
         android:background="@drawable/button_background"
         android:text="@string/snooze"
-        android:textColor="@color/white"
         android:textSize="24sp" />
 
 </LinearLayout>

@@ -39,7 +39,6 @@
         android:layout_margin="16dp"
         android:background="@drawable/button_background"
         android:text="@string/finished_using_phone"
-        android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

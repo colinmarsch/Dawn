@@ -49,7 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/button_background"
-        android:text="@string/set_alarm"
-        android:textColor="@color/white" />
+        android:text="@string/set_alarm" />
 
 </LinearLayout>

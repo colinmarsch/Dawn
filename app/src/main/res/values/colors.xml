@@ -6,6 +6,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray">#D3D3D3</color>
+    <color name="dark_gray">#333333</color>
     <color name="green">#90ee90</color>
     <color name="red">#ffcccb</color>
     <color name="badge">#ff7417</color>
