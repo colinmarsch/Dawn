@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import java.util.Calendar
+import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_CHANNEL_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.Channel.ALARM
 
 class StayOffFragment : Fragment() {
     private lateinit var alarmManager: AlarmManager
@@ -91,8 +92,8 @@ class StayOffFragment : Fragment() {
 
         val pendingMainIntent =
             PendingIntent.getActivity(context, NotificationHelper.TIME_NOTIF_ID, mainIntent, 0)
-        NotificationHelper.createNotificationChannel(requireContext())
-        val builder = NotificationCompat.Builder(requireContext(), NotificationHelper.CHANNEL_ID)
+        NotificationHelper.createNotificationChannel(requireContext(), ALARM)
+        val builder = NotificationCompat.Builder(requireContext(), ALARM_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notif)
             .setColor(Color.argb(1, 221, 182, 57))
             .setContentTitle("Alarm Set")
@@ -115,7 +116,6 @@ class StayOffFragment : Fragment() {
                 pendingIntent
             ), pendingIntent
         )
-        Log.d("DAWN", "Started the alarm for $calendar")
 
         setStayOffTime()
         finishAffinity(requireActivity())

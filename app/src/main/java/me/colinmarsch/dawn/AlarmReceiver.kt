@@ -16,24 +16,27 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
-import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.Channel.ALARM
+import me.colinmarsch.dawn.NotificationHelper.Companion.Channel.STREAK
 import me.colinmarsch.dawn.NotificationHelper.Companion.DELAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SNOOZE_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.STREAK_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
 
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        NotificationHelper.createNotificationChannel(context)
         val prefsHelper = RealPreferencesHelper(context)
         when (intent.getStringExtra("CASE")) {
             "ALARM" -> {
+                NotificationHelper.createNotificationChannel(context, ALARM)
                 MediaHandler.startAlarm(context)
 
                 val alarmIntent = Intent(context, AlarmActivity::class.java)
@@ -46,7 +49,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 val pendingStopIntent =
                     PendingIntent.getBroadcast(context, 0, stopIntent, FLAG_UPDATE_CURRENT)
 
-                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                val builder = NotificationCompat.Builder(context, ALARM_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Good Morning!")
@@ -64,13 +67,14 @@ class AlarmReceiver : BroadcastReceiver() {
                 }
             }
             "STAY" -> {
+                NotificationHelper.createNotificationChannel(context, ALARM)
                 val breatherTime = System.currentTimeMillis() + 30000L
                 val stayInIntent = Intent(context, InAppActivity::class.java).apply {
                     putExtra("WHEN_TIME", breatherTime)
                 }
                 val pendingIntent =
                     PendingIntent.getActivity(context, 0, stayInIntent, FLAG_UPDATE_CURRENT)
-                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                val builder = NotificationCompat.Builder(context, ALARM_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Get back to Dawn")
@@ -98,7 +102,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 )
             }
             "STREAK" -> {
-                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                NotificationHelper.createNotificationChannel(context, STREAK)
+                val builder = NotificationCompat.Builder(context, STREAK_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Congrats!")
@@ -120,7 +125,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     prefsHelper.recordSuccessfulDay()
                     prefsHelper.setStreak(currentStreak + 1)
                 } else {
-                    val noImpactBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+                    val noImpactBuilder = NotificationCompat.Builder(context, STREAK_CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_notif)
                         .setColor(Color.argb(1, 221, 182, 57))
                         .setContentTitle("You already used Dawn today")
@@ -132,7 +137,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 }
             }
             "BREATHER" -> {
-                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                NotificationHelper.createNotificationChannel(context, STREAK)
+                val builder = NotificationCompat.Builder(context, STREAK_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Day missed")
@@ -147,6 +153,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 prefsHelper.setStreak(0)
             }
             "STOP" -> {
+                NotificationHelper.createNotificationChannel(context, STREAK)
                 MediaHandler.stopAlarm()
 
                 val getUpDelayTime = prefsHelper.getGetUpDelayTime()
@@ -161,7 +168,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     inAppIntent,
                     FLAG_UPDATE_CURRENT
                 )
-                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                val builder = NotificationCompat.Builder(context, STREAK_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Countdown to get up!")
@@ -198,6 +205,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 startActivity(context, inAppIntent, null)
             }
             "SNOOZE" -> {
+                NotificationHelper.createNotificationChannel(context, ALARM)
                 MediaHandler.stopAlarm()
 
                 val whenTime = System.currentTimeMillis() + 600000L // 10 minutes hardcoded for now
@@ -211,7 +219,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     0
                 )
 
-                val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                val builder = NotificationCompat.Builder(context, ALARM_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Alarm Snoozed")

@@ -12,8 +12,6 @@
     <string name="minutes">mins</string>
     <string name="month_title_text">%1$s %2$d</string>
     <string name="next">Next</string>
-    <string name="notif_channel_description">All notifications from Dawn are currently in this single notification channel. Notifications will be separated shortly based on different importance levels.</string>
-    <string name="notif_channel_name">All notifications</string>
     <string name="right_arrow_description">Right Arrow</string>
     <string name="ringtone_volume_slider_description">Ringtone volume slider</string>
     <string name="ringtone_volume">Ringtone Volume</string>

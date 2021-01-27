@@ -8,7 +8,13 @@ import android.os.Build
 class NotificationHelper {
     companion object {
 
-        const val CHANNEL_ID = "dawn-notif-channel"
+        enum class Channel(val id: String, val title: String) {
+            ALARM(ALARM_CHANNEL_ID, "Alarms"),
+            STREAK(STREAK_CHANNEL_ID, "Streak alerts")
+        }
+
+        const val ALARM_CHANNEL_ID = "dawn-alarm-channel"
+        const val STREAK_CHANNEL_ID = "dawn-streak-channel"
         const val NOTIF_ID = 1
         const val ALARM_ID = 2
         const val TIME_NOTIF_ID = 3
@@ -24,19 +30,15 @@ class NotificationHelper {
         const val NO_IMPACT_NOTIF_ID = 13
         const val SNOOZE_NOTIF_ID = 14
 
-        fun createNotificationChannel(context: Context) {
+        fun createNotificationChannel(context: Context, channel: Channel) {
             // NotificationChannel class is new and not in the support library, so version restrict here
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val name = context.getString(R.string.notif_channel_name)
-                val descriptionText = context.getString(R.string.notif_channel_description)
                 val importance = NotificationManager.IMPORTANCE_HIGH
-                val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                    description = descriptionText
-                }
+                val notificationChannel = NotificationChannel(channel.id, channel.title, importance)
                 // Register the channel with the system
                 val notificationManager: NotificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.createNotificationChannel(channel)
+                notificationManager.createNotificationChannel(notificationChannel)
             }
         }
     }

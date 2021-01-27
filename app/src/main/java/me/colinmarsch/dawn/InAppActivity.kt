@@ -22,11 +22,12 @@ import java.util.Date
 import java.util.Locale
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BROKE_STREAK_NOTIF_ID
-import me.colinmarsch.dawn.NotificationHelper.Companion.CHANNEL_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.Channel.STREAK
 import me.colinmarsch.dawn.NotificationHelper.Companion.DELAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.NO_IMPACT_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
+import me.colinmarsch.dawn.NotificationHelper.Companion.STREAK_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_ALARM_ID
 
 class InAppActivity : AppCompatActivity() {
@@ -65,8 +66,8 @@ class InAppActivity : AppCompatActivity() {
         val timeIsComplete = countDownTimerText.text == getString(R.string.in_app_complete)
         val stillOnScreenTime = description.text == getString(R.string.time_not_up_text)
         if (powerManager.isInteractive && !timeIsComplete && !stillOnScreenTime) {
-            NotificationHelper.createNotificationChannel(applicationContext)
-            val brokenBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            NotificationHelper.createNotificationChannel(applicationContext, STREAK)
+            val brokenBuilder = NotificationCompat.Builder(this, STREAK_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notif)
                 .setColor(Color.argb(1, 221, 182, 57))
                 .setContentTitle("Day missed")
@@ -85,7 +86,7 @@ class InAppActivity : AppCompatActivity() {
                 prefsHelper.recordFailedDay()
                 prefsHelper.setStreak(0)
             } else {
-                val noImpactBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+                val noImpactBuilder = NotificationCompat.Builder(this, STREAK_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("You already used Dawn today")
