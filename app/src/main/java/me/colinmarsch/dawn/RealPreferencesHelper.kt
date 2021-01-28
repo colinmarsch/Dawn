@@ -81,7 +81,8 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
     }
 
     override fun getRingtonePath(): String {
-        val defaultUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
+        val defaultUri =
+            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
         return sharedPrefs.getString(RINGTONE_KEY, defaultUri.path)!!
     }
 
@@ -92,13 +93,15 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         }
     }
 
-    override fun getFailedDays(): Set<String> = sharedPrefs.getStringSet(FAILED_DAYS_KEY, HashSet<String>())!!
+    override fun getFailedDays(): Set<String> =
+        sharedPrefs.getStringSet(FAILED_DAYS_KEY, HashSet<String>())!!
 
     override fun recordFailedDay() {
         val c: Date = Calendar.getInstance().time
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         val currentDay: String = df.format(c)
-        val newFailedDaysSet = HashSet(sharedPrefs.getStringSet(FAILED_DAYS_KEY, HashSet<String>())!!)
+        val newFailedDaysSet =
+            HashSet(sharedPrefs.getStringSet(FAILED_DAYS_KEY, HashSet<String>())!!)
         newFailedDaysSet.add(currentDay)
         with(sharedPrefs.edit()) {
             putStringSet(FAILED_DAYS_KEY, newFailedDaysSet)
@@ -106,18 +109,25 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         }
     }
 
-    override fun getSuccessfulDays(): Set<String> = sharedPrefs.getStringSet(SUCCESSFUL_DAYS_KEY, HashSet<String>())!!
+    override fun getSuccessfulDays(): Set<String> =
+        sharedPrefs.getStringSet(SUCCESSFUL_DAYS_KEY, HashSet<String>())!!
 
     override fun recordSuccessfulDay() {
         val c: Date = Calendar.getInstance().time
         val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         val currentDay: String = df.format(c)
-        val newSuccessDaysSet = HashSet(sharedPrefs.getStringSet(SUCCESSFUL_DAYS_KEY, HashSet<String>())!!)
+        val newSuccessDaysSet =
+            HashSet(sharedPrefs.getStringSet(SUCCESSFUL_DAYS_KEY, HashSet<String>())!!)
         newSuccessDaysSet.add(currentDay)
         with(sharedPrefs.edit()) {
             putStringSet(SUCCESSFUL_DAYS_KEY, newSuccessDaysSet)
             apply()
         }
+    }
+
+    override fun getSnoozeDuration(): Long {
+        val durationString = sharedPrefs.getString(SNOOZE_DURATION_KEY, "10")!!
+        return durationString.toInt() * 60000L
     }
 
     companion object {
@@ -132,5 +142,6 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         const val SHARED_PREFS_FILE = "me.colinmarsch.dawn.shared_prefs_file"
         const val STAY_OFF_KEY = "me.colinmarsch.dawn.STAY_OFF_KEY"
         const val SUCCESSFUL_DAYS_KEY = "me.colinmarsch.dawn.SUCCESSFUL_DAYS_KEY"
+        const val SNOOZE_DURATION_KEY = "me.colinmarsch.dawn.SNOOZE_DURATION_KEY"
     }
 }

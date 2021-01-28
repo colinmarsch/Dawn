@@ -1,18 +1,16 @@
 package me.colinmarsch.dawn
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 
-class SettingsFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.settings_layout, container, false)
+class SettingsFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        val preferenceManager: PreferenceManager = preferenceManager
+        preferenceManager.sharedPreferencesName = SHARED_PREFS_FILE
+        setPreferencesFromResource(R.xml.settings, rootKey)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,5 +20,6 @@ class SettingsFragment : Fragment() {
 
     companion object {
         const val TAG = "SETTINGS_FRAGMENT_TAG"
+        const val SHARED_PREFS_FILE = "me.colinmarsch.dawn.shared_prefs_file"
     }
 }

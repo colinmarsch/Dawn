@@ -12,10 +12,6 @@ import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
@@ -29,6 +25,10 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STREAK_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -208,7 +208,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 NotificationHelper.createNotificationChannel(context, ALARM)
                 MediaHandler.stopAlarm()
 
-                val whenTime = System.currentTimeMillis() + 600000L // 10 minutes hardcoded for now
+                val snoozeDuration = prefsHelper.getSnoozeDuration()
+                val whenTime = System.currentTimeMillis() + snoozeDuration
                 val alarmDismissIntent = Intent(context, AlarmReceiver::class.java).also {
                     it.putExtra("CASE", "DISMISS")
                 }
@@ -223,7 +224,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     .setSmallIcon(R.drawable.ic_notif)
                     .setColor(Color.argb(1, 221, 182, 57))
                     .setContentTitle("Alarm Snoozed")
-                    .setContentText("Alarm snoozed for 10 minutes")
+                    .setContentText("Alarm snoozed for ${snoozeDuration / 60000L} minutes")
                     .setCategory(NotificationCompat.CATEGORY_REMINDER)
                     .setOngoing(true)
                     .setExtras(Bundle()) // TODO(colinmarsch) figure out a better way to solve issue of mExtras being null
@@ -241,7 +242,10 @@ class AlarmReceiver : BroadcastReceiver() {
                 alarmIntent.putExtra("CASE", "ALARM")
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 val pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, 0)
-                alarmManager.setAlarmClock(AlarmManager.AlarmClockInfo(whenTime, pendingIntent), pendingIntent)
+                alarmManager.setAlarmClock(
+                    AlarmManager.AlarmClockInfo(whenTime, pendingIntent),
+                    pendingIntent
+                )
             }
             "DISMISS" -> {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

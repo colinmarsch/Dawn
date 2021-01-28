@@ -40,4 +40,6 @@ interface PreferencesHelper {
     fun getSuccessfulDays(): Set<String>
 
     fun recordSuccessfulDay()
+
+    fun getSnoozeDuration(): Long
 }
