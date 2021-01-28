@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PowerManager
 import android.view.View.GONE
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
@@ -42,6 +43,9 @@ class InAppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.in_app_activity)
+
+        window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         prefsHelper = RealPreferencesHelper(this)
 
         countDownTimerText = findViewById(R.id.countdownTimeText)

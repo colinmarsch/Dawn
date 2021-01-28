@@ -3,6 +3,7 @@ package me.colinmarsch.dawn
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -10,6 +11,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_content_host)
+
+        window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         if (savedInstanceState == null) {
             val fragment = MainFragment()
