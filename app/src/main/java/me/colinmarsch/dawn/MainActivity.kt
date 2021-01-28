@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.addOnBackStackChangedListener {
+            invalidateOptionsMenu()
             if (supportFragmentManager.backStackEntryCount > 0) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
             } else {
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
 
+        val settingsItem = menu.findItem(R.id.settings_menu_option)
+        settingsItem.isVisible = supportFragmentManager.fragments.first() !is SettingsFragment
         val streakItem = menu.findItem(R.id.streaks_menu_option)
         val actionView = streakItem.actionView
         val badgeTextView = actionView.findViewById<TextView>(R.id.streak_badge)
