@@ -36,6 +36,7 @@ class StayOffFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = getString(R.string.app_name)
 
         toggleButton = view.findViewById(R.id.alarm_set_toggle)
         toggleButton.setOnClickListener {

@@ -26,6 +26,8 @@ class GetUpDelayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().title = getString(R.string.app_name)
+
         alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         prefsHelper = RealPreferencesHelper(view.context)
 

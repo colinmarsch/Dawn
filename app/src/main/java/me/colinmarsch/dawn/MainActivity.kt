@@ -49,11 +49,24 @@ class MainActivity : AppCompatActivity() {
             true
         }
         R.id.streaks_menu_option -> openStreaksScreen()
+        R.id.settings_menu_option -> openSettings()
         else -> super.onOptionsItemSelected(item)
     }
 
     private fun openStreaksScreen(): Boolean {
         StreaksDialog(this).show()
+        return true
+    }
+
+    private fun openSettings(): Boolean {
+        val fragment = SettingsFragment()
+
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(SettingsFragment.TAG)
+            // TODO(colinmarsch) add some sort of animation here
+            .replace(R.id.main_content, fragment, SettingsFragment.TAG)
+            .commit()
+
         return true
     }
 

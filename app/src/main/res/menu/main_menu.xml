@@ -9,4 +9,10 @@
         app:actionLayout="@layout/streak_menu_item_layout"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/settings_menu_option"
+        android:icon="@drawable/settings_icon"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom" />
+
 </menu>
