@@ -15,6 +15,10 @@
         <item name="colorControlNormal">@color/dark_gray</item>
     </style>
 
+    <style name="PickerTheme">
+        <item name="android:scrollbars">none</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
