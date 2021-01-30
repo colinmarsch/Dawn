@@ -38,7 +38,7 @@ object DayBinder : DayBinder<DayViewContainer> {
             container.textView.typeface = Typeface.DEFAULT
         }
         if (day.owner == DayOwner.THIS_MONTH) {
-            container.textView.setTextColor(getColor(context, R.color.black))
+            container.textView.setTextColor(getColor(context, R.color.dark_gray))
         } else {
             container.textView.setTextColor(getColor(context, R.color.gray))
         }
