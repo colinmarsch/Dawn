@@ -26,10 +26,9 @@
             app:key="me.colinmarsch.dawn.FEEDBACK_KEY"
             app:summary="@string/send_feedback_summary"
             app:title="@string/send_feedback">
-            <!-- TODO(colinmarsch) replace this with a link to a feedback form -->
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="http://www.google.com" />
+                android:data="https://docs.google.com/forms/d/e/1FAIpQLSfdFS0QS5stpGPyDhMnw_v_yAghSukHg74hKRjUfOYTEgePbg/viewform" />
         </Preference>
 
     </PreferenceCategory>
