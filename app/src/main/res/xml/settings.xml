@@ -18,4 +18,20 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:key="help_category"
+        app:title="Help">
+
+        <Preference
+            app:key="me.colinmarsch.dawn.FEEDBACK_KEY"
+            app:summary="@string/send_feedback_summary"
+            app:title="@string/send_feedback">
+            <!-- TODO(colinmarsch) replace this with a link to a feedback form -->
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.google.com" />
+        </Preference>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
