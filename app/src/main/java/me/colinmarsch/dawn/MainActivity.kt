@@ -69,7 +69,12 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .addToBackStack(SettingsFragment.TAG)
-            // TODO(colinmarsch) add some sort of animation here
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(R.id.main_content, fragment, SettingsFragment.TAG)
             .commit()
 
