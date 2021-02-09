@@ -16,7 +16,6 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import java.util.Calendar
 
 class MainFragment : Fragment() {
     private lateinit var alarmManager: AlarmManager
@@ -96,20 +95,13 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         ringtoneVolume.progress = prefsHelper.getVolume()
 
-        if (alarmManager.nextAlarmClock != null) {
-            val nextAlarm = alarmManager.nextAlarmClock
-            val time = Calendar.getInstance()
-            time.timeInMillis = nextAlarm.triggerTime
-            timePicker.hour = time.get(Calendar.HOUR_OF_DAY)
-            timePicker.minute = time.get(Calendar.MINUTE)
-        } else {
-            val hour = prefsHelper.getSavedHour()
-            val minute = prefsHelper.getSavedMinute()
-            timePicker.hour = hour
-            timePicker.minute = minute
-        }
+        val hour = prefsHelper.getSavedHour()
+        val minute = prefsHelper.getSavedMinute()
+        timePicker.hour = hour
+        timePicker.minute = minute
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
