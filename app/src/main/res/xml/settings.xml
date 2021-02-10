@@ -7,13 +7,27 @@
         app:title="Alarms">
 
         <ListPreference
-            android:defaultValue="false"
             app:defaultValue="10"
             app:dialogTitle="@string/snooze_duration_title"
             app:entries="@array/snooze_duration_entries"
             app:entryValues="@array/snooze_duration_values"
             app:key="me.colinmarsch.dawn.SNOOZE_DURATION_KEY"
             app:title="@string/snooze_duration_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="appearance_category"
+        app:title="Appearance">
+
+        <ListPreference
+            app:defaultValue="DEFAULT"
+            app:dialogTitle="@string/dark_mode_title"
+            app:entries="@array/dark_mode_entries"
+            app:entryValues="@array/dark_mode_values"
+            app:key="me.colinmarsch.dawn.DARK_MODE_KEY"
+            app:title="@string/dark_mode_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

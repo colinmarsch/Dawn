@@ -30,6 +30,21 @@
     <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="timer_text">%1$d:%2$s</string>
     <string name="zero">0</string>
+    <string name="dark_mode_title">Dark mode</string>
+
+    <!-- Entries listed when invoking the dark mode preference -->
+    <string-array name="dark_mode_entries">
+        <item>System Default</item>
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
+
+    <!-- Values retrieved when selecting the matching dark_mode_entries above -->
+    <string-array name="dark_mode_values" translatable="false">
+        <item>DEFAULT</item>
+        <item>ON</item>
+        <item>OFF</item>
+    </string-array>
 
     <!-- Entries listed when invoking the snooze duration preference -->
     <string-array name="snooze_duration_entries">
