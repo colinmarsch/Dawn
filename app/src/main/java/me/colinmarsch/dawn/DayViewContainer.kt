@@ -3,6 +3,7 @@ package me.colinmarsch.dawn
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
+import android.view.View.INVISIBLE
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
@@ -40,7 +41,7 @@ object DayBinder : DayBinder<DayViewContainer> {
         if (day.owner == DayOwner.THIS_MONTH) {
             container.textView.setTextColor(getColor(context, R.color.dark_gray))
         } else {
-            container.textView.setTextColor(getColor(context, R.color.gray))
+            container.view.visibility = INVISIBLE
         }
 
         val prefsHelper = RealPreferencesHelper(context)
@@ -57,9 +58,6 @@ object DayBinder : DayBinder<DayViewContainer> {
                 ContextCompat.getDrawable(context, R.drawable.circle_bg_green)
             container.textView.contentDescription =
                 day.date.month.toString() + " " + day.date.dayOfMonth.toString() + " Success"
-            if (day.owner != DayOwner.THIS_MONTH) {
-                container.textView.setTextColor(getColor(context, R.color.white))
-            }
         } else {
             val failedDaysSet = prefsHelper.getFailedDays()
             failedDaysSet.find { failed ->
@@ -70,9 +68,6 @@ object DayBinder : DayBinder<DayViewContainer> {
                     ContextCompat.getDrawable(context, R.drawable.circle_bg_red)
                 container.textView.contentDescription =
                     day.date.month.toString() + " " + day.date.dayOfMonth.toString() + " Failed"
-                if (day.owner != DayOwner.THIS_MONTH) {
-                    container.textView.setTextColor(getColor(context, R.color.white))
-                }
             }
         }
     }
