@@ -2,10 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/darkModeColorPrimary</item>
+        <item name="colorPrimaryDark">@color/darkModeColorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/dark_gray</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="titleTextColor">@color/dark_gray</item>
         <item name="actionBarTheme">@style/ActionBarTheme</item>
     </style>

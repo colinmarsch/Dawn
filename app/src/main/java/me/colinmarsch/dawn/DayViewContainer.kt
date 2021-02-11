@@ -2,19 +2,18 @@ package me.colinmarsch.dawn
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.View
 import android.view.View.INVISIBLE
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import java.text.SimpleDateFormat
 import java.time.ZoneId
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 class DayViewContainer(view: View) : ViewContainer(view) {
     val textView = view.findViewById<TextView>(R.id.calendarDayText)
@@ -39,7 +38,9 @@ object DayBinder : DayBinder<DayViewContainer> {
             container.textView.typeface = Typeface.DEFAULT
         }
         if (day.owner == DayOwner.THIS_MONTH) {
-            container.textView.setTextColor(getColor(context, R.color.dark_gray))
+            val typedValue = TypedValue()
+            context.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+            container.textView.setTextColor(typedValue.data)
         } else {
             container.view.visibility = INVISIBLE
         }

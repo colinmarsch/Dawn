@@ -42,4 +42,6 @@ interface PreferencesHelper {
     fun recordSuccessfulDay()
 
     fun getSnoozeDuration(): Long
+
+    fun getDarkModeSetting(): String
 }

@@ -6,8 +6,12 @@ import android.view.MenuItem
 import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var prefsHelper: PreferencesHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_content_host)
@@ -29,6 +33,18 @@ class MainActivity : AppCompatActivity() {
             } else {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
+        }
+
+        prefsHelper = RealPreferencesHelper(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        when (prefsHelper.getDarkModeSetting()) {
+            "DEFAULT" -> setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+            "ON" -> setDefaultNightMode(MODE_NIGHT_YES)
+            "OFF" -> setDefaultNightMode(MODE_NIGHT_NO)
         }
     }
 

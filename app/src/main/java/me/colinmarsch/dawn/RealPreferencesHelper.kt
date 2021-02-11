@@ -3,9 +3,9 @@ package me.colinmarsch.dawn
 import android.content.Context
 import android.media.RingtoneManager
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
+import kotlin.collections.HashSet
+import kotlin.collections.Set
 
 class RealPreferencesHelper(val context: Context) : PreferencesHelper {
 
@@ -130,6 +130,8 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         return durationString.toInt() * 60000L
     }
 
+    override fun getDarkModeSetting(): String = sharedPrefs.getString(DARK_MODE_KEY, "DEFAULT")!!
+
     companion object {
         const val FAILED_DAYS_KEY = "me.colinmarsch.dawn.FAILED_DAYS_KEY"
         const val GET_UP_DELAY_KEY = "me.colinmarsch.dawn.GET_UP_DELAY_KEY"
@@ -143,5 +145,6 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         const val STAY_OFF_KEY = "me.colinmarsch.dawn.STAY_OFF_KEY"
         const val SUCCESSFUL_DAYS_KEY = "me.colinmarsch.dawn.SUCCESSFUL_DAYS_KEY"
         const val SNOOZE_DURATION_KEY = "me.colinmarsch.dawn.SNOOZE_DURATION_KEY"
+        const val DARK_MODE_KEY = "me.colinmarsch.dawn.DARK_MODE_KEY"
     }
 }
