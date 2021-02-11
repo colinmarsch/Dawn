@@ -5,6 +5,14 @@
     <string name="calendar_icon_description">Calendar Icon</string>
     <string name="close">Close</string>
     <string name="current_ringtone">Current Ringtone: %1$s</string>
+    <string name="dark_mode_title">Dark mode</string>
+    <string name="day_friday">F</string>
+    <string name="day_monday">M</string>
+    <string name="day_saturday">Sa</string>
+    <string name="day_sunday">Su</string>
+    <string name="day_thursday">Th</string>
+    <string name="day_tuesday">Tu</string>
+    <string name="day_wednesday">W</string>
     <string name="finished_using_phone">Ready</string>
     <string name="get_up_delay_label">Use your phone for</string>
     <string name="in_app_complete">COMPLETE</string>
@@ -30,7 +38,6 @@
     <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="timer_text">%1$d:%2$s</string>
     <string name="zero">0</string>
-    <string name="dark_mode_title">Dark mode</string>
 
     <!-- Entries listed when invoking the dark mode preference -->
     <string-array name="dark_mode_entries">
