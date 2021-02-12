@@ -9,10 +9,16 @@
         <item name="titleTextColor">@color/dark_gray</item>
         <item name="actionBarTheme">@style/ActionBarTheme</item>
         <item name="buttonStyle">@style/ButtonTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
     <style name="ActionBarTheme">
         <item name="colorControlNormal">@color/dark_gray</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="ButtonTheme" parent="Widget.AppCompat.Button">
