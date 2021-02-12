@@ -26,13 +26,9 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+        updateUpButton()
         supportFragmentManager.addOnBackStackChangedListener {
-            invalidateOptionsMenu()
-            if (supportFragmentManager.backStackEntryCount > 0) {
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            } else {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            }
+            updateUpButton()
         }
 
         prefsHelper = RealPreferencesHelper(this)
@@ -73,6 +69,15 @@ class MainActivity : AppCompatActivity() {
         R.id.streaks_menu_option -> openStreaksScreen()
         R.id.settings_menu_option -> openSettings()
         else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun updateUpButton() {
+        invalidateOptionsMenu()
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        } else {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
     }
 
     private fun openStreaksScreen(): Boolean {
