@@ -8,10 +8,15 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="titleTextColor">@color/dark_gray</item>
         <item name="actionBarTheme">@style/ActionBarTheme</item>
+        <item name="buttonStyle">@style/ButtonTheme</item>
     </style>
 
     <style name="ActionBarTheme">
         <item name="colorControlNormal">@color/dark_gray</item>
+    </style>
+
+    <style name="ButtonTheme" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/dark_gray</item>
     </style>
 
     <style name="PickerTheme">
