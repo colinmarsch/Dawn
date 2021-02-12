@@ -1,11 +1,11 @@
 <img width="100" height="100" src="https://github.com/colinmarsch/dawn/raw/main/resources/icon.png?raw=true">
 
 <p align="center">
-  <img width="20%" src="https://github.com/colinmarsch/dawn/raw/main/resources/main.jpg?raw=true">
-  <img width="20%" src="https://github.com/colinmarsch/dawn/raw/main/resources/main_dark.jpg?raw=true">
-  <img width="20%" src="https://github.com/colinmarsch/dawn/raw/main/resources/streak_dialog.jpg?raw=true">
-  <img width="20%" src="https://github.com/colinmarsch/dawn/raw/main/resources/use.jpg?raw=true">
-  <img width="20%" src="https://github.com/colinmarsch/dawn/raw/main/resources/stay.jpg?raw=true">
+  <img width="19%" src="https://github.com/colinmarsch/dawn/raw/main/resources/main.jpg?raw=true">
+  <img width="19%" src="https://github.com/colinmarsch/dawn/raw/main/resources/main_dark.jpg?raw=true">
+  <img width="19%" src="https://github.com/colinmarsch/dawn/raw/main/resources/streak_dialog.jpg?raw=true">
+  <img width="19%" src="https://github.com/colinmarsch/dawn/raw/main/resources/use.jpg?raw=true">
+  <img width="19%" src="https://github.com/colinmarsch/dawn/raw/main/resources/stay.jpg?raw=true">
 </p>
 
 Dawn is an Android morning routine productivity app. Through it's built in alarm, Dawn encourages limiting the amount of time that users spend
