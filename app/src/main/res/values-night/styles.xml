@@ -10,6 +10,7 @@
         <item name="actionBarTheme">@style/ActionBarTheme</item>
         <item name="buttonStyle">@style/ButtonTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:colorBackground">@color/darker_gray</item>
     </style>
 
     <style name="ActionBarTheme">
