@@ -13,10 +13,3 @@ updates:
       open-pull-requests-limit: 3
       reviewers:
       - "colinmarsch"
-    - package-ecosystem: gradle
-      directory: "/app"
-      schedule:
-        interval: "daily"
-      open-pull-requests-limit: 3
-      reviewers:
-      - "colinmarsch"
