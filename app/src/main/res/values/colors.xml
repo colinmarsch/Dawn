@@ -9,7 +9,7 @@
     <color name="black">#000000</color>
     <color name="dark_gray">#333333</color>
     <color name="darker_gray">#121212</color>
-    <color name="green">#90ee90</color>
-    <color name="red">#ffcccb</color>
+    <color name="green">#55e555</color>
+    <color name="red">#ff6865</color>
     <color name="badge">#ff7417</color>
 </resources>
