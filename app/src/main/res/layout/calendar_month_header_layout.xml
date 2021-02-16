@@ -53,6 +53,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@string/day_sunday"
+            android:textAlignment="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/day_monday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
@@ -104,16 +114,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/day_saturday"
-            android:textAlignment="center"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/day_sunday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
