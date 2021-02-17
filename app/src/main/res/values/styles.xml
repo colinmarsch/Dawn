@@ -8,6 +8,7 @@
         <item name="android:textColorPrimary">@color/dark_gray</item>
         <item name="titleTextColor">@color/dark_gray</item>
         <item name="actionBarTheme">@style/ActionBarTheme</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="ActionBarTheme">
