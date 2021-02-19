@@ -50,7 +50,7 @@ object DayBinder : DayBinder<DayViewContainer> {
 
         val successfulDaysSet = prefsHelper.getSuccessfulDays()
         val successToday = successfulDaysSet.find { success ->
-            val date = df.parse(success).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+            val date = df.parse(success)!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
             return@find date == day.date
         }
 
@@ -62,7 +62,8 @@ object DayBinder : DayBinder<DayViewContainer> {
         } else {
             val failedDaysSet = prefsHelper.getFailedDays()
             failedDaysSet.find { failed ->
-                val date = df.parse(failed).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                val date =
+                    df.parse(failed)!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
                 return@find date == day.date
             }?.let {
                 container.view.background =
