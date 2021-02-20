@@ -83,7 +83,7 @@ class MainFragment : Fragment() {
                     MediaHandler.startAlarm(view.context)
                     previewPlaying = true
                     seekBar.postDelayed({
-                        MediaHandler.stopAlarm()
+                        MediaHandler.stopAlarm(requireContext())
                         previewPlaying = false
                     }, 2000)
                 }

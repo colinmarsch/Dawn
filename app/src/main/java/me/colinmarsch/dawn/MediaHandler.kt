@@ -11,14 +11,13 @@ import androidx.core.net.toUri
 import java.io.IOException
 
 object MediaHandler {
-    private lateinit var audioManager: AudioManager
     private var mediaPlayer: MediaPlayer? = null
     private var userVolume = 0 // TODO(colinmarsch) is there a better way to handle this?
 
     fun startAlarm(context: Context) {
         if (mediaPlayer?.isPlaying == true) return
 
-        audioManager = getSystemService(context, AudioManager::class.java) as AudioManager
+        val audioManager = getSystemService(context, AudioManager::class.java) as AudioManager
         userVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
 
         // Retrieve default ringtone file URI
@@ -54,11 +53,12 @@ object MediaHandler {
         }
     }
 
-    fun stopAlarm() {
+    fun stopAlarm(context: Context) {
         mediaPlayer?.stop()
         mediaPlayer?.reset()
         mediaPlayer?.release()
         mediaPlayer = null
+        val audioManager = getSystemService(context, AudioManager::class.java) as AudioManager
         audioManager.setStreamVolume(
             AudioManager.STREAM_ALARM,
             userVolume,

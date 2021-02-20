@@ -154,7 +154,7 @@ class AlarmReceiver : BroadcastReceiver() {
             }
             "STOP" -> {
                 NotificationHelper.createNotificationChannel(context, STREAK)
-                MediaHandler.stopAlarm()
+                MediaHandler.stopAlarm(context)
 
                 val getUpDelayTime = prefsHelper.getGetUpDelayTime()
                 val whenTime = System.currentTimeMillis() + getUpDelayTime
@@ -206,7 +206,7 @@ class AlarmReceiver : BroadcastReceiver() {
             }
             "SNOOZE" -> {
                 NotificationHelper.createNotificationChannel(context, ALARM)
-                MediaHandler.stopAlarm()
+                MediaHandler.stopAlarm(context)
 
                 val snoozeDuration = prefsHelper.getSnoozeDuration()
                 val whenTime = System.currentTimeMillis() + snoozeDuration
