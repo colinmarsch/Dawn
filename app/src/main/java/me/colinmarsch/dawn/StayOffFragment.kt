@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.HapticFeedbackConstants.CLOCK_TICK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,9 @@ class StayOffFragment : Fragment() {
         stayOffTimePicker.minValue = 1
         val stayOffMinutes = (prefsHelper.getStayOffTime() / 60000L).toInt()
         stayOffTimePicker.value = stayOffMinutes
+        stayOffTimePicker.setOnValueChangedListener { picker, _, _ ->
+            picker.performHapticFeedback(CLOCK_TICK)
+        }
     }
 
     private fun onSetAlarmClicked() {

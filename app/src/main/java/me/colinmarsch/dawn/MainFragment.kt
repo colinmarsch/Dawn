@@ -6,6 +6,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.HapticFeedbackConstants.CLOCK_TICK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,8 @@ class MainFragment : Fragment() {
         prefsHelper = RealPreferencesHelper(view.context)
 
         timePicker = view.findViewById(R.id.alarm_time_picker)
-        timePicker.setOnTimeChangedListener { _, hour, minute ->
+        timePicker.setOnTimeChangedListener { timePicker, hour, minute ->
+            timePicker.performHapticFeedback(CLOCK_TICK)
             prefsHelper.setSavedHour(hour)
             prefsHelper.setSavedMinute(minute)
         }

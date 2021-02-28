@@ -3,6 +3,7 @@ package me.colinmarsch.dawn
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
+import android.view.HapticFeedbackConstants.CLOCK_TICK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,9 @@ class GetUpDelayFragment : Fragment() {
         getUpDelayPicker.minValue = 1
         val getUpDelayMinutes = (prefsHelper.getGetUpDelayTime() / 60000L).toInt()
         getUpDelayPicker.value = getUpDelayMinutes
+        getUpDelayPicker.setOnValueChangedListener { picker, _, _ ->
+            picker.performHapticFeedback(CLOCK_TICK)
+        }
 
         nextButton = view.findViewById(R.id.set_getup_delay)
         nextButton.setOnClickListener {
