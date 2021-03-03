@@ -36,6 +36,7 @@
             android:name=".InAppActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
+            android:noHistory="true"
             android:taskAffinity="" />
 
         <receiver android:name=".AlarmReceiver" />
