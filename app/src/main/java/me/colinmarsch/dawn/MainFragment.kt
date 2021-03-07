@@ -10,11 +10,7 @@ import android.view.HapticFeedbackConstants.CLOCK_TICK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.TimePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
@@ -50,7 +46,12 @@ class MainFragment : Fragment() {
         }
         nextButton = view.findViewById(R.id.choose_alarm_time_button)
         nextButton.setOnClickListener {
-            if (!MediaHandler.validRingtoneSet(view.context)) {
+            if (shouldConfirmTimeSelection) {
+                ConfirmationDialog(view.context).apply {
+                    setOwnerActivity(requireActivity())
+                    show()
+                }
+            } else if (!MediaHandler.validRingtoneSet(view.context)) {
                 Toast.makeText(view.context, getString(R.string.switch_ringtone), Toast.LENGTH_LONG)
                     .show()
             } else {
@@ -121,4 +122,7 @@ class MainFragment : Fragment() {
             prefsHelper.setRingtoneTitle(title)
         }
     }
+
+    private val shouldConfirmTimeSelection: Boolean
+        get() = prefsHelper.getSavedHour() > 13
 }

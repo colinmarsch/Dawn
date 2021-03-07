@@ -4,6 +4,7 @@
     <string name="app_name">Dawn</string>
     <string name="calendar_icon_description">Calendar Icon</string>
     <string name="close">Close</string>
+    <string name="confirmation_message">Are you sure you want to set the alarm for %1$s?</string>
     <string name="current_ringtone">Current Ringtone: %1$s</string>
     <string name="dark_mode_title">Dark mode</string>
     <string name="day_friday">F</string>
@@ -20,6 +21,7 @@
     <string name="minutes">mins</string>
     <string name="month_title_text">%1$s %2$d</string>
     <string name="next">Next</string>
+    <string name="no">No</string>
     <string name="right_arrow_description">Right Arrow</string>
     <string name="ringtone_volume_slider_description">Ringtone volume slider</string>
     <string name="ringtone_volume">Ringtone Volume</string>
@@ -37,6 +39,7 @@
     <string name="switch_ringtone">The current ringtone can\'t be played, please switch it above.</string>
     <string name="time_not_up_text">You can still use your phone for the amount of time above, click below if you are ready to get off your phone before the time expires!</string>
     <string name="timer_text">%1$d:%2$s</string>
+    <string name="yes">Yes</string>
     <string name="zero">0</string>
 
     <!-- Entries listed when invoking the dark mode preference -->
