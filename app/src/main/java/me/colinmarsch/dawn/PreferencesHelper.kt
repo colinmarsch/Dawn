@@ -29,7 +29,7 @@ interface PreferencesHelper {
 
     fun setRingtoneTitle(title: String)
 
-    fun getRingtonePath(): String
+    fun getRingtonePath(): String?
 
     fun setRingtonePath(path: String)
 

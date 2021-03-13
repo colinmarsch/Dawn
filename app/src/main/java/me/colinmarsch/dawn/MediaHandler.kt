@@ -22,7 +22,7 @@ object MediaHandler {
 
         // Retrieve default ringtone file URI
         val prefsHelper = RealPreferencesHelper(context)
-        val myUri = prefsHelper.getRingtonePath().toUri()
+        val myUri = prefsHelper.getRingtonePath()!!.toUri()
 
         // Set up MediaPlayer asynchronously
         mediaPlayer = mediaPlayer ?: MediaPlayer()
@@ -69,7 +69,7 @@ object MediaHandler {
     fun validRingtoneSet(context: Context): Boolean {
         // Retrieve default ringtone file URI
         val prefsHelper = RealPreferencesHelper(context)
-        val testUri = prefsHelper.getRingtonePath().toUri()
+        val testUri = prefsHelper.getRingtonePath()?.toUri() ?: return false
 
         try {
             val testPlayer = MediaPlayer()

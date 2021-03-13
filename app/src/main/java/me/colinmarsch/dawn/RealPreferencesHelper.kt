@@ -80,10 +80,10 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         }
     }
 
-    override fun getRingtonePath(): String {
+    override fun getRingtonePath(): String? {
         val defaultUri =
             RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
-        return sharedPrefs.getString(RINGTONE_KEY, defaultUri.path)!!
+        return sharedPrefs.getString(RINGTONE_KEY, defaultUri.path)
     }
 
     override fun setRingtonePath(path: String) {
