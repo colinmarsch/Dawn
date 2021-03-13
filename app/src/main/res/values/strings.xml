@@ -7,6 +7,7 @@
     <string name="confirmation_message">Are you sure you want to set the alarm for %1$s?</string>
     <string name="current_ringtone">Current Ringtone: %1$s</string>
     <string name="dark_mode_title">Dark mode</string>
+    <string name="day_of_week_title">First day of the week</string>
     <string name="day_friday">F</string>
     <string name="day_monday">M</string>
     <string name="day_saturday">Sa</string>
@@ -122,5 +123,19 @@
         <item>28</item>
         <item>29</item>
         <item>30</item>
+    </string-array>
+
+    <!-- Entries listed when invoking the first day of week preference -->
+    <string-array name="day_of_week_entries">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <!-- Values retrieved when selecting the matching day_of_week_entries above -->
+    <string-array name="day_of_week_values" translatable="false">
+        <item>SUNDAY</item>
+        <item>MONDAY</item>
+        <item>SATURDAY</item>
     </string-array>
 </resources>

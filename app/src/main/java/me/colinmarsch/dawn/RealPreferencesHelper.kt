@@ -3,9 +3,9 @@ package me.colinmarsch.dawn
 import android.content.Context
 import android.media.RingtoneManager
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.*
 import kotlin.collections.HashSet
-import kotlin.collections.Set
 
 class RealPreferencesHelper(val context: Context) : PreferencesHelper {
 
@@ -132,6 +132,14 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
 
     override fun getDarkModeSetting(): String = sharedPrefs.getString(DARK_MODE_KEY, "DEFAULT")!!
 
+    override fun getFirstDayOfWeek(): DayOfWeek =
+        when (sharedPrefs.getString(FIRST_DAY_OF_WEEK_KEY, "SUNDAY")) {
+            "SUNDAY" -> DayOfWeek.SUNDAY
+            "MONDAY" -> DayOfWeek.MONDAY
+            "SATURDAY" -> DayOfWeek.SATURDAY
+            else -> DayOfWeek.SUNDAY
+        }
+
     companion object {
         const val FAILED_DAYS_KEY = "me.colinmarsch.dawn.FAILED_DAYS_KEY"
         const val GET_UP_DELAY_KEY = "me.colinmarsch.dawn.GET_UP_DELAY_KEY"
@@ -146,5 +154,6 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         const val SUCCESSFUL_DAYS_KEY = "me.colinmarsch.dawn.SUCCESSFUL_DAYS_KEY"
         const val SNOOZE_DURATION_KEY = "me.colinmarsch.dawn.SNOOZE_DURATION_KEY"
         const val DARK_MODE_KEY = "me.colinmarsch.dawn.DARK_MODE_KEY"
+        const val FIRST_DAY_OF_WEEK_KEY = "me.colinmarsch.dawn.FIRST_DAY_OF_WEEK_KEY"
     }
 }

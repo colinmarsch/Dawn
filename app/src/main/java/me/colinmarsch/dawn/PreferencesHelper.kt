@@ -1,5 +1,7 @@
 package me.colinmarsch.dawn
 
+import java.time.DayOfWeek
+
 interface PreferencesHelper {
     fun getSavedHour(): Int
 
@@ -44,4 +46,6 @@ interface PreferencesHelper {
     fun getSnoozeDuration(): Long
 
     fun getDarkModeSetting(): String
+
+    fun getFirstDayOfWeek(): DayOfWeek
 }

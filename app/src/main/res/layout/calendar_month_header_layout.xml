@@ -50,74 +50,81 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
+            android:id="@+id/firstDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_sunday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_sunday" />
 
         <TextView
+            android:id="@+id/secondDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_monday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_monday" />
 
         <TextView
+            android:id="@+id/thirdDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_tuesday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_tuesday" />
 
         <TextView
+            android:id="@+id/fourthDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_wednesday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_wednesday" />
 
         <TextView
+            android:id="@+id/fifthDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_thursday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_thursday" />
 
         <TextView
+            android:id="@+id/sixthDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_friday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_friday" />
 
         <TextView
+            android:id="@+id/seventhDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/day_saturday"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/day_saturday" />
 
     </LinearLayout>
 

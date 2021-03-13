@@ -30,6 +30,15 @@
             app:title="@string/dark_mode_title"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:defaultValue="SUNDAY"
+            app:dialogTitle="@string/day_of_week_title"
+            app:entries="@array/day_of_week_entries"
+            app:entryValues="@array/day_of_week_values"
+            app:key="me.colinmarsch.dawn.FIRST_DAY_OF_WEEK_KEY"
+            app:title="@string/day_of_week_title"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
