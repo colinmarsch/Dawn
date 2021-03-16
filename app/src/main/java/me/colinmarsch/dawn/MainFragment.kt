@@ -82,13 +82,21 @@ class MainFragment : Fragment() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 prefsHelper.setVolume(ringtoneVolume.progress)
-                if (!previewPlaying && seekBar.progress != 0) {
-                    MediaHandler.startAlarm(view.context)
-                    previewPlaying = true
-                    seekBar.postDelayed({
-                        MediaHandler.stopAlarm(requireContext())
-                        previewPlaying = false
-                    }, 2000)
+                if (MediaHandler.validRingtoneSet(view.context)) {
+                    if (!previewPlaying && seekBar.progress != 0) {
+                        MediaHandler.startAlarm(view.context)
+                        previewPlaying = true
+                        seekBar.postDelayed({
+                            MediaHandler.stopAlarm(requireContext())
+                            previewPlaying = false
+                        }, 2000)
+                    }
+                } else {
+                    Toast.makeText(
+                        view.context,
+                        getString(R.string.switch_ringtone),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         })
