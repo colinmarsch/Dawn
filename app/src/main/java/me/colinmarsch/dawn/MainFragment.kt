@@ -38,7 +38,11 @@ class MainFragment : Fragment() {
 
         prefsHelper = RealPreferencesHelper(view.context)
 
+        val savedHour = prefsHelper.getSavedHour()
+        val savedMinute = prefsHelper.getSavedMinute()
         timePicker = view.findViewById(R.id.alarm_time_picker)
+        timePicker.hour = savedHour
+        timePicker.minute = savedMinute
         timePicker.setOnTimeChangedListener { timePicker, hour, minute ->
             timePicker.performHapticFeedback(CLOCK_TICK)
             prefsHelper.setSavedHour(hour)
@@ -75,6 +79,7 @@ class MainFragment : Fragment() {
         ringtoneLabel.text = getString(R.string.current_ringtone, currentRingtoneTitle)
 
         ringtoneVolume = view.findViewById(R.id.ringtone_volume_slider)
+        ringtoneVolume.progress = prefsHelper.getVolume()
         ringtoneVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {}
 
@@ -102,17 +107,6 @@ class MainFragment : Fragment() {
         })
 
         alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        ringtoneVolume.progress = prefsHelper.getVolume()
-
-        val hour = prefsHelper.getSavedHour()
-        val minute = prefsHelper.getSavedMinute()
-        timePicker.hour = hour
-        timePicker.minute = minute
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
