@@ -48,4 +48,6 @@ interface PreferencesHelper {
     fun getDarkModeSetting(): String
 
     fun getFirstDayOfWeek(): DayOfWeek
+
+    fun getPmConfirmationSetting(): Boolean
 }

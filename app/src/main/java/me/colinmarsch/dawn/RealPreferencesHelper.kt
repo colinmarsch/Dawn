@@ -140,6 +140,8 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
             else -> DayOfWeek.SUNDAY
         }
 
+    override fun getPmConfirmationSetting(): Boolean = sharedPrefs.getBoolean(PM_CONFIRM_KEY, true)
+
     companion object {
         const val FAILED_DAYS_KEY = "me.colinmarsch.dawn.FAILED_DAYS_KEY"
         const val GET_UP_DELAY_KEY = "me.colinmarsch.dawn.GET_UP_DELAY_KEY"
@@ -155,5 +157,6 @@ class RealPreferencesHelper(val context: Context) : PreferencesHelper {
         const val SNOOZE_DURATION_KEY = "me.colinmarsch.dawn.SNOOZE_DURATION_KEY"
         const val DARK_MODE_KEY = "me.colinmarsch.dawn.DARK_MODE_KEY"
         const val FIRST_DAY_OF_WEEK_KEY = "me.colinmarsch.dawn.FIRST_DAY_OF_WEEK_KEY"
+        const val PM_CONFIRM_KEY = "me.colinmarsch.dawn.PM_CONFIRM_KEY"
     }
 }

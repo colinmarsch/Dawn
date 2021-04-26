@@ -132,5 +132,5 @@ class MainFragment : Fragment() {
     }
 
     private val shouldConfirmTimeSelection: Boolean
-        get() = prefsHelper.getSavedHour() > 13
+        get() = prefsHelper.getSavedHour() > 13 && prefsHelper.getPmConfirmationSetting()
 }
