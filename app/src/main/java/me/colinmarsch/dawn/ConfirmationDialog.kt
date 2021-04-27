@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import me.colinmarsch.dawn.utils.hourText
+import me.colinmarsch.dawn.utils.minuteText
+import me.colinmarsch.dawn.utils.setSavedTime
 import java.util.*
 
 class ConfirmationDialog(context: Context) : Dialog(context) {

@@ -25,6 +25,7 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STREAK_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.TIME_NOTIF_ID
+import me.colinmarsch.dawn.utils.cancelAlarm
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

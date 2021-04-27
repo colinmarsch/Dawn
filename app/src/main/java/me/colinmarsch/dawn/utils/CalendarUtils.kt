@@ -1,5 +1,6 @@
-package me.colinmarsch.dawn
+package me.colinmarsch.dawn.utils
 
+import me.colinmarsch.dawn.PreferencesHelper
 import java.util.*
 
 fun Calendar.hourText() =
