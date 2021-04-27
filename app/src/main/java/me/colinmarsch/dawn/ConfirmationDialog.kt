@@ -34,17 +34,9 @@ class ConfirmationDialog(context: Context) : Dialog(context) {
         negativeButton = findViewById(R.id.negative_button)
         negativeButton.setOnClickListener { dismiss() }
 
-        // TODO(colinmarsch) refactor this to a more general place
         val prefsHelper = RealPreferencesHelper(context)
         val calendar = Calendar.getInstance()
-        calendar.set(
-            Calendar.HOUR_OF_DAY,
-            prefsHelper.getSavedHour()
-        )
-        calendar.set(
-            Calendar.MINUTE,
-            prefsHelper.getSavedMinute()
-        )
+        calendar.setSavedTime(prefsHelper)
         val hour = calendar.hourText()
         val minute = calendar.minuteText()
         val timeText = "$hour:$minute PM"

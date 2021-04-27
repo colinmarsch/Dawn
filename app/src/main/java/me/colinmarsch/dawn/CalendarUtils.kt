@@ -17,3 +17,14 @@ fun Calendar.minuteText(): String {
         minuteNum.toString()
     }
 }
+
+fun Calendar.setSavedTime(prefsHelper: PreferencesHelper) {
+    set(
+        Calendar.HOUR_OF_DAY,
+        prefsHelper.getSavedHour()
+    )
+    set(
+        Calendar.MINUTE,
+        prefsHelper.getSavedMinute()
+    )
+}

@@ -17,9 +17,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import java.util.Calendar
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.Channel.ALARM
+import java.util.*
 
 class StayOffFragment : Fragment() {
     private lateinit var alarmManager: AlarmManager
@@ -63,14 +63,7 @@ class StayOffFragment : Fragment() {
         alarmIntent.putExtra("CASE", "ALARM")
         val mainIntent = Intent(context, MainActivity::class.java)
         val calendar = Calendar.getInstance()
-        calendar.set(
-            Calendar.HOUR_OF_DAY,
-            prefsHelper.getSavedHour()
-        )
-        calendar.set(
-            Calendar.MINUTE,
-            prefsHelper.getSavedMinute()
-        )
+        calendar.setSavedTime(prefsHelper)
         calendar.set(Calendar.SECOND, 0)
         if (calendar.timeInMillis < System.currentTimeMillis()) {
             calendar.add(Calendar.DATE, 1)
