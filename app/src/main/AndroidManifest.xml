@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +29,7 @@
             android:excludeFromRecents="true"
             android:immersive="true"
             android:launchMode="singleTask"
+            android:screenOrientation="sensorPortrait"
             android:showForAllUsers="true"
             android:showWhenLocked="true"
             android:taskAffinity=""
@@ -38,6 +41,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:noHistory="true"
+            android:screenOrientation="sensorPortrait"
             android:taskAffinity="" />
 
         <receiver android:name=".AlarmReceiver" />
