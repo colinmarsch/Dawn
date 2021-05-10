@@ -3,11 +3,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter() {
-            content {
-                includeVersion("org.jetbrains.trove4j", "trove4j", "20160824")
-            }
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.0'
@@ -20,11 +15,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        jcenter() {
-            content {
-                includeVersion("org.jetbrains.trove4j", "trove4j", "20160824")
-            }
-        }
     }
 }
 
