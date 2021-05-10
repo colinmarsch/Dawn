@@ -29,6 +29,7 @@ import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STAY_NOTIF_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.STREAK_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.SUCCESS_STREAK_ALARM_ID
+import me.colinmarsch.dawn.receiver.AlarmReceiver
 import me.colinmarsch.dawn.utils.cancelAlarm
 
 class InAppActivity : AppCompatActivity() {

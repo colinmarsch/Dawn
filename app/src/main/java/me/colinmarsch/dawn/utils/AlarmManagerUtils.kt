@@ -4,7 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import me.colinmarsch.dawn.AlarmReceiver
+import me.colinmarsch.dawn.receiver.AlarmReceiver
 
 fun AlarmManager.cancelAlarm(context: Context, requestCode: Int) {
     val cancelIntent = Intent(context, AlarmReceiver::class.java)

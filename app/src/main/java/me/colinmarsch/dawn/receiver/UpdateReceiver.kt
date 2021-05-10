@@ -1,4 +1,4 @@
-package me.colinmarsch.dawn
+package me.colinmarsch.dawn.receiver
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -9,6 +9,10 @@ import android.content.Intent.ACTION_MY_PACKAGE_REPLACED
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import me.colinmarsch.dawn.MainActivity
+import me.colinmarsch.dawn.NotificationHelper
+import me.colinmarsch.dawn.R
+import me.colinmarsch.dawn.RealPreferencesHelper
 import me.colinmarsch.dawn.utils.hourText
 import me.colinmarsch.dawn.utils.minuteText
 import me.colinmarsch.dawn.utils.setSavedTime

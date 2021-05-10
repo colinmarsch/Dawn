@@ -44,8 +44,8 @@
             android:screenOrientation="sensorPortrait"
             android:taskAffinity="" />
 
-        <receiver android:name=".AlarmReceiver" />
-        <receiver android:name=".UpdateReceiver">
+        <receiver android:name=".receiver.AlarmReceiver" />
+        <receiver android:name=".receiver.UpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>

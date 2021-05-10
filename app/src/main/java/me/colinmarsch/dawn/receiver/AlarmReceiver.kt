@@ -1,4 +1,4 @@
-package me.colinmarsch.dawn
+package me.colinmarsch.dawn.receiver
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -12,6 +12,7 @@ import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
+import me.colinmarsch.dawn.*
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_CHANNEL_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.ALARM_ID
 import me.colinmarsch.dawn.NotificationHelper.Companion.BREATHER_CANCEL_ID
