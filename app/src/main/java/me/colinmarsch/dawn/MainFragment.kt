@@ -1,7 +1,5 @@
 package me.colinmarsch.dawn
 
-import android.app.AlarmManager
-import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
@@ -15,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class MainFragment : Fragment() {
-    private lateinit var alarmManager: AlarmManager
     private lateinit var timePicker: TimePicker
     private lateinit var nextButton: Button
     private lateinit var ringtoneButton: Button
@@ -105,8 +102,6 @@ class MainFragment : Fragment() {
                 }
             }
         })
-
-        alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,7 +1,5 @@
 package me.colinmarsch.dawn
 
-import android.app.AlarmManager
-import android.content.Context
 import android.os.Bundle
 import android.view.HapticFeedbackConstants.CLOCK_TICK
 import android.view.LayoutInflater
@@ -12,7 +10,6 @@ import android.widget.NumberPicker
 import androidx.fragment.app.Fragment
 
 class GetUpDelayFragment : Fragment() {
-    private lateinit var alarmManager: AlarmManager
     private lateinit var getUpDelayPicker: NumberPicker
     private lateinit var nextButton: Button
 
@@ -29,7 +26,6 @@ class GetUpDelayFragment : Fragment() {
 
         requireActivity().title = getString(R.string.app_name)
 
-        alarmManager = view.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         prefsHelper = RealPreferencesHelper(view.context)
 
         getUpDelayPicker = view.findViewById(R.id.getUpDelayPicker)
