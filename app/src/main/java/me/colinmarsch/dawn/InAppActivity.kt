@@ -104,9 +104,6 @@ class InAppActivity : AppCompatActivity() {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmManager.cancelAlarm(this, SUCCESS_STREAK_ALARM_ID)
         }
-        if (powerManager.isInteractive && stillOnScreenTime && countDownTimerText.text.isNotEmpty()) {
-            countdown?.cancel()
-        }
         super.onPause()
     }
 

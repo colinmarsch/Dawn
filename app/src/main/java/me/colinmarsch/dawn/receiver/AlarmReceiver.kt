@@ -32,7 +32,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val prefsHelper = RealPreferencesHelper(context)
