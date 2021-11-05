@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +46,9 @@
             android:taskAffinity="" />
 
         <receiver android:name=".receiver.AlarmReceiver" />
-        <receiver android:name=".receiver.UpdateReceiver">
+        <receiver
+            android:name=".receiver.UpdateReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
